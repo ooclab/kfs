@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes From Scratch</title>
+    <link>http://example.org/</link>
+    <description>Recent content on Kubernetes From Scratch</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Supported by OOCLAB</copyright>
+    <lastBuildDate>Sat, 04 May 2019 12:40:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>组件</title>
+      <link>http://example.org/kubernetes/components/</link>
+      <pubDate>Sat, 04 May 2019 09:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kubernetes/components/</guid>
+      <description>参考  Kubernetes Components A Complete Introduction to Kubernetes — an Orchestration Tool for Containers  Components Kubernetes Master (控制节点) Master 包含一组应用程序（组件），通常部署在一台服务器上，也可以分别部署在多台服务器。
+etcd Kubernetes 集群数据全部存储在 etcd （通常是集群）中。
+kube-apiserver Kubernetes 集群对外 API 接口服务。
+kube-scheduler 依据调度策略，为 Pod 分配可用的 Node 节点。
+kube-controller-manager 运行一系列的 controllers 。
+cloud-controller-manager 运行在一些云平台中，与之集成。
+进阶 如何创建高可用的 Kubernetes 集群？
+ Creating Highly Available Clusters with kubeadm  Kubernetes Node (工作节点) Kubernetes Node 通常运行以下组件。
+kubelet 集群中每一个 Node 都需要运行 kubelet 。kubelet 运行并管理有 Kubernetes 创建的 Pod 。</description>
+    </item>
+    
+    <item>
+      <title>节点</title>
+      <link>http://example.org/kubernetes/node/</link>
+      <pubDate>Sat, 04 May 2019 09:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kubernetes/node/</guid>
+      <description>参考 Nodes
+Kubernetes 中的节点 （ node ） 即工作节点 ( worker machine ）</description>
+    </item>
+    
+    <item>
+      <title>实验环境规划</title>
+      <link>http://example.org/kfs/v1.14.1/lab-design/</link>
+      <pubDate>Sat, 04 May 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/lab-design/</guid>
+      <description>hk-1 位于阿里云香港区的一台 VPS 。
+配置
+ 1核 CPU 512M 内存 按流量计费带宽  用途
+ Google 下载软件包，如 kubernetes 传递一些无法访问的 image ，参考 DOCKER IMAGE 在QIANG外怎么办？  mbp 实验用的 Macbook Pro 。
+配置
+ 16G 内存  说明
+ 如无特殊说明， kubectl 命令的执行都在 mbp （通过配置 $KUBECONFIG 环境变量指向 admin-mbp.kubeconfig 路径实现访问集群的许可）  虚拟机 在 mbp 上，通过 vagrant + virtualbox 运行实验需要的 3 台虚拟机。
+   主机名 IP 配置 角色 说明     k8s-master-1 192.</description>
+    </item>
+    
+    <item>
+      <title>设置环境变量</title>
+      <link>http://example.org/kfs/v1.14.1/env/</link>
+      <pubDate>Sat, 04 May 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/env/</guid>
+      <description>在 mbp 创建实验工作目录：
+export KFS_HOME=~/kfslab mkdir -pv $KFS_HOME cd $KFS_HOME 实验过程中，为了保持环境设置一致，我们创建一个 setting 文件，存放用到的环境变量，每次离开后再次返回，需要重新使 setting 中的环境变量生效。
+创建 setting 文件：
+cd $KFS_HOME cat &amp;gt; setting &amp;lt;&amp;lt;EOF export KFS_K8S_VERSION=v1.14.1 export KFS_HOME=~/kfslab export KFS_K8S_PKG_DIR=&amp;#34;\${KFS_HOME}/\${KFS_K8S_VERSION}&amp;#34; export KFS_VOS=&amp;#34;\${KFS_HOME}/vos&amp;#34; export KFS_CONFIG=&amp;#34;\${KFS_HOME}/config&amp;#34; export KFS_INSTALL=&amp;#34;\${KFS_HOME}/install&amp;#34; export KUBERNETES_PUBLIC_ADDRESS=&amp;#34;192.168.100.11&amp;#34; EOF source setting 每次中断实验后，再次返回，先使得 setting 文件中的环境变量生效：
+cd $KFS_HOME source setting 说明
+ 默认我们使用 ~/kfslab 作为 KFS 实验的主目录，后面的实验步骤中我们会使用 $KFS_HOME 环境变量代替该值。 创建一个文件，可以使用任何喜欢的编辑器，注意文件所在的目录即可。示例，创建名为 setting 的文件，可以在终端当前目录执行 vim setting ，编辑该文件内容，保存退出即可。  </description>
+    </item>
+    
+    <item>
+      <title>准备工作</title>
+      <link>http://example.org/kfs/v1.14.1/prepare/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/prepare/</guid>
+      <description>准备 SSH 在 mbp 配置 ~/.ssh/config , 确保相关服务器可以公钥免密登录，如：登录 hk-1
+ssh hk-1 下载 Kubernetes 登录 hk-1 服务器，下载 Kuberentes：
+ 从 https://github.com/kubernetes/kubernetes/releases 选择一个合适的版本 下载指定的版本，本次实验使用 v1.14.1  # 创建一个和版本名称一样的子目录 mkdir -pv ~/k8s/v1.14.1 cd ~/k8s/v1.14.1/ # 下载 wget https://github.com/kubernetes/kubernetes/releases/download/v1.14.1/kubernetes.tar.gz # 解压 tar xf kubernetes.tar.gz # 下载 Kubernetes 二进制文件 cd kubernetes/cluster/ ./get-kube-binaries.sh # 上面命令提示下载位置，输入 y 以示确认 下载完成后，拷贝 hk-1 服务器上的 v1.14.1 目录到 mbp 的 $KFS_HOME ，在 mbp 执行：
+# hk-1 是我在香港的服务器 cd $KFS_HOME mkdir -pv $KFS_K8S_PKG_DIR rsync -avz --progress hk-1:~/k8s/v1.</description>
+    </item>
+    
+    <item>
+      <title>搭建实验环境</title>
+      <link>http://example.org/kfs/v1.14.1/vagrant/</link>
+      <pubDate>Sat, 04 May 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/vagrant/</guid>
+      <description>说明
+ 实践过程中，我们需要确保 mbp 的 $KFS_HOME 和其他 3 个虚拟机(k8s-master-1, k8s-node-1, k8s-node-2) 的 /kfslab 目录保持一致。 如果使用 virtualbox 挂载 Host (mbp) $KFS_HOME 目录到每一个虚拟机的 /kfslab 目录，请参考 安装 vagrant-vbguest 插件 。否则请使用 rsync 等工具，及时同步 mbp 的 $KFS_HOME 到每一个虚拟机 的 /kfslab 目录。  创建 vagrant 配置 在 mbp 执行
+1. 创建 Vagrantfile 说明
+ vagrant 主目录（含 Vagrantfile 的目录）不要存放非必要文件，比如 kubernetes 下载包等。 因为 vagrant 默认会挂载当前目录到虚拟机的 /vagrant 。Synced Folders
+ cd $KFS_VOS vim Vagrantfile 创建 Vagrantfile 内容如下：
+IMAGE_NAME = &amp;#34;centos/7&amp;#34; TOTAL_MASTER = 1 TOTAL_NODE = 2 if Vagrant.</description>
+    </item>
+    
+    <item>
+      <title>配置 PKI</title>
+      <link>http://example.org/kfs/v1.14.1/pki/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/pki/</guid>
+      <description>在 Kubernetes 集群中，各个组件间通过 TLS 进行通信。组件的证书可以代表其唯一性（ Common Name ）。搭建 PKI 可以自由签发证书给需要的组件。
+初始化 CA 初始化 Certificate Authority ，创建 pki 目录：
+mkdir -pv ${KFS_CONFIG} cd ${KFS_CONFIG} 创建 ca-config.json ：
+{ &amp;#34;signing&amp;#34;: { &amp;#34;default&amp;#34;: { &amp;#34;expiry&amp;#34;: &amp;#34;8760h&amp;#34; }, &amp;#34;profiles&amp;#34;: { &amp;#34;kubernetes&amp;#34;: { &amp;#34;usages&amp;#34;: [&amp;#34;signing&amp;#34;, &amp;#34;key encipherment&amp;#34;, &amp;#34;server auth&amp;#34;, &amp;#34;client auth&amp;#34;], &amp;#34;expiry&amp;#34;: &amp;#34;8760h&amp;#34; } } } } 创建 ca-csr.json ：
+{ &amp;#34;CN&amp;#34;: &amp;#34;KFS&amp;#34;, &amp;#34;key&amp;#34;: { &amp;#34;algo&amp;#34;: &amp;#34;rsa&amp;#34;, &amp;#34;size&amp;#34;: 2048 }, &amp;#34;names&amp;#34;: [ { &amp;#34;C&amp;#34;: &amp;#34;CN&amp;#34;, &amp;#34;L&amp;#34;: &amp;#34;BeiJing&amp;#34;, &amp;#34;O&amp;#34;: &amp;#34;KFS&amp;#34;, &amp;#34;OU&amp;#34;: &amp;#34;CA&amp;#34;, &amp;#34;ST&amp;#34;: &amp;#34;BeiJing&amp;#34; } ] } 创建 ca.</description>
+    </item>
+    
+    <item>
+      <title>配置 kubeconfig</title>
+      <link>http://example.org/kfs/v1.14.1/kubeconfig/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/kubeconfig/</guid>
+      <description>创建配置文件 mkdir -pv ${KFS_CONFIG} cd ${KFS_CONFIG} # 确保 KUBERNETES_PUBLIC_ADDRESS 值是正确的 echo $KUBERNETES_PUBLIC_ADDRESS kubelet 为每个节点的 kubelet 创建独立的配置文件：
+for instance in k8s-node-1 k8s-node-2; do kubectl config set-cluster kfs \  --certificate-authority=ca.pem \  --embed-certs=true \  --server=https://${KUBERNETES_PUBLIC_ADDRESS}:6443 \  --kubeconfig=${instance}.kubeconfig kubectl config set-credentials system:node:${instance} \  --client-certificate=${instance}.pem \  --client-key=${instance}-key.pem \  --embed-certs=true \  --kubeconfig=${instance}.kubeconfig kubectl config set-context default \  --cluster=kfs \  --user=system:node:${instance} \  --kubeconfig=${instance}.kubeconfig kubectl config use-context default --kubeconfig=${instance}.</description>
+    </item>
+    
+    <item>
+      <title>搭建 K8S Master</title>
+      <link>http://example.org/kfs/v1.14.1/install-master/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/install-master/</guid>
+      <description>准备 从 mbp 登录 k8s-master-1 虚拟机：
+ssh -v k8s-master-1 检查 /kfslab 目录是否挂载正确（也可以使用 rsync 同步）：
+# ls /kfslab/ config install setting v1.14.1 vos 设置 K8S_MASTER_ROOT 环境变量和创建目录：
+export K8S_MASTER_ROOT=&amp;#34;/root/lab&amp;#34; mkdir -pv $K8S_MASTER_ROOT 设置基本环境变量：
+unalias cp cd $K8S_MASTER_ROOT cat &amp;gt; k8s-master-setting &amp;lt;&amp;lt;EOF KFS_HOME=/kfslab KFS_CONFIG=&amp;#34;\${KFS_HOME}/config&amp;#34; KFS_INSTALL=&amp;#34;\${KFS_HOME}/install&amp;#34; K8S_VERSION=v1.14.1 K8S_MASTER_ROOT=&amp;#34;/root/lab&amp;#34; EOF source k8s-master-setting 注意 每一次中断部署，再次返回，请先是环境变量生效：
+export K8S_MASTER_ROOT=&amp;#34;/root/lab&amp;#34; cd $K8S_MASTER_ROOT source k8s-master-setting Master 部署 etcd 准备目录：
+# 确保目录存在 mkdir -pv /etc/etcd # 拷贝证书 cd $KFS_CONFIG cp ca.</description>
+    </item>
+    
+    <item>
+      <title>搭建 K8S Node</title>
+      <link>http://example.org/kfs/v1.14.1/install-node/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/install-node/</guid>
+      <description>准备 下载软件包 说明 在 mbp 下载需要的软件包到 $KFS_INSTALL/node 目录。
+ runc CNI plugins cri-tools containerd kube-proxy kubelet  cd $KFS_INSTALL/node wget -q --show-progress --https-only --timestamping \  https://github.com/opencontainers/runc/releases/download/v1.0.0-rc8/runc.amd64 \  https://github.com/containernetworking/plugins/releases/download/v0.7.5/cni-plugins-amd64-v0.7.5.tgz \  https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.14.0/crictl-v1.14.0-linux-amd64.tar.gz \  https://github.com/containerd/containerd/releases/download/v1.2.6/containerd-1.2.6.linux-amd64.tar.gz 说明
+ 上面 wget 用法在 MacOS 下才可以  网络 Kubernetes 通常使用一个扁平的网络空间（所有 pod 之间网络互动，无论在不在同一个节点），最简单的是 flannel 。
+如果您想要深入理解网络配置，请参考 Flannel From Scratch 提前在所有节点手动部署好 flannel 。 只需要 kubernetes 集群的 etcd 服务搭建好了之后，就可以部署各个节点的 flanneld 服务。
+Node 部署 说明
+ 本章流程如无特殊说明，需要在 k8s-node-1 和 k8s-node-2 上都进行。 下面示例中，遇到特定主机名等信息，以 k8s-node-1 为例。请修改为正在部署节点的具体信息。  设置环境变量 设置 K8S_NODE_ROOT 环境变量和创建目录：</description>
+    </item>
+    
+    <item>
+      <title>Flannel From Scratch</title>
+      <link>http://example.org/kfs/v1.14.1/flannel-from-scratch/</link>
+      <pubDate>Tue, 30 Apr 2019 10:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/flannel-from-scratch/</guid>
+      <description>简介 本章介绍手动部署 flanneld 的方法。
+说明：
+ flanneld 在每个 host 上部署，通常我们会在集群的所有节点上部署。 所有 flanneld 之间通过 etcd 共享分布式配置，比如每个主机的 &amp;ldquo;子网段&amp;rdquo; 是多少。 containerd 通过 cni 机制从本机的 flanneld 管理的 “子网段” 中为即将运行的 container 拿到网络配置。 所有使用了 flanneld 管理的网络内的 container 即可属于同一个网络。  准备 下载 flannel 请在 mbp 上执行：
+cd $KFS_INSTALL/node wget -q --show-progress --https-only --timestamping \  https://github.com/coreos/flannel/releases/download/v0.11.0/flanneld-amd64 \  https://github.com/coreos/flannel/releases/download/v0.11.0/flannel-v0.11.0-linux-amd64.tar.gz 创建 flanneld 证书 与 etcd 通信需要。
+创建 flanneld-csr.json ，请在 mbp 上执行：
+cd $KFS_CONFIG cat &amp;gt; flanneld-csr.json &amp;lt;&amp;lt;EOF { &amp;#34;CN&amp;#34;: &amp;#34;system:flanneld&amp;#34;, &amp;#34;key&amp;#34;: { &amp;#34;algo&amp;#34;: &amp;#34;rsa&amp;#34;, &amp;#34;size&amp;#34;: 2048 }, &amp;#34;names&amp;#34;: [ { &amp;#34;C&amp;#34;: &amp;#34;CN&amp;#34;, &amp;#34;L&amp;#34;: &amp;#34;BeiJing&amp;#34;, &amp;#34;O&amp;#34;: &amp;#34;system:flanneld&amp;#34;, &amp;#34;OU&amp;#34;: &amp;#34;Kubernetes From Scratch&amp;#34;, &amp;#34;ST&amp;#34;: &amp;#34;BeiJing&amp;#34; } ] } EOF 创建证书 ：</description>
+    </item>
+    
+    <item>
+      <title>Flannel in kubernetes</title>
+      <link>http://example.org/kfs/v1.14.1/flannel-in-k8s/</link>
+      <pubDate>Fri, 03 May 2019 17:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/flannel-in-k8s/</guid>
+      <description> 部署 kube-flannel.yml 如果未部署 Flannel From Scratch ，可以直接在集群中部署 flannel 。
+# 下载最新的 kube-flannel.yml wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml # 部署到 kubernetes kubectl apply -f kube-flannel.yml 说明
+ 如果使用 vagrant 实验环境，需要在 flanneld 启动时使用 --iface=eth1 指定端口。编辑 kube-flannel.yml 配置文件。  FAQ pod cidr not assigned E0503 09:13:14.160194 1 main.go:289] Error registering network: failed to acquire lease: node &amp;#34;k8s-node-2&amp;#34; pod cidr not assigned</description>
+    </item>
+    
+    <item>
+      <title>CoreDNS</title>
+      <link>http://example.org/kfs/v1.14.1/coredns/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/coredns/</guid>
+      <description>CoreDNS 可以提供基于域名的服务访问。从 Kubernetes 1.13 开始，CoreDNS 作为默认的 DNS（之前是 kube-dns ）。
+ https://github.com/coredns/coredns  提示 ：在 mbp 执行操作
+部署 CoreDNS 进入 kubernetes/cluster/addons/dns/coredns 目录：
+cd $KFS_HOME/v1.14.1/kubernetes/cluster/addons/dns/coredns 创建 coredns.yaml
+export DNS_SERVER_IP=&amp;#34;10.32.0.10&amp;#34; export DNS_DOMAIN=&amp;#34;cluster.local&amp;#34; sed \  -e &amp;#39;s/__PILLAR__DNS__SERVER__/&amp;#39;$DNS_SERVER_IP&amp;#39;/g&amp;#39; \  -e &amp;#39;s/__PILLAR__DNS__DOMAIN__/&amp;#39;$DNS_DOMAIN&amp;#39;/g&amp;#39; \  -e &amp;#39;s/k8s.gcr.io/coredns/g&amp;#39; \  coredns.yaml.base &amp;gt; coredns.yaml 应用 coredns.yaml :
+kubectl apply -f coredns.yaml 查看 kubernetes 信息：
+$ kubectl get all --all-namespaces -o wide NAMESPACE NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE READINESS GATES kube-system pod/coredns-8854569d4-csrzr 1/1 Running 0 33s 172.</description>
+    </item>
+    
+    <item>
+      <title>Kubernetes Dashboard</title>
+      <link>http://example.org/kfs/v1.14.1/dashboard/</link>
+      <pubDate>Fri, 03 May 2019 10:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/dashboard/</guid>
+      <description>部署 Dashboard 说明 在 mbp 执行操作
+在 https://github.com/kubernetes/dashboard/releases 下载 v1.10.1 配置文件：
+mkdir -p $KFS_HOME/addons/dashboard cd $KFS_HOME/addons/dashboard wget https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml 修改 kubernetes-dashboard.yaml ：
+ k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1 修改为 omio/k8s.gcr.io.kubernetes-dashboard-amd64:v1.10.1  部署：
+kubectl apply -f kubernetes-dashboard.yaml 启动 kubectl proxy：
+kubectl proxy 等待 dashboard 部署完成，访问 http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy
+admin user token 参考 Creating sample user
+创建
+# 创建配置文件 cat &amp;gt; kubernetes-dashboard-admin.yaml &amp;lt;&amp;lt;EOF apiVersion: v1 kind: ServiceAccount metadata: name: admin-user namespace: kube-system --- apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRoleBinding metadata: name: admin-user roleRef: apiGroup: rbac.</description>
+    </item>
+    
+    <item>
+      <title>FAQ</title>
+      <link>http://example.org/kfs/v1.14.1/faq/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/faq/</guid>
+      <description>常见问题 如何重置测试环境数据 ？ 关闭并删除数据 Master 节点执行：
+systemctl stop kube-apiserver kube-controller-manager kube-scheduler etcd flanneld rm -f /run/flannel/subnet.env rm -rf /var/lib/etcd 所有 Node 节点执行：
+systemctl stop containerd kube-proxy kubelet flanneld rm -f /run/flannel/subnet.env 启动服务 Master 节点执行 flanneld 的网络配置：
+systemctl start etcd unset ETCDCTL_API etcdctl \  --endpoints=https://192.168.100.11:2379 \  --ca-file /srv/kubernetes/certs/ca.pem \  --cert-file /srv/kubernetes/certs/flanneld.pem \  --key-file /srv/kubernetes/certs/flanneld-key.pem \  set /coreos.com/network/config &amp;#39;{ &amp;#34;Network&amp;#34;: &amp;#34;172.16.0.0/16&amp;#34;, &amp;#34;Backend&amp;#34;: {&amp;#34;Type&amp;#34;: &amp;#34;vxlan&amp;#34;}}&amp;#39; Master 服务启动：</description>
+    </item>
+    
+    <item>
+      <title>安装 vagrant-vbguest 插件</title>
+      <link>http://example.org/note/vagrant-vbguest/</link>
+      <pubDate>Sat, 04 May 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/note/vagrant-vbguest/</guid>
+      <description>参考：
+ VirtualBox Guest Additions https://github.com/dotless-de/vagrant-vbguest/  步骤 1. 下载 iso 在 https://download.virtualbox.org/virtualbox 找到对应的版本，下载并挂载 iso。示例：
+wget https://download.virtualbox.org/virtualbox/6.0.6/VBoxGuestAdditions_6.0.6.iso sudo cp VBoxGuestAdditions_6.0.6.iso /Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso 2. 安装 vagrant plugin vagrant plugin install vagrant-vbguest 3. 配置 Vagrantfile 说明
+ Mac 平台如果 /Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso 存在，无需配置 iso_path 。
+ Vagrantfile 中添加配置示例：
+# 共享目录（需要安装好 guest 驱动才可以注销掉下面几行） config.vm.synced_folder ENV[&amp;#34;KFS_HOME&amp;#34;], &amp;#34;/kfslab&amp;#34;, type: &amp;#34;virtualbox&amp;#34; if Vagrant.has_plugin?(&amp;#34;vagrant-vbguest&amp;#34;) config.vbguest.auto_update = false end 其他 强制重新安装
+vagrant vbguest --do install FAQ setup: command not found ==&amp;gt; k8s-node-1: Checking for guest additions in VM.</description>
+    </item>
+    
+    <item>
+      <title>Prometheus Operator</title>
+      <link>http://example.org/prometheus/prometheus-operator/</link>
+      <pubDate>Fri, 03 May 2019 13:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/prometheus/prometheus-operator/</guid>
+      <description>部署：
+wget https://raw.githubusercontent.com/coreos/prometheus-operator/master/bundle.yaml mv bundle.yaml prometheus-operator-bundle.yaml kubectl apply -f prometheus-operator-bundle.</description>
+    </item>
+    
+    <item>
+      <title>kubeconfig</title>
+      <link>http://example.org/note/kubeconfig/</link>
+      <pubDate>Thu, 02 May 2019 17:30:00 +0800</pubDate>
+      
+      <guid>http://example.org/note/kubeconfig/</guid>
+      <description>kubeconfig file 如果希望 kubectl 默认使用某个配置文件，可以：
+方法一：可以直接复制一个配置文件到指定位置： cp admin.kubeconfig ~/.kube/config 方法二：设置环境变量 export KUBECONFIG=/path/to/admin.</description>
+    </item>
+    
+    <item>
+      <title>crictl</title>
+      <link>http://example.org/note/crictl/</link>
+      <pubDate>Thu, 02 May 2019 13:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/note/crictl/</guid>
+      <description> crictl --runtime-endpoint unix:///var/run/containerd/containerd.sock ps -a 配置 /etc/crictl.yaml :
+cat &amp;gt; /etc/crictl.yaml &amp;lt;&amp;lt;EOF runtime-endpoint: unix:///run/containerd/containerd.sock image-endpoint: unix:///run/containerd/containerd.sock timeout: 10 debug: true EOF 现在执行 crictl 命令，无需指定 --runtime-endpoint：
+crictl ps -a 加载 images 需要使用 containerd 安装安装包中的 ctr 命令
+ctr -n=k8s.io images import /tmp/dashboard.tar 参考  CRICTL User Guide  </description>
+    </item>
+    
+    <item>
+      <title>Smoke Test</title>
+      <link>http://example.org/kfs/v1.14.1/smoke_test/</link>
+      <pubDate>Thu, 02 May 2019 08:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/smoke_test/</guid>
+      <description>Data Encryption 创建一个加密数据：
+kubectl create secret generic kubernetes-the-hard-way \ --from-literal=&amp;#34;mykey=mydata&amp;#34; 查看 etcd 中的加密数据
+ETCDCTL_API=3 etcdctl get \ --endpoints=https://192.168.50.10:2379 \ --cacert=/etc/etcd/ca.pem \ --cert=/etc/etcd/kubernetes.pem \ --key=/etc/etcd/kubernetes-key.pem\ /registry/secrets/default/kubernetes-the-hard-way | hexdump -C 结果如下：
+00000000 2f 72 65 67 69 73 74 72 79 2f 73 65 63 72 65 74 |/registry/secret| 00000010 73 2f 64 65 66 61 75 6c 74 2f 6b 75 62 65 72 6e |s/default/kubern| 00000020 65 74 65 73 2d 74 68 65 2d 68 61 72 64 2d 77 61 |etes-the-hard-wa| 00000030 79 0a 6b 38 73 3a 65 6e 63 3a 61 65 73 63 62 63 |y.</description>
+    </item>
+    
+    <item>
+      <title>cni</title>
+      <link>http://example.org/note/cni/</link>
+      <pubDate>Wed, 01 May 2019 20:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/note/cni/</guid>
+      <description> HOW A CONTAINER RUNTIME IS USING CNI  </description>
+    </item>
+    
+    <item>
+      <title>cfssl</title>
+      <link>http://example.org/note/cfssl/</link>
+      <pubDate>Tue, 30 Apr 2019 23:30:00 +0800</pubDate>
+      
+      <guid>http://example.org/note/cfssl/</guid>
+      <description>查看 ca.pem 证书信息：
+cfssl certinfo -cert ca.</description>
+    </item>
+    
+    <item>
+      <title>Docker image 在Qiang外怎么办？</title>
+      <link>http://example.org/note/docker-image-gfw/</link>
+      <pubDate>Mon, 29 Apr 2019 21:50:00 +0800</pubDate>
+      
+      <guid>http://example.org/note/docker-image-gfw/</guid>
+      <description>创建 trans_image.sh 脚本：
+#! /bin/bash  # https://hub.docker.com # 第一次运行需要执行 `docker login` 验证帐户 # 将指定的 image 转移到 hub.docker.com 上 # 使用 omio 组织名称 # https://hub.docker.com/u/omio/dashboard/ ORG=omio # gcr.io/google_containers/pause-amd64:3.0 -&amp;gt; $ORG/gcr.io.google_containers.pause-amd64:3.0 function trans() { ORIG_NAME=$1 NEW_NAME=`echo ${ORIG_NAME} | sed &amp;#39;s@/@.@g&amp;#39;` docker pull $ORIG_NAME docker tag $ORIG_NAME $ORG/$NEW_NAME docker push $ORG/$NEW_NAME } for var in &amp;#34;$@&amp;#34; do echo &amp;#34;==&amp;gt; $var&amp;#34; trans $var done 比如将 k8s.gcr.io/pause:3.1 转换为 omio/k8s.gcr.io.pause:3.1 ，执行：
+bash trans_image.sh k8s.gcr.io/pause:3.1 参考： - Docker image 在Qiang外怎么办？</description>
+    </item>
+    
+  </channel>
+</rss>

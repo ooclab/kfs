@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.55.4" />
+    <meta name="description" content="Kubernetes From Scratch">
+<meta name="author" content="OOCLAB">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>搭建实验环境 :: Kubernetes From Scratch</title>
+
+    
+    <link href="/css/nucleus.css?1557497350" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1557497350" rel="stylesheet">
+    <link href="/css/hybrid.css?1557497350" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1557497350" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1557497350" rel="stylesheet">
+    <link href="/css/auto-complete.css?1557497350" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1557497350" rel="stylesheet">
+    <link href="/css/theme.css?1557497350" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1557497350" rel="stylesheet">
+    
+      <link href="/css/theme-blue.css?1557497350" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1557497350"></script>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    <link href="/css/custom.css" rel="stylesheet">
+
+  </head>
+  <body class="" data-url="/kfs/v1.14.1/vagrant/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/"><img src="/images/logo.png" style="width: 60px" /></a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1557497350"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1557497350"></script>
+<script type="text/javascript">
+    
+        var baseurl = "http:\/\/example.org\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1557497350"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/kubernetes/" title="Kubernetes" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/kubernetes/">
+          Kubernetes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kubernetes/components/" title="组件" class="dd-item ">
+        <a href="/kubernetes/components/">
+        组件
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kubernetes/node/" title="节点" class="dd-item ">
+        <a href="/kubernetes/node/">
+        节点
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/kubernetes/security/" title="Security" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/kubernetes/security/">
+          Security
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/kfs/" title="KFS" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/kfs/">
+          KFS
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/kfs/v1.14.1/" title="v1.14.1" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/kfs/v1.14.1/">
+          v1.14.1
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/lab-design/" title="实验环境规划" class="dd-item ">
+        <a href="/kfs/v1.14.1/lab-design/">
+        <b>1. </b>实验环境规划
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/env/" title="设置环境变量" class="dd-item ">
+        <a href="/kfs/v1.14.1/env/">
+        <b>2. </b>设置环境变量
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/prepare/" title="准备工作" class="dd-item ">
+        <a href="/kfs/v1.14.1/prepare/">
+        <b>3. </b>准备工作
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/vagrant/" title="搭建实验环境" class="dd-item active">
+        <a href="/kfs/v1.14.1/vagrant/">
+        <b>4. </b>搭建实验环境
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/pki/" title="配置 PKI" class="dd-item ">
+        <a href="/kfs/v1.14.1/pki/">
+        <b>5. </b>配置 PKI
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/kubeconfig/" title="配置 kubeconfig" class="dd-item ">
+        <a href="/kfs/v1.14.1/kubeconfig/">
+        <b>6. </b>配置 kubeconfig
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/install-master/" title="搭建 K8S Master" class="dd-item ">
+        <a href="/kfs/v1.14.1/install-master/">
+        <b>7. </b>搭建 K8S Master
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/install-node/" title="搭建 K8S Node" class="dd-item ">
+        <a href="/kfs/v1.14.1/install-node/">
+        <b>8. </b>搭建 K8S Node
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/flannel-from-scratch/" title="Flannel From Scratch" class="dd-item ">
+        <a href="/kfs/v1.14.1/flannel-from-scratch/">
+        <b>8.1 </b>Flannel From Scratch
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/flannel-in-k8s/" title="Flannel in kubernetes" class="dd-item ">
+        <a href="/kfs/v1.14.1/flannel-in-k8s/">
+        <b>8.2 </b>Flannel in kubernetes
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/coredns/" title="CoreDNS" class="dd-item ">
+        <a href="/kfs/v1.14.1/coredns/">
+        <b>9. </b>CoreDNS
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/dashboard/" title="Kubernetes Dashboard" class="dd-item ">
+        <a href="/kfs/v1.14.1/dashboard/">
+        <b>10. </b>Kubernetes Dashboard
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/faq/" title="FAQ" class="dd-item ">
+        <a href="/kfs/v1.14.1/faq/">
+        FAQ
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/smoke_test/" title="Smoke Test" class="dd-item ">
+        <a href="/kfs/v1.14.1/smoke_test/">
+        Smoke Test
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/kubectl/" title="kubectl" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/kubectl/">
+          kubectl
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/istio/" title="Istio" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/istio/">
+          Istio
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/helm/" title="Helm" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/helm/">
+          Helm
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/note/" title="文章" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/note/">
+          文章
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/vagrant-vbguest/" title="安装 vagrant-vbguest 插件" class="dd-item ">
+        <a href="/note/vagrant-vbguest/">
+        安装 vagrant-vbguest 插件
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/kubeconfig/" title="kubeconfig" class="dd-item ">
+        <a href="/note/kubeconfig/">
+        kubeconfig
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/crictl/" title="crictl" class="dd-item ">
+        <a href="/note/crictl/">
+        crictl
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/cni/" title="cni" class="dd-item ">
+        <a href="/note/cni/">
+        cni
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/cfssl/" title="cfssl" class="dd-item ">
+        <a href="/note/cfssl/">
+        cfssl
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/docker-image-gfw/" title="Docker image 在Qiang外怎么办？" class="dd-item ">
+        <a href="/note/docker-image-gfw/">
+        Docker image 在Qiang外怎么办？
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/about/" title="关于" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/about/">
+          关于
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/prometheus/" title="Prometheus" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/prometheus/">
+          Prometheus
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/prometheus/prometheus-operator/" title="Prometheus Operator" class="dd-item ">
+        <a href="/prometheus/prometheus-operator/">
+        Prometheus Operator
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/kfs/'>KFS</a> > <a href='/kfs/v1.14.1/'>v1.14.1</a> > 搭建实验环境
+          
+         
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#创建-vagrant-配置">创建 vagrant 配置</a>
+<ul>
+<li><a href="#1-创建-vagrantfile">1. 创建 Vagrantfile</a></li>
+<li><a href="#2-创建-kubernetes-setup-目录">2. 创建 kubernetes-setup 目录</a></li>
+<li><a href="#3-创建-kubernetes-setup-master-playbook-yml">3. 创建 kubernetes-setup/master-playbook.yml</a></li>
+<li><a href="#4-创建-kubernetes-setup-node-playbook-yml">4. 创建 kubernetes-setup/node-playbook.yml</a></li>
+</ul></li>
+<li><a href="#创建虚拟机并启动">创建虚拟机并启动</a></li>
+<li><a href="#登录虚拟机">登录虚拟机</a></li>
+</ul></li>
+<li><a href="#检查">检查</a>
+<ul>
+<li><a href="#操作系统">操作系统</a></li>
+</ul></li>
+<li><a href="#faq">FAQ</a>
+<ul>
+<li><a href="#虚拟机-的-eth0-ip-全部是-10-0-2-15">虚拟机 的 eth0 IP 全部是 <strong>10.0.2.15</strong></a></li>
+<li><a href="#read-only-file-system-runtimeerror">Read-only file system (RuntimeError)</a></li>
+<li><a href="#symlink-has-no-referent">symlink has no referent</a></li>
+<li><a href="#禁用-synced-folders">禁用 synced folders</a></li>
+<li><a href="#synced-folders-不能实时同步">synced folders 不能实时同步</a></li>
+<li><a href="#vagrant-was-unable-to-mount-virtualbox-shared-folders">Vagrant was unable to mount VirtualBox shared folders</a></li>
+<li><a href="#vm-rb-649-in-initialize-no-implicit-conversion-of-nil-into-string-typeerror">vm.rb:649:in `initialize&rsquo;: no implicit conversion of nil into String (TypeError)</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+<div class="tags">
+
+  <a class="tag-link" href="/tags/v1.14.1">v1.14.1</a>
+
+  <a class="tag-link" href="/tags/vagrant">vagrant</a>
+
+</div>
+
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              搭建实验环境
+            </h1>
+          
+
+        
+
+
+
+
+
+<p><img src="/kfs/v1.14.1/static/servers.png" alt="服务器规划" /></p>
+
+<p><strong>说明</strong></p>
+
+<ol>
+<li>实践过程中，我们需要确保 mbp 的 $KFS_HOME 和其他 3 个虚拟机(k8s-master-1, k8s-node-1, k8s-node-2) 的 /kfslab 目录保持一致。</li>
+<li>如果使用 virtualbox 挂载 Host (mbp) $KFS_HOME 目录到每一个虚拟机的 /kfslab 目录，请参考 <a href="/note/vagrant-vbguest/">安装 vagrant-vbguest 插件</a> 。否则请使用 rsync 等工具，及时同步 mbp 的 $KFS_HOME 到每一个虚拟机 的 /kfslab 目录。</li>
+</ol>
+
+<h3 id="创建-vagrant-配置">创建 vagrant 配置</h3>
+
+<p>在 mbp 执行</p>
+
+<h4 id="1-创建-vagrantfile">1. 创建 Vagrantfile</h4>
+
+<p><strong>说明</strong></p>
+
+<blockquote>
+<p>vagrant 主目录（含 Vagrantfile 的目录）不要存放非必要文件，比如 kubernetes 下载包等。
+因为 vagrant 默认会挂载当前目录到虚拟机的 /vagrant 。<a href="https://www.vagrantup.com/docs/synced-folders/">Synced Folders</a></p>
+</blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd $KFS_VOS
+vim Vagrantfile</code></pre></div>
+<p>创建 <strong>Vagrantfile</strong> 内容如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">IMAGE_NAME</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;centos/7&#34;</span>
+<span style="color:#66d9ef">TOTAL_MASTER</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">TOTAL_NODE</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+
+<span style="color:#66d9ef">if</span> <span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>has_plugin?(<span style="color:#e6db74">&#34;vagrant-vbguest&#34;</span>)
+    config<span style="color:#f92672">.</span>vbguest<span style="color:#f92672">.</span>auto_update <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>  
+<span style="color:#66d9ef">end</span>
+
+<span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;2&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
+    config<span style="color:#f92672">.</span>ssh<span style="color:#f92672">.</span>insert_key <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+    config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box <span style="color:#f92672">=</span> <span style="color:#66d9ef">IMAGE_NAME</span>
+    config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>box_check_update <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+
+    <span style="color:#75715e"># 禁止默认的目录同步行为</span>
+    config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>synced_folder <span style="color:#e6db74">&#34;.&#34;</span>, <span style="color:#e6db74">&#34;/vagrant&#34;</span>, <span style="color:#e6db74">disabled</span>: <span style="color:#66d9ef">true</span>
+
+    <span style="color:#75715e"># 共享目录（需要安装好 guest 驱动才可以注销掉下面几行）</span>
+    <span style="color:#75715e"># config.vm.synced_folder ENV[&#34;KFS_HOME&#34;], &#34;/kfslab&#34;, type: &#34;virtualbox&#34;</span>
+    <span style="color:#75715e"># if Vagrant.has_plugin?(&#34;vagrant-vbguest&#34;)</span>
+    <span style="color:#75715e">#     config.vbguest.auto_update = false  </span>
+    <span style="color:#75715e"># end</span>
+
+    config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provider <span style="color:#e6db74">&#34;virtualbox&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>v<span style="color:#f92672">|</span>
+        v<span style="color:#f92672">.</span>memory <span style="color:#f92672">=</span> <span style="color:#ae81ff">2048</span>
+        v<span style="color:#f92672">.</span>cpus <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">end</span>
+
+
+    (<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span><span style="color:#66d9ef">TOTAL_MASTER</span>)<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>i<span style="color:#f92672">|</span>
+      config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>define <span style="color:#e6db74">&#34;k8s-master-</span><span style="color:#e6db74">#{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>master<span style="color:#f92672">|</span>
+          master<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>network <span style="color:#e6db74">&#34;private_network&#34;</span>, <span style="color:#e6db74">ip</span>: <span style="color:#e6db74">&#34;192.168.100.</span><span style="color:#e6db74">#{</span>i <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+          master<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>hostname <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;k8s-master-</span><span style="color:#e6db74">#{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+          master<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;ansible&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>ansible<span style="color:#f92672">|</span>
+              ansible<span style="color:#f92672">.</span>playbook <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;kubernetes-setup/master-playbook.yml&#34;</span>
+          <span style="color:#66d9ef">end</span>
+      <span style="color:#66d9ef">end</span>
+    <span style="color:#66d9ef">end</span>
+
+    (<span style="color:#ae81ff">1</span><span style="color:#f92672">..</span><span style="color:#66d9ef">TOTAL_NODE</span>)<span style="color:#f92672">.</span>each <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>i<span style="color:#f92672">|</span>
+        config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>define <span style="color:#e6db74">&#34;k8s-node-</span><span style="color:#e6db74">#{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>node<span style="color:#f92672">|</span>
+            node<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>network <span style="color:#e6db74">&#34;private_network&#34;</span>, <span style="color:#e6db74">ip</span>: <span style="color:#e6db74">&#34;192.168.100.</span><span style="color:#e6db74">#{</span>i <span style="color:#f92672">+</span> <span style="color:#ae81ff">30</span><span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+            node<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>hostname <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;k8s-node-</span><span style="color:#e6db74">#{</span>i<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+            node<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;ansible&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>ansible<span style="color:#f92672">|</span>
+                ansible<span style="color:#f92672">.</span>playbook <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;kubernetes-setup/node-playbook.yml&#34;</span>
+            <span style="color:#66d9ef">end</span>
+        <span style="color:#66d9ef">end</span>
+    <span style="color:#66d9ef">end</span>
+
+<span style="color:#66d9ef">end</span></code></pre></div>
+<h4 id="2-创建-kubernetes-setup-目录">2. 创建 kubernetes-setup 目录</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">mkdir -pv kubernetes-setup</pre></div>
+<h4 id="3-创建-kubernetes-setup-master-playbook-yml">3. 创建 kubernetes-setup/master-playbook.yml</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">vim kubernetes-setup/master-playbook.yml</code></pre></div>
+<p>创建 <strong>kubernetes-setup/master-playbook.yml</strong> 内容如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- hosts: all
+  become: <span style="color:#66d9ef">true</span>
+
+  roles:
+  - geerlingguy.repo-epel
+
+  tasks:
+
+  <span style="color:#75715e"># Disable SELinux</span>
+  - selinux:
+      state: disabled
+
+  - name: Disable SWAP since kubernetes can<span style="color:#e6db74">&#39;t work with swap enabled (1/2)
+</span><span style="color:#e6db74">    shell: |
+</span><span style="color:#e6db74">      swapoff -a
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">  - name: Disable SWAP in fstab since kubernetes can&#39;</span>t work with swap enabled (<span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">2</span>)
+    replace:
+      path: /etc/fstab
+      regexp: <span style="color:#e6db74">&#39;^([^#].+?\sswap\s+.*)$&#39;</span>
+      replace: <span style="color:#e6db74">&#39;# \1&#39;</span>
+
+  - name: update centos
+    yum:
+      name: <span style="color:#e6db74">&#39;*&#39;</span>
+      state: latest
+
+  - name: install basic packages
+    yum:
+      name: <span style="color:#e6db74">&#34;{{ packages }}&#34;</span>
+    vars:
+      packages:
+      - wget
+      - vim
+      - htop
+      - dstat
+      - lsof
+      - tree
+      - tmux
+      - rsync
+      - ntp
+      - nginx</code></pre></div>
+<h4 id="4-创建-kubernetes-setup-node-playbook-yml">4. 创建 kubernetes-setup/node-playbook.yml</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">vim kubernetes-setup/node-playbook.yml</code></pre></div>
+<p>创建 <strong>kubernetes-setup/node-playbook.yml</strong> 内容如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- hosts: all
+  become: <span style="color:#66d9ef">true</span>
+
+  roles:
+  - geerlingguy.repo-epel
+
+  tasks:
+
+  - name: 禁用 selinux
+    selinux:
+      state: disabled
+
+  - name: 停用 swap 分区 (kubelet) (<span style="color:#ae81ff">1</span>/<span style="color:#ae81ff">2</span>)
+    shell: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">      swapoff -a</span>
+
+  - name: 修改 fstab ，系统下次启动时禁用 swap 分区 (<span style="color:#ae81ff">2</span>/<span style="color:#ae81ff">2</span>)
+    replace:
+      path: /etc/fstab
+      regexp: <span style="color:#e6db74">&#39;^([^#].+?\sswap\s+.*)$&#39;</span>
+      replace: <span style="color:#e6db74">&#39;# \1&#39;</span>
+
+  - name: update centos
+    yum:
+      name: <span style="color:#e6db74">&#39;*&#39;</span>
+      state: latest
+
+  - name: install basic packages
+    yum:
+      name: <span style="color:#e6db74">&#34;{{ packages }}&#34;</span>
+    vars:
+      packages:
+      - wget
+      - vim
+      - htop
+      - dstat
+      - lsof
+      - tree
+      - tmux
+      - rsync
+      - ntp
+      - socat
+      - conntrack
+      - ipset</code></pre></div>
+<h3 id="创建虚拟机并启动">创建虚拟机并启动</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">vagrant up</pre></div>
+<h3 id="登录虚拟机">登录虚拟机</h3>
+
+<blockquote>
+<p>实验中执行命令的用户，如果无特殊说明，默认是 root 用户</p>
+</blockquote>
+
+<p>以 <strong>k8s-master-1</strong> 虚拟机为例，执行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ cd $KFS_HOME
+$ vagrant ssh k8s-master-1
+<span style="color:#f92672">[</span>vagrant@k8s-master-1 ~<span style="color:#f92672">]</span>$ sudo -i
+<span style="color:#f92672">[</span>root@k8s-master-1 ~<span style="color:#f92672">]</span><span style="color:#75715e"># mkdir -p .ssh</span>
+<span style="color:#f92672">[</span>root@k8s-master-1 ~<span style="color:#f92672">]</span><span style="color:#75715e"># vim .ssh/authorized_keys</span>
+<span style="color:#75715e"># 粘贴 mbp 上的 ~/.ssh/id_rsa.pub 内容，保存即可</span></code></pre></div>
+<p>在 mbp 的 <code>~/.ssh/config</code> 添加配置：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">Host k8s-master-1
+    port 22
+    user root
+    hostname 192.168.100.11</pre></div>
+<p>现在可以从 mbp 通过 ssh 登录 <strong>k8s-master-1</strong> 服务器：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">ssh -v k8s-master-1</pre></div>
+<p>其他虚拟机 ( k8s-node-1, k8s-node-2 ) 操作类似。</p>
+
+<h2 id="检查">检查</h2>
+
+<h3 id="操作系统">操作系统</h3>
+
+<p>确认 <strong>k8s-master-1</strong> , <strong>k8s-node-1</strong> , <strong>k8s-node-2</strong> 操作系统配置：</p>
+
+<ol>
+<li>禁止 selinux</li>
+<li><code>swapoff -a</code> , 并修改 <strong>/etc/fstab</strong> 禁止 swap 分区</li>
+</ol>
+
+<h2 id="faq">FAQ</h2>
+
+<h3 id="虚拟机-的-eth0-ip-全部是-10-0-2-15">虚拟机 的 eth0 IP 全部是 <strong>10.0.2.15</strong></h3>
+
+<ul>
+<li><a href="https://github.com/hashicorp/vagrant/issues/2093">eth0 as NAT is a fundamental requirement of Vagrant in its current state</a></li>
+</ul>
+
+<h3 id="read-only-file-system-runtimeerror">Read-only file system (RuntimeError)</h3>
+
+<p>参考 <a href="https://github.com/hashicorp/vagrant/issues/10593">trun off swap cause vagrant up failed</a></p>
+
+<p><code>vagrant up</code> 详细错误如下:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">==&gt; k8s-node-1: Configuring and enabling network interfaces...
+/opt/vagrant/embedded/gems/2.2.4/gems/net-scp-1.2.1/lib/net/scp.rb:398:in `await_response_state&#39;: scp: /tmp/vagrant-network-entry-eth1-1557190901-0: Read-only file system (RuntimeError)
+        from /opt/vagrant/embedded/gems/2.2.4/gems/net-scp-1.2.1/lib/net/scp.rb:369:in `block (3 levels) in start_command&#39;
+        from /opt/vagrant/embedded/gems/2.2.4/gems/net-ssh-5.1.0/lib/net/ssh/connection/channel.rb:323:in `process&#39;
+        from /opt/vagrant/embedded/gems/2.2.4/gems/net-ssh-5.1.0/lib/net/ssh/connection/session.rb:250:in `block in ev_preprocess&#39;
+        from /opt/vagrant/embedded/gems/2.2.4/gems/net-ssh-5.1.0/lib/net/ssh/connection/session.rb:540:in `each&#39;</pre></div>
+<p>这里不是参考链接中提到的 swap 问题，而是我们修改 swap 分区时错误地把根分区注释掉，因此出错。</p>
+
+<p>虽然报错，但是服务器已经启动。登录服务器，检查 <strong>/etc/fstab</strong> 最后两行，发现：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"># cat /etc/fstab
+
+#
+# /etc/fstab
+# Created by anaconda on Thu Feb 28 20:50:01 2019
+#
+# Accessible filesystems, by reference, are maintained under &#39;/dev/disk&#39;
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+# UUID=f52f361a-da1a-4ea0-8c7f-ca2706e86b46 /                       xfs     defaults        0 0
+# /swapfile none swap defaults 0 0</pre></div>
+<p>查看根分区确实挂载为 <code>ro</code> :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"># mount |grep xfs
+/dev/sda1 on / type xfs (ro,relatime,attr2,inode64,noquota)</pre></div>
+<p>重新挂载根分区：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mount -o remount,rw --uuid f52f361a-da1a-4ea0-8c7f-ca2706e86b46 /</code></pre></div>
+<h3 id="symlink-has-no-referent">symlink has no referent</h3>
+
+<p>vagrant up 详细错误如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">==&gt; k8s-master-1: Rsyncing folder: /Users/gwind/kfslab/ =&gt; /vagrant
+
+There was an error when attempting to rsync a synced folder.
+Please inspect the error message below for more info.
+
+Host path: /Users/gwind/kfslab/
+Guest path: /vagrant
+Command: &#34;rsync&#34; &#34;--verbose&#34; &#34;--archive&#34; &#34;--delete&#34; &#34;-z&#34; &#34;--copy-links&#34; &#34;--no-owner&#34; &#34;--no-group&#34; &#34;--rsync-path&#34; &#34;sudo rsync&#34; &#34;-e&#34; &#34;ssh -p 2200 -o LogLevel=FATAL   -o ControlMaster=auto -o ControlPath=/var/folders/5s/fcy1xt5s51d7r6xljhmxh
+qj80000gn/T/vagrant-rsync-20190507-75080-1povtee -o ControlPersist=10m  -o IdentitiesOnly=yes -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i &#39;/Users/gwind/.vagrant.d/insecure_private_key&#39;&#34; &#34;--exclude&#34; &#34;.vagrant/&#34; &#34;/Users/g
+wind/kfslab/&#34; &#34;vagrant@127.0.0.1:/vagrant&#34;
+Error: /etc/profile.d/lang.sh: line 19: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory
+symlink has no referent: &#34;/Users/gwind/kfslab/v1.14.1/kubernetes/client/bin&#34;
+rsync error: some files could not be transferred (code 23) at /BuildRoot/Library/Caches/com.apple.xbs/Sources/rsync/rsync-52.200.1/rsync/main.c(996) [sender=2.6.9]</pre></div>
+<p>原因是 kubernetes 在 Vagrantfile 同一级目录。</p>
+
+<h3 id="禁用-synced-folders">禁用 synced folders</h3>
+
+<p>参考 <a href="https://www.vagrantup.com/docs/synced-folders/basic_usage.html#disabling">Disabling synced folders</a></p>
+
+<p>默认情况下，vagrant 会将 Vagrantfile 所在的目录同步到虚拟机的 /vagrant 目录。可以禁用这一行为。</p>
+
+<h3 id="synced-folders-不能实时同步">synced folders 不能实时同步</h3>
+
+<p>检查 synced_folders 实现：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">➜  vos cat .vagrant/machines/k8s-master-1/virtualbox/synced_folders
+{&#34;rsync&#34;:{&#34;/vagrant&#34;:{&#34;type&#34;:&#34;rsync&#34;,&#34;guestpath&#34;:&#34;/vagrant&#34;,&#34;hostpath&#34;:&#34;/Users/gwind/kfslab/vos&#34;,&#34;disabled&#34;:false,&#34;__vagrantfile&#34;:true,&#34;owner&#34;:&#34;vagrant&#34;,&#34;group&#34;:&#34;vagrant&#34;}}}</pre></div>
+<p>发现使用了 <code>rsync</code></p>
+
+<p>配置使用 <strong>virtualbox</strong> 即可。</p>
+
+<p>参考 <a href="https://blog.centos.org/2017/05/updated-centos-vagrant-images-available-v1704-01/">Updated CentOS Vagrant Images Available (v1704.01)</a></p>
+
+<h3 id="vagrant-was-unable-to-mount-virtualbox-shared-folders">Vagrant was unable to mount VirtualBox shared folders</h3>
+
+<p>提示 guest OS (CentOS 7) 缺少 <strong>vboxsf</strong> ：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">==&gt; k8s-master-1: Mounting shared folders...
+    k8s-master-1: /kfslab =&gt; /Users/gwind/kfslab
+Vagrant was unable to mount VirtualBox shared folders. This is usually
+because the filesystem &#34;vboxsf&#34; is not available. This filesystem is
+made available via the VirtualBox Guest Additions and kernel module.
+Please verify that these guest additions are properly installed in the
+guest. This is not a bug in Vagrant and is usually caused by a faulty
+Vagrant box. For context, the command attempted was:
+
+mount -t vboxsf -o uid=1000,gid=1000 kfslab /kfslab
+
+The error output from the command was:
+
+mount: unknown filesystem type &#39;vboxsf&#39;</pre></div>
+<p>需要安装 guest</p>
+
+<h3 id="vm-rb-649-in-initialize-no-implicit-conversion-of-nil-into-string-typeerror">vm.rb:649:in `initialize&rsquo;: no implicit conversion of nil into String (TypeError)</h3>
+
+<p>我在 Vagrantfile 里使用了环境变量 <code>$KFS_HOME</code> , 如果未初始化（不如新开一个终端窗口），执行 <code>vagrant up</code> 就会出现下面错误：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">➜  vos vagrant up
+Bringing machine &#39;k8s-master-1&#39; up with &#39;virtualbox&#39; provider...
+Bringing machine &#39;k8s-node-1&#39; up with &#39;virtualbox&#39; provider...
+Bringing machine &#39;k8s-node-2&#39; up with &#39;virtualbox&#39; provider...
+/opt/vagrant/embedded/gems/2.2.4/gems/vagrant-2.2.4/plugins/kernel_v2/config/vm.rb:649:in `initialize&#39;: no implicit conversion of nil into String (TypeError)
+        from /opt/vagrant/embedded/gems/2.2.4/gems/vagrant-2.2.4/plugins/kernel_v2/config/vm.rb:649:in `new&#39;
+        from /opt/vagrant/embedded/gems/2.2.4/gems/vagrant-2.2.4/plugins/kernel_v2/config/vm.rb:649:in `block in validate&#39;
+        from /opt/vagrant/embedded/gems/2.2.4/gems/vagrant-2.2.4/plugins/kernel_v2/config/vm.rb:644:in `each&#39;
+        from /opt/vagrant/embedded/gems/2.2.4/gems/vagrant-2.2.4/plugins/kernel_v2/config/vm.rb:644:in `validate&#39;</pre></div>
+<p>解决方案：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">source $KFS_HOME/setting</code></pre></div>
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/kfs/v1.14.1/prepare/" title="准备工作"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/kfs/v1.14.1/pki/" title="配置 PKI" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1557497350"></script>
+    <script src="/js/perfect-scrollbar.min.js?1557497350"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1557497350"></script>
+    <script src="/js/jquery.sticky.js?1557497350"></script>
+    <script src="/js/featherlight.min.js?1557497350"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1557497350"></script>
+    <script src="/js/highlight.pack.js?1557497350"></script>
+    <script>
+      
+      
+      $(document).ready(function() {
+         $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+      });
+    </script>
+    <script src="/js/modernizr.custom-3.6.0.js?1557497350"></script>
+    <script src="/js/learn.js?1557497350"></script>
+    <script src="/js/hugo-learn.js?1557497350"></script>
+
+    <link href="/mermaid/mermaid.css?1557497350" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1557497350"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

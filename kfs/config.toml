@@ -1,0 +1,54 @@
+baseURL = "http://example.org/"
+languageCode = "en-us"
+title = "Kubernetes From Scratch"
+theme = "hugo-theme-learn"
+copyright = "Supported by OOCLAB"
+
+# [params]
+#
+#   author = "gwind"
+#   description = "从零部署 Kubernetes"
+#
+#   # 2006-01-02T15:04:05.999999-07:00
+#   date_format = "2006年1月2日 15:04"
+
+pygmentsCodeFences = true
+pygmentsStyle = "monokai"
+# pygmentsUseClasses = true
+pygmentsCodefencesGuessSyntax = true
+
+[params]
+
+  # --- hugo-theme-learn ---
+
+  # Change default color scheme with a variant one. Can be "red", "blue", "green".
+  themeVariant = "blue"
+  # Prefix URL to edit current page. Useful to give opportunity to people to create merge request for your doc.
+  # See the config.toml file from this documentation site to have an example.
+  editURL = ""
+  # Author of the site, will be used in meta information
+  author = "OOCLAB"
+  # Description of the site, will be used in meta information
+  description = "Kubernetes From Scratch"
+  # Shows a checkmark for visited pages on the menu. Default to false
+  showVisitedLinks = false
+  # Automatically generates prev and next arrows
+  autoNav = false
+  # Activate search. Don't forget to generate the JSON index file (go check get started page)
+  search = false
+
+[menu]
+
+  [[menu.navbar]]
+    name="最新文档"
+    url="/kfs/v1.14.1/"
+    weight = -110
+
+  [[menu.navbar]]
+    name = "关于"
+    url="/about/"
+    weight = -100
+
+# For search functionality
+[outputs]
+home = [ "HTML", "RSS", "JSON"]

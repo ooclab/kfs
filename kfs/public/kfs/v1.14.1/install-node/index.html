@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.55.4" />
+    <meta name="description" content="Kubernetes From Scratch">
+<meta name="author" content="OOCLAB">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>搭建 K8S Node :: Kubernetes From Scratch</title>
+
+    
+    <link href="/css/nucleus.css?1557497350" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1557497350" rel="stylesheet">
+    <link href="/css/hybrid.css?1557497350" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1557497350" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1557497350" rel="stylesheet">
+    <link href="/css/auto-complete.css?1557497350" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1557497350" rel="stylesheet">
+    <link href="/css/theme.css?1557497350" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1557497350" rel="stylesheet">
+    
+      <link href="/css/theme-blue.css?1557497350" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1557497350"></script>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    <link href="/css/custom.css" rel="stylesheet">
+
+  </head>
+  <body class="" data-url="/kfs/v1.14.1/install-node/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/"><img src="/images/logo.png" style="width: 60px" /></a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1557497350"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1557497350"></script>
+<script type="text/javascript">
+    
+        var baseurl = "http:\/\/example.org\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1557497350"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/kubernetes/" title="Kubernetes" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/kubernetes/">
+          Kubernetes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kubernetes/components/" title="组件" class="dd-item ">
+        <a href="/kubernetes/components/">
+        组件
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kubernetes/node/" title="节点" class="dd-item ">
+        <a href="/kubernetes/node/">
+        节点
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/kubernetes/security/" title="Security" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/kubernetes/security/">
+          Security
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/kfs/" title="KFS" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/kfs/">
+          KFS
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/kfs/v1.14.1/" title="v1.14.1" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/kfs/v1.14.1/">
+          v1.14.1
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/lab-design/" title="实验环境规划" class="dd-item ">
+        <a href="/kfs/v1.14.1/lab-design/">
+        <b>1. </b>实验环境规划
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/env/" title="设置环境变量" class="dd-item ">
+        <a href="/kfs/v1.14.1/env/">
+        <b>2. </b>设置环境变量
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/prepare/" title="准备工作" class="dd-item ">
+        <a href="/kfs/v1.14.1/prepare/">
+        <b>3. </b>准备工作
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/vagrant/" title="搭建实验环境" class="dd-item ">
+        <a href="/kfs/v1.14.1/vagrant/">
+        <b>4. </b>搭建实验环境
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/pki/" title="配置 PKI" class="dd-item ">
+        <a href="/kfs/v1.14.1/pki/">
+        <b>5. </b>配置 PKI
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/kubeconfig/" title="配置 kubeconfig" class="dd-item ">
+        <a href="/kfs/v1.14.1/kubeconfig/">
+        <b>6. </b>配置 kubeconfig
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/install-master/" title="搭建 K8S Master" class="dd-item ">
+        <a href="/kfs/v1.14.1/install-master/">
+        <b>7. </b>搭建 K8S Master
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/install-node/" title="搭建 K8S Node" class="dd-item active">
+        <a href="/kfs/v1.14.1/install-node/">
+        <b>8. </b>搭建 K8S Node
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/flannel-from-scratch/" title="Flannel From Scratch" class="dd-item ">
+        <a href="/kfs/v1.14.1/flannel-from-scratch/">
+        <b>8.1 </b>Flannel From Scratch
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/flannel-in-k8s/" title="Flannel in kubernetes" class="dd-item ">
+        <a href="/kfs/v1.14.1/flannel-in-k8s/">
+        <b>8.2 </b>Flannel in kubernetes
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/coredns/" title="CoreDNS" class="dd-item ">
+        <a href="/kfs/v1.14.1/coredns/">
+        <b>9. </b>CoreDNS
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/dashboard/" title="Kubernetes Dashboard" class="dd-item ">
+        <a href="/kfs/v1.14.1/dashboard/">
+        <b>10. </b>Kubernetes Dashboard
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/faq/" title="FAQ" class="dd-item ">
+        <a href="/kfs/v1.14.1/faq/">
+        FAQ
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/smoke_test/" title="Smoke Test" class="dd-item ">
+        <a href="/kfs/v1.14.1/smoke_test/">
+        Smoke Test
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/kubectl/" title="kubectl" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/kubectl/">
+          kubectl
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/istio/" title="Istio" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/istio/">
+          Istio
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/helm/" title="Helm" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/helm/">
+          Helm
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/note/" title="文章" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/note/">
+          文章
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/vagrant-vbguest/" title="安装 vagrant-vbguest 插件" class="dd-item ">
+        <a href="/note/vagrant-vbguest/">
+        安装 vagrant-vbguest 插件
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/kubeconfig/" title="kubeconfig" class="dd-item ">
+        <a href="/note/kubeconfig/">
+        kubeconfig
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/crictl/" title="crictl" class="dd-item ">
+        <a href="/note/crictl/">
+        crictl
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/cni/" title="cni" class="dd-item ">
+        <a href="/note/cni/">
+        cni
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/cfssl/" title="cfssl" class="dd-item ">
+        <a href="/note/cfssl/">
+        cfssl
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/docker-image-gfw/" title="Docker image 在Qiang外怎么办？" class="dd-item ">
+        <a href="/note/docker-image-gfw/">
+        Docker image 在Qiang外怎么办？
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/about/" title="关于" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/about/">
+          关于
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/prometheus/" title="Prometheus" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/prometheus/">
+          Prometheus
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/prometheus/prometheus-operator/" title="Prometheus Operator" class="dd-item ">
+        <a href="/prometheus/prometheus-operator/">
+        Prometheus Operator
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/kfs/'>KFS</a> > <a href='/kfs/v1.14.1/'>v1.14.1</a> > 搭建 K8S Node
+          
+         
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#准备">准备</a>
+<ul>
+<li><a href="#下载软件包">下载软件包</a></li>
+<li><a href="#网络">网络</a></li>
+</ul></li>
+<li><a href="#node-部署">Node 部署</a>
+<ul>
+<li><a href="#设置环境变量">设置环境变量</a></li>
+<li><a href="#系统准备">系统准备</a></li>
+<li><a href="#cni">CNI</a></li>
+<li><a href="#containerd">containerd</a></li>
+<li><a href="#kubelet">kubelet</a></li>
+<li><a href="#kube-proxy">kube-proxy</a></li>
+<li><a href="#启动-node-服务">启动 node 服务</a></li>
+</ul></li>
+<li><a href="#测试">测试</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+<div class="tags">
+
+  <a class="tag-link" href="/tags/v1.14.1">v1.14.1</a>
+
+  <a class="tag-link" href="/tags/kubernetes">Kubernetes</a>
+
+  <a class="tag-link" href="/tags/%E6%8B%93%E6%89%91%E5%9B%BE">拓扑图</a>
+
+</div>
+
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              搭建 K8S Node
+            </h1>
+          
+
+        
+
+
+
+
+
+<h2 id="准备">准备</h2>
+
+<h3 id="下载软件包">下载软件包</h3>
+
+<p><strong>说明</strong> 在 <strong>mbp</strong> 下载需要的软件包到 <code>$KFS_INSTALL/node</code> 目录。</p>
+
+<ul>
+<li><a href="https://github.com/opencontainers/runc/releases">runc</a></li>
+<li><a href="https://github.com/containernetworking/plugins/releases">CNI plugins</a></li>
+<li><a href="https://github.com/kubernetes-sigs/cri-tools/releases">cri-tools</a></li>
+<li><a href="https://github.com/containerd/containerd/releases">containerd</a></li>
+<li>kube-proxy</li>
+<li>kubelet</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd $KFS_INSTALL/node
+wget -q --show-progress --https-only --timestamping <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    https://github.com/opencontainers/runc/releases/download/v1.0.0-rc8/runc.amd64 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    https://github.com/containernetworking/plugins/releases/download/v0.7.5/cni-plugins-amd64-v0.7.5.tgz <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.14.0/crictl-v1.14.0-linux-amd64.tar.gz <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    https://github.com/containerd/containerd/releases/download/v1.2.6/containerd-1.2.6.linux-amd64.tar.gz</code></pre></div>
+<p><strong>说明</strong></p>
+
+<ol>
+<li>上面 wget 用法在 MacOS 下才可以</li>
+</ol>
+
+<h3 id="网络">网络</h3>
+
+<p>Kubernetes 通常使用一个扁平的网络空间（所有 pod 之间网络互动，无论在不在同一个节点），最简单的是 flannel 。</p>
+
+<p>如果您想要深入理解网络配置，请参考 <a href="/kfs/v1.14.1/flannel-from-scratch/">Flannel From Scratch</a> 提前在所有节点手动部署好 flannel 。
+只需要 kubernetes 集群的 etcd 服务搭建好了之后，就可以部署各个节点的 flanneld 服务。</p>
+
+<h2 id="node-部署">Node 部署</h2>
+
+<p><strong>说明</strong></p>
+
+<ol>
+<li>本章流程如无特殊说明，需要在 <code>k8s-node-1</code> 和 <code>k8s-node-2</code> 上都进行。</li>
+<li>下面示例中，遇到特定主机名等信息，以 <code>k8s-node-1</code> 为例。请修改为正在部署节点的具体信息。</li>
+</ol>
+
+<h3 id="设置环境变量">设置环境变量</h3>
+
+<p>设置 <code>K8S_NODE_ROOT</code> 环境变量和创建目录：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">export K8S_NODE_ROOT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/lab&#34;</span>
+mkdir -pv $K8S_NODE_ROOT</code></pre></div>
+<p>设置基本环境变量：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">unalias cp
+cd $K8S_NODE_ROOT
+
+cat &gt; k8s-node-setting <span style="color:#e6db74">&lt;&lt;EOF
+</span><span style="color:#e6db74">KFS_HOME=/kfslab
+</span><span style="color:#e6db74">KFS_CONFIG=&#34;\${KFS_HOME}/config&#34;
+</span><span style="color:#e6db74">KFS_INSTALL=&#34;\${KFS_HOME}/install&#34;
+</span><span style="color:#e6db74">K8S_VERSION=v1.14.1
+</span><span style="color:#e6db74">K8S_NODE_ROOT=&#34;/root/lab&#34;
+</span><span style="color:#e6db74">EOF</span>
+
+source k8s-node-setting</code></pre></div>
+<p><strong>注意</strong> 每一次中断部署，再次返回，请先是环境变量生效：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">export K8S_NODE_ROOT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/root/lab&#34;</span>
+cd $K8S_NODE_ROOT
+source k8s-node-setting</code></pre></div>
+<h3 id="系统准备">系统准备</h3>
+
+<p>操作系统软件包依赖：</p>
+
+<ul>
+<li>socat (执行 <code>kubectl port-forward</code> 需要）</li>
+</ul>
+
+<p>安装依赖软件包：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">yum install -y socat conntrack ipset</code></pre></div>
+<p>创建目录</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mkdir -p <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  /etc/cni/net.d <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  /opt/cni/bin</code></pre></div>
+<p><strong>注意</strong></p>
+
+<ul>
+<li><code>/etc/cni/net.d</code> 和 <code>/opt/cni/bin</code> 默认命名是这样，不要和已有环境混淆，也不要随便修改命名，除非您非常清楚为什么这样做。</li>
+</ul>
+
+<p>复制二进制程序：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cd $KFS_INSTALL/node/bin
+chmod a+x kube-proxy kubelet runc.amd64
+cp runc.amd64 /usr/local/bin/runc
+cp kube-proxy kubelet /usr/local/bin/
+cd $KFS_INSTALL/node
+tar -xvf crictl-v1.14.0-linux-amd64.tar.gz -C /usr/local/bin/
+tar -xvf cni-plugins-amd64-v0.7.5.tgz -C /opt/cni/bin/
+mkdir -pv /tmp/cni-plugins-amd64-v0.7.5
+tar -xvf containerd-1.2.6.linux-amd64.tar.gz -C /tmp/cni-plugins-amd64-v0.7.5
+cp /tmp/cni-plugins-amd64-v0.7.5/bin/* /usr/local/bin/</code></pre></div>
+<h3 id="cni">CNI</h3>
+
+<p><strong>重要</strong> :</p>
+
+<ol>
+<li>这里认为您已经部署好了 flanneld , 配置 CNI 以便 containerd 能够获得正确的网络设置（参考 <a href="/kfs/v1.14.1/flannel-from-scratch/">Flannel From Scratch</a>）</li>
+<li>POD_CIDR 是在 Master 服务器，由 <code>kube-controller-manager</code> 程序启动时通过 <code>--cluster-cidr=172.16.0.0/16</code> 指定 <code>POD_CIDR</code></li>
+<li>如果某个节点上无需启动 kubelet , containerd 等 kubernetes node 角色，则无需配置这里的 CNI 。如本实验的 k8s-master-1 就无需配置。</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 手动启动 flanneld 服务，下面的文件一定存在，且已经获得了正确的网络端配置信息</span>
+source /run/flannel/subnet.env
+
+<span style="color:#75715e"># 创建 bridge</span>
+cat <span style="color:#e6db74">&lt;&lt;EOF | sudo tee /etc/cni/net.d/10-bridge.conf
+</span><span style="color:#e6db74">{
+</span><span style="color:#e6db74">    &#34;cniVersion&#34;: &#34;0.3.1&#34;,
+</span><span style="color:#e6db74">    &#34;name&#34;: &#34;bridge&#34;,
+</span><span style="color:#e6db74">    &#34;type&#34;: &#34;bridge&#34;,
+</span><span style="color:#e6db74">    &#34;bridge&#34;: &#34;cnio0&#34;,
+</span><span style="color:#e6db74">    &#34;isGateway&#34;: true,
+</span><span style="color:#e6db74">    &#34;ipMasq&#34;: true,
+</span><span style="color:#e6db74">    &#34;ipam&#34;: {
+</span><span style="color:#e6db74">        &#34;type&#34;: &#34;host-local&#34;,
+</span><span style="color:#e6db74">        &#34;ranges&#34;: [
+</span><span style="color:#e6db74">          [{&#34;subnet&#34;: &#34;${FLANNEL_SUBNET}&#34;}]
+</span><span style="color:#e6db74">        ],
+</span><span style="color:#e6db74">        &#34;routes&#34;: [{&#34;dst&#34;: &#34;0.0.0.0/0&#34;}]
+</span><span style="color:#e6db74">    }
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">EOF</span>
+
+<span style="color:#75715e"># 创建 loopback</span>
+cat <span style="color:#e6db74">&lt;&lt;EOF | sudo tee /etc/cni/net.d/99-loopback.conf
+</span><span style="color:#e6db74">{
+</span><span style="color:#e6db74">    &#34;cniVersion&#34;: &#34;0.3.1&#34;,
+</span><span style="color:#e6db74">    &#34;type&#34;: &#34;loopback&#34;
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">EOF</span></code></pre></div>
+<p><strong>注意</strong></p>
+
+<ol>
+<li>由于我使用 flannel 配置网络，启动 <code>flanneld</code> 后，本机的 <code>/run/flannel/subnet.env</code>
+会包含一个分配好的 podCIDR 信息。我们需要使用这里的子网（即 <code>FLANNEL_SUBNET</code> 变量值）来配置 cni 。</li>
+</ol>
+
+<h3 id="containerd">containerd</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mkdir -p /etc/containerd/
+
+cat <span style="color:#e6db74">&lt;&lt; EOF | sudo tee /etc/containerd/config.toml
+</span><span style="color:#e6db74">subreaper = true
+</span><span style="color:#e6db74">oom_score = -999
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[debug]
+</span><span style="color:#e6db74">        level = &#34;debug&#34;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[metrics]
+</span><span style="color:#e6db74">        address = &#34;127.0.0.1:1338&#34;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[plugins.linux]
+</span><span style="color:#e6db74">        runtime = &#34;runc&#34;
+</span><span style="color:#e6db74">        shim_debug = true
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[plugins]
+</span><span style="color:#e6db74">  [plugins.cri.containerd]
+</span><span style="color:#e6db74">    snapshotter = &#34;overlayfs&#34;
+</span><span style="color:#e6db74">    [plugins.cri.containerd.default_runtime]
+</span><span style="color:#e6db74">      runtime_type = &#34;io.containerd.runtime.v1.linux&#34;
+</span><span style="color:#e6db74">      runtime_engine = &#34;/usr/local/bin/runc&#34;
+</span><span style="color:#e6db74">      runtime_root = &#34;&#34;
+</span><span style="color:#e6db74">    [plugins.cri.containerd.untrusted_workload_runtime]
+</span><span style="color:#e6db74">      runtime_type = &#34;io.containerd.runtime.v1.linux&#34;
+</span><span style="color:#e6db74">      runtime_engine = &#34;/usr/local/bin/runsc&#34;
+</span><span style="color:#e6db74">      runtime_root = &#34;/run/containerd/runsc&#34;
+</span><span style="color:#e6db74">    [plugins.cri.containerd.gvisor]
+</span><span style="color:#e6db74">      runtime_type = &#34;io.containerd.runtime.v1.linux&#34;
+</span><span style="color:#e6db74">      runtime_engine = &#34;/usr/local/bin/runsc&#34;
+</span><span style="color:#e6db74">      runtime_root = &#34;/run/containerd/runsc&#34;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[plugins.cri]
+</span><span style="color:#e6db74">  # sandbox_image is the image used by sandbox container.
+</span><span style="color:#e6db74">  sandbox_image = &#34;ibmcom/pause:3.1&#34;
+</span><span style="color:#e6db74">EOF</span></code></pre></div>
+<p><strong>说明</strong></p>
+
+<ol>
+<li>containerd 详细的配置参考 <a href="https://github.com/containerd/cri/blob/master/docs/config.md">https://github.com/containerd/cri/blob/master/docs/config.md</a></li>
+<li>默认的 <code>k8s.gcr.io/pause:3.1</code> 资源在国内无法访问。国内网络需要配置 <code>sandbox_image</code> 为一个可以访问的路径；必须在这里配置，在 <code>kubelet</code> 使用 <code>--pod-infra-container-image</code> 配置无效。</li>
+<li>可以使用 <code>containerd config default</code> 查看默认的配置（可以基于此修改）</li>
+<li>暂时没有使用 <code>/usr/local/bin/runsc</code> 运行安全容器，可以先配置。</li>
+</ol>
+
+<p>创建 <code>containerd.service</code> :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat <span style="color:#e6db74">&lt;&lt;EOF | sudo tee /etc/systemd/system/containerd.service
+</span><span style="color:#e6db74">[Unit]
+</span><span style="color:#e6db74">Description=containerd container runtime
+</span><span style="color:#e6db74">Documentation=https://containerd.io
+</span><span style="color:#e6db74">After=network.target
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[Service]
+</span><span style="color:#e6db74">ExecStartPre=/sbin/modprobe overlay
+</span><span style="color:#e6db74">ExecStart=/usr/local/bin/containerd
+</span><span style="color:#e6db74">Restart=always
+</span><span style="color:#e6db74">RestartSec=5
+</span><span style="color:#e6db74">Delegate=yes
+</span><span style="color:#e6db74">KillMode=process
+</span><span style="color:#e6db74">OOMScoreAdjust=-999
+</span><span style="color:#e6db74">LimitNOFILE=1048576
+</span><span style="color:#e6db74">LimitNPROC=infinity
+</span><span style="color:#e6db74">LimitCORE=infinity
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[Install]
+</span><span style="color:#e6db74">WantedBy=multi-user.target
+</span><span style="color:#e6db74">EOF</span></code></pre></div>
+<h3 id="kubelet">kubelet</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">HOSTNAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;k8s-node-1&#34;</span>
+mkdir -p /etc/kubelet /etc/kubernetes/
+cd $KFS_CONFIG
+cp <span style="color:#e6db74">${</span>HOSTNAME<span style="color:#e6db74">}</span>-key.pem <span style="color:#e6db74">${</span>HOSTNAME<span style="color:#e6db74">}</span>.pem /etc/kubelet/
+cp <span style="color:#e6db74">${</span>HOSTNAME<span style="color:#e6db74">}</span>.kubeconfig /etc/kubelet/kubeconfig
+cp ca.pem /etc/kubernetes/</code></pre></div>
+<p>创建 <code>kubelet-config.yaml</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">POD_CIDR<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;172.16.0.0/16&#34;</span>
+
+cat <span style="color:#e6db74">&lt;&lt;EOF | sudo tee /etc/kubelet/kubelet-config.yaml
+</span><span style="color:#e6db74">kind: KubeletConfiguration
+</span><span style="color:#e6db74">apiVersion: kubelet.config.k8s.io/v1beta1
+</span><span style="color:#e6db74">authentication:
+</span><span style="color:#e6db74">  anonymous:
+</span><span style="color:#e6db74">    enabled: false
+</span><span style="color:#e6db74">  webhook:
+</span><span style="color:#e6db74">    enabled: true
+</span><span style="color:#e6db74">  x509:
+</span><span style="color:#e6db74">    clientCAFile: &#34;/etc/kubernetes/ca.pem&#34;
+</span><span style="color:#e6db74">authorization:
+</span><span style="color:#e6db74">  mode: Webhook
+</span><span style="color:#e6db74">clusterDomain: &#34;cluster.local&#34;
+</span><span style="color:#e6db74">clusterDNS:
+</span><span style="color:#e6db74">  - &#34;10.32.0.10&#34;
+</span><span style="color:#e6db74">podCIDR: &#34;${POD_CIDR}&#34;
+</span><span style="color:#e6db74">resolvConf: &#34;/etc/resolv.conf&#34;
+</span><span style="color:#e6db74">runtimeRequestTimeout: &#34;15m&#34;
+</span><span style="color:#e6db74">tlsCertFile: &#34;/etc/kubelet/${HOSTNAME}.pem&#34;
+</span><span style="color:#e6db74">tlsPrivateKeyFile: &#34;/etc/kubelet/${HOSTNAME}-key.pem&#34;
+</span><span style="color:#e6db74">EOF</span></code></pre></div>
+<p><strong>注意</strong></p>
+
+<ol>
+<li><code>resolvConf</code> 在使用 <code>systemd-resolved</code> 的系统中需要避免 CoreDNS 的循环解析。 在 Ubuntu 下是 <code>/run/systemd/resolve/resolv.conf</code> 。本实验是 centos/7 , 暂时使用 <code>/etc/resolv.conf</code></li>
+<li>如果是 <code>k8s-master-1</code> 节点启动 kubelet ，我们可以使用 <code>--hostname-override=node-0</code> 指定一个自定义的主机名 <code>node-0</code> 。需要设置节点的 <code>node-role.kubernetes.io/master</code> 标签：</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">kubectl patch node 节点名 -p <span style="color:#e6db74">&#39;{&#34;spec&#34;:{&#34;taints&#34;:[{&#34;effect&#34;:&#34;NoSchedule&#34;,&#34;key&#34;:&#34;node-role.kubernetes.io/master&#34;}]}}&#39;</span></code></pre></div>
+<p>创建 <code>kubelet.service</code> ：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat <span style="color:#e6db74">&lt;&lt;EOF | sudo tee /etc/systemd/system/kubelet.service
+</span><span style="color:#e6db74">[Unit]
+</span><span style="color:#e6db74">Description=Kubernetes Kubelet
+</span><span style="color:#e6db74">Documentation=https://github.com/kubernetes/kubernetes
+</span><span style="color:#e6db74">After=containerd.service
+</span><span style="color:#e6db74">Requires=containerd.service
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[Service]
+</span><span style="color:#e6db74">ExecStart=/usr/local/bin/kubelet \\
+</span><span style="color:#e6db74">  --config=/etc/kubelet/kubelet-config.yaml \\
+</span><span style="color:#e6db74">  --container-runtime=remote \\
+</span><span style="color:#e6db74">  --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock \\
+</span><span style="color:#e6db74">  --image-pull-progress-deadline=2m \\
+</span><span style="color:#e6db74">  --kubeconfig=/etc/kubelet/kubeconfig \\
+</span><span style="color:#e6db74">  --network-plugin=cni \\
+</span><span style="color:#e6db74">  --register-node=true \\
+</span><span style="color:#e6db74">  --v=2
+</span><span style="color:#e6db74">Restart=on-failure
+</span><span style="color:#e6db74">RestartSec=5
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[Install]
+</span><span style="color:#e6db74">WantedBy=multi-user.target
+</span><span style="color:#e6db74">EOF</span></code></pre></div>
+<h3 id="kube-proxy">kube-proxy</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mkdir -p /etc/kube-proxy
+cd $KFS_CONFIG
+cp kube-proxy.kubeconfig /etc/kube-proxy/kubeconfig</code></pre></div>
+<p>创建 <code>kube-proxy-config.yaml</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat <span style="color:#e6db74">&lt;&lt;EOF | sudo tee /etc/kube-proxy/kube-proxy-config.yaml
+</span><span style="color:#e6db74">kind: KubeProxyConfiguration
+</span><span style="color:#e6db74">apiVersion: kubeproxy.config.k8s.io/v1alpha1
+</span><span style="color:#e6db74">clientConnection:
+</span><span style="color:#e6db74">  kubeconfig: &#34;/etc/kube-proxy/kubeconfig&#34;
+</span><span style="color:#e6db74">mode: &#34;iptables&#34;
+</span><span style="color:#e6db74">clusterCIDR: &#34;10.200.0.0/16&#34;
+</span><span style="color:#e6db74">EOF</span></code></pre></div>
+<p>创建 <code>kube-proxy.service</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">cat <span style="color:#e6db74">&lt;&lt;EOF | sudo tee /etc/systemd/system/kube-proxy.service
+</span><span style="color:#e6db74">[Unit]
+</span><span style="color:#e6db74">Description=Kubernetes Kube Proxy
+</span><span style="color:#e6db74">Documentation=https://github.com/kubernetes/kubernetes
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[Service]
+</span><span style="color:#e6db74">ExecStart=/usr/local/bin/kube-proxy \\
+</span><span style="color:#e6db74">  --config=/etc/kube-proxy/kube-proxy-config.yaml
+</span><span style="color:#e6db74">Restart=on-failure
+</span><span style="color:#e6db74">RestartSec=5
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">[Install]
+</span><span style="color:#e6db74">WantedBy=multi-user.target
+</span><span style="color:#e6db74">EOF</span></code></pre></div>
+<h3 id="启动-node-服务">启动 node 服务</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">systemctl daemon-reload
+systemctl enable containerd kubelet kube-proxy
+systemctl start containerd kubelet kube-proxy</code></pre></div>
+<h2 id="测试">测试</h2>
+
+<p>查看集群，是否能否发现新加入的节点：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">$ kubectl get nodes -o wide
+NAME         STATUS   ROLES    AGE   VERSION   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE                KERNEL-VERSION               CONTAINER-RUNTIME
+k8s-node-1   Ready    &lt;none&gt;   11m   v1.14.1   <span style="color:#ae81ff">10</span>.0.2.15     &lt;none&gt;        CentOS Linux <span style="color:#ae81ff">7</span> <span style="color:#f92672">(</span>Core<span style="color:#f92672">)</span>   <span style="color:#ae81ff">3</span>.10.0-957.12.1.el7.x86_64   containerd://1.2.6
+k8s-node-2   Ready    &lt;none&gt;   6s    v1.14.1   <span style="color:#ae81ff">10</span>.0.2.15     &lt;none&gt;        CentOS Linux <span style="color:#ae81ff">7</span> <span style="color:#f92672">(</span>Core<span style="color:#f92672">)</span>   <span style="color:#ae81ff">3</span>.10.0-957.12.1.el7.x86_64   containerd://1.2.6</code></pre></div>
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/kfs/v1.14.1/install-master/" title="搭建 K8S Master"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/kfs/v1.14.1/flannel-from-scratch/" title="Flannel From Scratch" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1557497350"></script>
+    <script src="/js/perfect-scrollbar.min.js?1557497350"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1557497350"></script>
+    <script src="/js/jquery.sticky.js?1557497350"></script>
+    <script src="/js/featherlight.min.js?1557497350"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1557497350"></script>
+    <script src="/js/highlight.pack.js?1557497350"></script>
+    <script>
+      
+      
+      $(document).ready(function() {
+         $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+      });
+    </script>
+    <script src="/js/modernizr.custom-3.6.0.js?1557497350"></script>
+    <script src="/js/learn.js?1557497350"></script>
+    <script src="/js/hugo-learn.js?1557497350"></script>
+
+    <link href="/mermaid/mermaid.css?1557497350" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1557497350"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

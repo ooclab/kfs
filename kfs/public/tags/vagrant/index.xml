@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vagrant on Kubernetes From Scratch</title>
+    <link>http://example.org/tags/vagrant/</link>
+    <description>Recent content in vagrant on Kubernetes From Scratch</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Supported by OOCLAB</copyright>
+    <lastBuildDate>Sat, 04 May 2019 12:40:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/vagrant/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>搭建实验环境</title>
+      <link>http://example.org/kfs/v1.14.1/vagrant/</link>
+      <pubDate>Sat, 04 May 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/vagrant/</guid>
+      <description>说明
+ 实践过程中，我们需要确保 mbp 的 $KFS_HOME 和其他 3 个虚拟机(k8s-master-1, k8s-node-1, k8s-node-2) 的 /kfslab 目录保持一致。 如果使用 virtualbox 挂载 Host (mbp) $KFS_HOME 目录到每一个虚拟机的 /kfslab 目录，请参考 安装 vagrant-vbguest 插件 。否则请使用 rsync 等工具，及时同步 mbp 的 $KFS_HOME 到每一个虚拟机 的 /kfslab 目录。  创建 vagrant 配置 在 mbp 执行
+1. 创建 Vagrantfile 说明
+ vagrant 主目录（含 Vagrantfile 的目录）不要存放非必要文件，比如 kubernetes 下载包等。 因为 vagrant 默认会挂载当前目录到虚拟机的 /vagrant 。Synced Folders
+ cd $KFS_VOS vim Vagrantfile 创建 Vagrantfile 内容如下：
+IMAGE_NAME = &amp;#34;centos/7&amp;#34; TOTAL_MASTER = 1 TOTAL_NODE = 2 if Vagrant.</description>
+    </item>
+    
+    <item>
+      <title>安装 vagrant-vbguest 插件</title>
+      <link>http://example.org/note/vagrant-vbguest/</link>
+      <pubDate>Sat, 04 May 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/note/vagrant-vbguest/</guid>
+      <description>参考：
+ VirtualBox Guest Additions https://github.com/dotless-de/vagrant-vbguest/  步骤 1. 下载 iso 在 https://download.virtualbox.org/virtualbox 找到对应的版本，下载并挂载 iso。示例：
+wget https://download.virtualbox.org/virtualbox/6.0.6/VBoxGuestAdditions_6.0.6.iso sudo cp VBoxGuestAdditions_6.0.6.iso /Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso 2. 安装 vagrant plugin vagrant plugin install vagrant-vbguest 3. 配置 Vagrantfile 说明
+ Mac 平台如果 /Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso 存在，无需配置 iso_path 。
+ Vagrantfile 中添加配置示例：
+# 共享目录（需要安装好 guest 驱动才可以注销掉下面几行） config.vm.synced_folder ENV[&amp;#34;KFS_HOME&amp;#34;], &amp;#34;/kfslab&amp;#34;, type: &amp;#34;virtualbox&amp;#34; if Vagrant.has_plugin?(&amp;#34;vagrant-vbguest&amp;#34;) config.vbguest.auto_update = false end 其他 强制重新安装
+vagrant vbguest --do install FAQ setup: command not found ==&amp;gt; k8s-node-1: Checking for guest additions in VM.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>prepare on Kubernetes From Scratch</title>
+    <link>http://example.org/tags/prepare/</link>
+    <description>Recent content in prepare on Kubernetes From Scratch</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Supported by OOCLAB</copyright>
+    <lastBuildDate>Sun, 28 Apr 2019 12:40:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/prepare/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>准备工作</title>
+      <link>http://example.org/kfs/v1.14.1/prepare/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/prepare/</guid>
+      <description>准备 SSH 在 mbp 配置 ~/.ssh/config , 确保相关服务器可以公钥免密登录，如：登录 hk-1
+ssh hk-1 下载 Kubernetes 登录 hk-1 服务器，下载 Kuberentes：
+ 从 https://github.com/kubernetes/kubernetes/releases 选择一个合适的版本 下载指定的版本，本次实验使用 v1.14.1  # 创建一个和版本名称一样的子目录 mkdir -pv ~/k8s/v1.14.1 cd ~/k8s/v1.14.1/ # 下载 wget https://github.com/kubernetes/kubernetes/releases/download/v1.14.1/kubernetes.tar.gz # 解压 tar xf kubernetes.tar.gz # 下载 Kubernetes 二进制文件 cd kubernetes/cluster/ ./get-kube-binaries.sh # 上面命令提示下载位置，输入 y 以示确认 下载完成后，拷贝 hk-1 服务器上的 v1.14.1 目录到 mbp 的 $KFS_HOME ，在 mbp 执行：
+# hk-1 是我在香港的服务器 cd $KFS_HOME mkdir -pv $KFS_K8S_PKG_DIR rsync -avz --progress hk-1:~/k8s/v1.</description>
+    </item>
+    
+  </channel>
+</rss>

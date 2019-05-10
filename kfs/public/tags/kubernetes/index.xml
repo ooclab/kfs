@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kubernetes on Kubernetes From Scratch</title>
+    <link>http://example.org/tags/kubernetes/</link>
+    <description>Recent content in kubernetes on Kubernetes From Scratch</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Supported by OOCLAB</copyright>
+    <lastBuildDate>Sat, 04 May 2019 09:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>http://example.org/kubernetes/</link>
+      <pubDate>Sat, 04 May 2019 09:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kubernetes/</guid>
+      <description>关于 Kubernetes 本身的一些文章。</description>
+    </item>
+    
+    <item>
+      <title>组件</title>
+      <link>http://example.org/kubernetes/components/</link>
+      <pubDate>Sat, 04 May 2019 09:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kubernetes/components/</guid>
+      <description>参考  Kubernetes Components A Complete Introduction to Kubernetes — an Orchestration Tool for Containers  Components Kubernetes Master (控制节点) Master 包含一组应用程序（组件），通常部署在一台服务器上，也可以分别部署在多台服务器。
+etcd Kubernetes 集群数据全部存储在 etcd （通常是集群）中。
+kube-apiserver Kubernetes 集群对外 API 接口服务。
+kube-scheduler 依据调度策略，为 Pod 分配可用的 Node 节点。
+kube-controller-manager 运行一系列的 controllers 。
+cloud-controller-manager 运行在一些云平台中，与之集成。
+进阶 如何创建高可用的 Kubernetes 集群？
+ Creating Highly Available Clusters with kubeadm  Kubernetes Node (工作节点) Kubernetes Node 通常运行以下组件。
+kubelet 集群中每一个 Node 都需要运行 kubelet 。kubelet 运行并管理有 Kubernetes 创建的 Pod 。</description>
+    </item>
+    
+    <item>
+      <title>KFS</title>
+      <link>http://example.org/kfs/</link>
+      <pubDate>Fri, 03 May 2019 19:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/</guid>
+      <description>KFS 是 Kubernetes From Scratch 的缩写，项目命名学习 LFS (Linux From Sscrath)，同时在实践风格方面也学习 LFS。</description>
+    </item>
+    
+    <item>
+      <title>节点</title>
+      <link>http://example.org/kubernetes/node/</link>
+      <pubDate>Sat, 04 May 2019 09:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kubernetes/node/</guid>
+      <description>参考 Nodes
+Kubernetes 中的节点 （ node ） 即工作节点 ( worker machine ）</description>
+    </item>
+    
+    <item>
+      <title>kubectl</title>
+      <link>http://example.org/kubectl/</link>
+      <pubDate>Mon, 29 Apr 2019 13:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kubectl/</guid>
+      <description> kubectl 是 Kubernetes 的一个命令行工具，可以执行各种操作。目标是成为 git 一样的使用方法（风格），和一样的领域地位的工具。
+ 官方文档  brew link --overwrite kubernetes-cli # 覆盖 docker 安装的版本 brew link --overwrite kubernetes-cli # 检查版本 kubectl version Tips 设置默认的配置文件 export KUBECONFIG=&amp;#34;/path/to/my.kubeconfig&amp;#34; kubectl get all --all-namespaces</description>
+    </item>
+    
+    <item>
+      <title>Istio</title>
+      <link>http://example.org/istio/</link>
+      <pubDate>Fri, 03 May 2019 19:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/istio/</guid>
+      <description>  https://istio.io  安装 参考 [Customizable Install with Helm](https://istio.io/docs/setup/kubernetes/install/helm
+curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.4 sh -cd istio-1.1.4 cp bin/istioctl /usr/local/bin 已经初始化并按照 tiller 的步骤：
+kubectl apply -f install/kubernetes/helm/helm-service-account.yaml helm install install/kubernetes/helm/istio-init --name istio-init --namespace istio-system # 检查 crds 是否为 53 kubectl get crds | grep &amp;#39;istio.io\|certmanager.k8s.io&amp;#39; | wc -l # 部署默认配置 helm install install/kubernetes/helm/istio --name istio --namespace istio-system</description>
+    </item>
+    
+    <item>
+      <title>准备工作</title>
+      <link>http://example.org/kfs/v1.14.1/prepare/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/prepare/</guid>
+      <description>准备 SSH 在 mbp 配置 ~/.ssh/config , 确保相关服务器可以公钥免密登录，如：登录 hk-1
+ssh hk-1 下载 Kubernetes 登录 hk-1 服务器，下载 Kuberentes：
+ 从 https://github.com/kubernetes/kubernetes/releases 选择一个合适的版本 下载指定的版本，本次实验使用 v1.14.1  # 创建一个和版本名称一样的子目录 mkdir -pv ~/k8s/v1.14.1 cd ~/k8s/v1.14.1/ # 下载 wget https://github.com/kubernetes/kubernetes/releases/download/v1.14.1/kubernetes.tar.gz # 解压 tar xf kubernetes.tar.gz # 下载 Kubernetes 二进制文件 cd kubernetes/cluster/ ./get-kube-binaries.sh # 上面命令提示下载位置，输入 y 以示确认 下载完成后，拷贝 hk-1 服务器上的 v1.14.1 目录到 mbp 的 $KFS_HOME ，在 mbp 执行：
+# hk-1 是我在香港的服务器 cd $KFS_HOME mkdir -pv $KFS_K8S_PKG_DIR rsync -avz --progress hk-1:~/k8s/v1.</description>
+    </item>
+    
+    <item>
+      <title>Helm</title>
+      <link>http://example.org/helm/</link>
+      <pubDate>Fri, 03 May 2019 16:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/helm/</guid>
+      <description> The package manager for Kubernetes
+ https://helm.sh/  安装 brew install kubernetes-helm 初始化 初始化并部署 Tiller
+helm init --service-account tiller --history-max 200 --tiller-image=omio/gcr.io.kubernetes-helm.tiller:v2.13.1 注意
+ Role-based Access Control  </description>
+    </item>
+    
+    <item>
+      <title>配置 PKI</title>
+      <link>http://example.org/kfs/v1.14.1/pki/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/pki/</guid>
+      <description>在 Kubernetes 集群中，各个组件间通过 TLS 进行通信。组件的证书可以代表其唯一性（ Common Name ）。搭建 PKI 可以自由签发证书给需要的组件。
+初始化 CA 初始化 Certificate Authority ，创建 pki 目录：
+mkdir -pv ${KFS_CONFIG} cd ${KFS_CONFIG} 创建 ca-config.json ：
+{ &amp;#34;signing&amp;#34;: { &amp;#34;default&amp;#34;: { &amp;#34;expiry&amp;#34;: &amp;#34;8760h&amp;#34; }, &amp;#34;profiles&amp;#34;: { &amp;#34;kubernetes&amp;#34;: { &amp;#34;usages&amp;#34;: [&amp;#34;signing&amp;#34;, &amp;#34;key encipherment&amp;#34;, &amp;#34;server auth&amp;#34;, &amp;#34;client auth&amp;#34;], &amp;#34;expiry&amp;#34;: &amp;#34;8760h&amp;#34; } } } } 创建 ca-csr.json ：
+{ &amp;#34;CN&amp;#34;: &amp;#34;KFS&amp;#34;, &amp;#34;key&amp;#34;: { &amp;#34;algo&amp;#34;: &amp;#34;rsa&amp;#34;, &amp;#34;size&amp;#34;: 2048 }, &amp;#34;names&amp;#34;: [ { &amp;#34;C&amp;#34;: &amp;#34;CN&amp;#34;, &amp;#34;L&amp;#34;: &amp;#34;BeiJing&amp;#34;, &amp;#34;O&amp;#34;: &amp;#34;KFS&amp;#34;, &amp;#34;OU&amp;#34;: &amp;#34;CA&amp;#34;, &amp;#34;ST&amp;#34;: &amp;#34;BeiJing&amp;#34; } ] } 创建 ca.</description>
+    </item>
+    
+    <item>
+      <title>配置 kubeconfig</title>
+      <link>http://example.org/kfs/v1.14.1/kubeconfig/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/kubeconfig/</guid>
+      <description>创建配置文件 mkdir -pv ${KFS_CONFIG} cd ${KFS_CONFIG} # 确保 KUBERNETES_PUBLIC_ADDRESS 值是正确的 echo $KUBERNETES_PUBLIC_ADDRESS kubelet 为每个节点的 kubelet 创建独立的配置文件：
+for instance in k8s-node-1 k8s-node-2; do kubectl config set-cluster kfs \  --certificate-authority=ca.pem \  --embed-certs=true \  --server=https://${KUBERNETES_PUBLIC_ADDRESS}:6443 \  --kubeconfig=${instance}.kubeconfig kubectl config set-credentials system:node:${instance} \  --client-certificate=${instance}.pem \  --client-key=${instance}-key.pem \  --embed-certs=true \  --kubeconfig=${instance}.kubeconfig kubectl config set-context default \  --cluster=kfs \  --user=system:node:${instance} \  --kubeconfig=${instance}.kubeconfig kubectl config use-context default --kubeconfig=${instance}.</description>
+    </item>
+    
+    <item>
+      <title>搭建 K8S Master</title>
+      <link>http://example.org/kfs/v1.14.1/install-master/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/install-master/</guid>
+      <description>准备 从 mbp 登录 k8s-master-1 虚拟机：
+ssh -v k8s-master-1 检查 /kfslab 目录是否挂载正确（也可以使用 rsync 同步）：
+# ls /kfslab/ config install setting v1.14.1 vos 设置 K8S_MASTER_ROOT 环境变量和创建目录：
+export K8S_MASTER_ROOT=&amp;#34;/root/lab&amp;#34; mkdir -pv $K8S_MASTER_ROOT 设置基本环境变量：
+unalias cp cd $K8S_MASTER_ROOT cat &amp;gt; k8s-master-setting &amp;lt;&amp;lt;EOF KFS_HOME=/kfslab KFS_CONFIG=&amp;#34;\${KFS_HOME}/config&amp;#34; KFS_INSTALL=&amp;#34;\${KFS_HOME}/install&amp;#34; K8S_VERSION=v1.14.1 K8S_MASTER_ROOT=&amp;#34;/root/lab&amp;#34; EOF source k8s-master-setting 注意 每一次中断部署，再次返回，请先是环境变量生效：
+export K8S_MASTER_ROOT=&amp;#34;/root/lab&amp;#34; cd $K8S_MASTER_ROOT source k8s-master-setting Master 部署 etcd 准备目录：
+# 确保目录存在 mkdir -pv /etc/etcd # 拷贝证书 cd $KFS_CONFIG cp ca.</description>
+    </item>
+    
+    <item>
+      <title>搭建 K8S Node</title>
+      <link>http://example.org/kfs/v1.14.1/install-node/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/install-node/</guid>
+      <description>准备 下载软件包 说明 在 mbp 下载需要的软件包到 $KFS_INSTALL/node 目录。
+ runc CNI plugins cri-tools containerd kube-proxy kubelet  cd $KFS_INSTALL/node wget -q --show-progress --https-only --timestamping \  https://github.com/opencontainers/runc/releases/download/v1.0.0-rc8/runc.amd64 \  https://github.com/containernetworking/plugins/releases/download/v0.7.5/cni-plugins-amd64-v0.7.5.tgz \  https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.14.0/crictl-v1.14.0-linux-amd64.tar.gz \  https://github.com/containerd/containerd/releases/download/v1.2.6/containerd-1.2.6.linux-amd64.tar.gz 说明
+ 上面 wget 用法在 MacOS 下才可以  网络 Kubernetes 通常使用一个扁平的网络空间（所有 pod 之间网络互动，无论在不在同一个节点），最简单的是 flannel 。
+如果您想要深入理解网络配置，请参考 Flannel From Scratch 提前在所有节点手动部署好 flannel 。 只需要 kubernetes 集群的 etcd 服务搭建好了之后，就可以部署各个节点的 flanneld 服务。
+Node 部署 说明
+ 本章流程如无特殊说明，需要在 k8s-node-1 和 k8s-node-2 上都进行。 下面示例中，遇到特定主机名等信息，以 k8s-node-1 为例。请修改为正在部署节点的具体信息。  设置环境变量 设置 K8S_NODE_ROOT 环境变量和创建目录：</description>
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>http://example.org/kubernetes/security/</link>
+      <pubDate>Sat, 04 May 2019 09:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kubernetes/security/</guid>
+      <description> 11 Ways (Not) to Get Hacked  </description>
+    </item>
+    
+    <item>
+      <title>Kubernetes Dashboard</title>
+      <link>http://example.org/kfs/v1.14.1/dashboard/</link>
+      <pubDate>Fri, 03 May 2019 10:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/dashboard/</guid>
+      <description>部署 Dashboard 说明 在 mbp 执行操作
+在 https://github.com/kubernetes/dashboard/releases 下载 v1.10.1 配置文件：
+mkdir -p $KFS_HOME/addons/dashboard cd $KFS_HOME/addons/dashboard wget https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml 修改 kubernetes-dashboard.yaml ：
+ k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1 修改为 omio/k8s.gcr.io.kubernetes-dashboard-amd64:v1.10.1  部署：
+kubectl apply -f kubernetes-dashboard.yaml 启动 kubectl proxy：
+kubectl proxy 等待 dashboard 部署完成，访问 http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy
+admin user token 参考 Creating sample user
+创建
+# 创建配置文件 cat &amp;gt; kubernetes-dashboard-admin.yaml &amp;lt;&amp;lt;EOF apiVersion: v1 kind: ServiceAccount metadata: name: admin-user namespace: kube-system --- apiVersion: rbac.authorization.k8s.io/v1 kind: ClusterRoleBinding metadata: name: admin-user roleRef: apiGroup: rbac.</description>
+    </item>
+    
+    <item>
+      <title>v1.14.1</title>
+      <link>http://example.org/kfs/v1.14.1/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/</guid>
+      <description> Kubernetes From Scratch（从零部署 Kubernetes）手册版本 v1.14.1 ，对应的 Kubernetes 发行版为 v1.14.1 。
+说明  Kubernetes 的版本发展比较快，请采用特定的版本，并选择依赖软件包的合适对应版本进行实践。 由于众所周知的原因, 本文档提及的部分资源需要在海外服务器操作。  资源  https://github.com/kubernetes/kubernetes/releases  参考  Creating a Custom Cluster from Scratch v1.13 及以后暂时没有该文档 Kubernetes The Hard Way https://github.com/ooclab/docs/tree/master/k8s  </description>
+    </item>
+    
+    <item>
+      <title>关于</title>
+      <link>http://example.org/about/</link>
+      <pubDate>Fri, 03 May 2019 16:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/about/</guid>
+      <description>KFS 是 Kubernetes From Scratch 的缩写，项目命名学习 LFS (Linux From Sscrath)，同时在实践风格方面也学习 LFS。</description>
+    </item>
+    
+    <item>
+      <title>FAQ</title>
+      <link>http://example.org/kfs/v1.14.1/faq/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/faq/</guid>
+      <description>常见问题 如何重置测试环境数据 ？ 关闭并删除数据 Master 节点执行：
+systemctl stop kube-apiserver kube-controller-manager kube-scheduler etcd flanneld rm -f /run/flannel/subnet.env rm -rf /var/lib/etcd 所有 Node 节点执行：
+systemctl stop containerd kube-proxy kubelet flanneld rm -f /run/flannel/subnet.env 启动服务 Master 节点执行 flanneld 的网络配置：
+systemctl start etcd unset ETCDCTL_API etcdctl \  --endpoints=https://192.168.100.11:2379 \  --ca-file /srv/kubernetes/certs/ca.pem \  --cert-file /srv/kubernetes/certs/flanneld.pem \  --key-file /srv/kubernetes/certs/flanneld-key.pem \  set /coreos.com/network/config &amp;#39;{ &amp;#34;Network&amp;#34;: &amp;#34;172.16.0.0/16&amp;#34;, &amp;#34;Backend&amp;#34;: {&amp;#34;Type&amp;#34;: &amp;#34;vxlan&amp;#34;}}&amp;#39; Master 服务启动：</description>
+    </item>
+    
+    <item>
+      <title>Prometheus Operator</title>
+      <link>http://example.org/prometheus/prometheus-operator/</link>
+      <pubDate>Fri, 03 May 2019 13:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/prometheus/prometheus-operator/</guid>
+      <description>部署：
+wget https://raw.githubusercontent.com/coreos/prometheus-operator/master/bundle.yaml mv bundle.yaml prometheus-operator-bundle.yaml kubectl apply -f prometheus-operator-bundle.</description>
+    </item>
+    
+    <item>
+      <title>Smoke Test</title>
+      <link>http://example.org/kfs/v1.14.1/smoke_test/</link>
+      <pubDate>Thu, 02 May 2019 08:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/smoke_test/</guid>
+      <description>Data Encryption 创建一个加密数据：
+kubectl create secret generic kubernetes-the-hard-way \ --from-literal=&amp;#34;mykey=mydata&amp;#34; 查看 etcd 中的加密数据
+ETCDCTL_API=3 etcdctl get \ --endpoints=https://192.168.50.10:2379 \ --cacert=/etc/etcd/ca.pem \ --cert=/etc/etcd/kubernetes.pem \ --key=/etc/etcd/kubernetes-key.pem\ /registry/secrets/default/kubernetes-the-hard-way | hexdump -C 结果如下：
+00000000 2f 72 65 67 69 73 74 72 79 2f 73 65 63 72 65 74 |/registry/secret| 00000010 73 2f 64 65 66 61 75 6c 74 2f 6b 75 62 65 72 6e |s/default/kubern| 00000020 65 74 65 73 2d 74 68 65 2d 68 61 72 64 2d 77 61 |etes-the-hard-wa| 00000030 79 0a 6b 38 73 3a 65 6e 63 3a 61 65 73 63 62 63 |y.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>vbguest on Kubernetes From Scratch</title>
+    <link>http://example.org/tags/vbguest/</link>
+    <description>Recent content in vbguest on Kubernetes From Scratch</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Supported by OOCLAB</copyright>
+    <lastBuildDate>Sat, 04 May 2019 12:40:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/vbguest/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>安装 vagrant-vbguest 插件</title>
+      <link>http://example.org/note/vagrant-vbguest/</link>
+      <pubDate>Sat, 04 May 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/note/vagrant-vbguest/</guid>
+      <description>参考：
+ VirtualBox Guest Additions https://github.com/dotless-de/vagrant-vbguest/  步骤 1. 下载 iso 在 https://download.virtualbox.org/virtualbox 找到对应的版本，下载并挂载 iso。示例：
+wget https://download.virtualbox.org/virtualbox/6.0.6/VBoxGuestAdditions_6.0.6.iso sudo cp VBoxGuestAdditions_6.0.6.iso /Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso 2. 安装 vagrant plugin vagrant plugin install vagrant-vbguest 3. 配置 Vagrantfile 说明
+ Mac 平台如果 /Applications/VirtualBox.app/Contents/MacOS/VBoxGuestAdditions.iso 存在，无需配置 iso_path 。
+ Vagrantfile 中添加配置示例：
+# 共享目录（需要安装好 guest 驱动才可以注销掉下面几行） config.vm.synced_folder ENV[&amp;#34;KFS_HOME&amp;#34;], &amp;#34;/kfslab&amp;#34;, type: &amp;#34;virtualbox&amp;#34; if Vagrant.has_plugin?(&amp;#34;vagrant-vbguest&amp;#34;) config.vbguest.auto_update = false end 其他 强制重新安装
+vagrant vbguest --do install FAQ setup: command not found ==&amp;gt; k8s-node-1: Checking for guest additions in VM.</description>
+    </item>
+    
+  </channel>
+</rss>

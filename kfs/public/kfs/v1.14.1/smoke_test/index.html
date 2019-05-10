@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.55.4" />
+    <meta name="description" content="Kubernetes From Scratch">
+<meta name="author" content="OOCLAB">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Smoke Test :: Kubernetes From Scratch</title>
+
+    
+    <link href="/css/nucleus.css?1557497350" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1557497350" rel="stylesheet">
+    <link href="/css/hybrid.css?1557497350" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1557497350" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1557497350" rel="stylesheet">
+    <link href="/css/auto-complete.css?1557497350" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1557497350" rel="stylesheet">
+    <link href="/css/theme.css?1557497350" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1557497350" rel="stylesheet">
+    
+      <link href="/css/theme-blue.css?1557497350" rel="stylesheet">
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1557497350"></script>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    <link href="/css/custom.css" rel="stylesheet">
+
+  </head>
+  <body class="" data-url="/kfs/v1.14.1/smoke_test/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/"><img src="/images/logo.png" style="width: 60px" /></a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1557497350"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1557497350"></script>
+<script type="text/javascript">
+    
+        var baseurl = "http:\/\/example.org\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1557497350"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/kubernetes/" title="Kubernetes" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/kubernetes/">
+          Kubernetes
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kubernetes/components/" title="组件" class="dd-item ">
+        <a href="/kubernetes/components/">
+        组件
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kubernetes/node/" title="节点" class="dd-item ">
+        <a href="/kubernetes/node/">
+        节点
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/kubernetes/security/" title="Security" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/kubernetes/security/">
+          Security
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/kfs/" title="KFS" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/kfs/">
+          KFS
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/kfs/v1.14.1/" title="v1.14.1" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/kfs/v1.14.1/">
+          v1.14.1
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/lab-design/" title="实验环境规划" class="dd-item ">
+        <a href="/kfs/v1.14.1/lab-design/">
+        <b>1. </b>实验环境规划
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/env/" title="设置环境变量" class="dd-item ">
+        <a href="/kfs/v1.14.1/env/">
+        <b>2. </b>设置环境变量
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/prepare/" title="准备工作" class="dd-item ">
+        <a href="/kfs/v1.14.1/prepare/">
+        <b>3. </b>准备工作
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/vagrant/" title="搭建实验环境" class="dd-item ">
+        <a href="/kfs/v1.14.1/vagrant/">
+        <b>4. </b>搭建实验环境
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/pki/" title="配置 PKI" class="dd-item ">
+        <a href="/kfs/v1.14.1/pki/">
+        <b>5. </b>配置 PKI
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/kubeconfig/" title="配置 kubeconfig" class="dd-item ">
+        <a href="/kfs/v1.14.1/kubeconfig/">
+        <b>6. </b>配置 kubeconfig
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/install-master/" title="搭建 K8S Master" class="dd-item ">
+        <a href="/kfs/v1.14.1/install-master/">
+        <b>7. </b>搭建 K8S Master
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/install-node/" title="搭建 K8S Node" class="dd-item ">
+        <a href="/kfs/v1.14.1/install-node/">
+        <b>8. </b>搭建 K8S Node
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/flannel-from-scratch/" title="Flannel From Scratch" class="dd-item ">
+        <a href="/kfs/v1.14.1/flannel-from-scratch/">
+        <b>8.1 </b>Flannel From Scratch
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/flannel-in-k8s/" title="Flannel in kubernetes" class="dd-item ">
+        <a href="/kfs/v1.14.1/flannel-in-k8s/">
+        <b>8.2 </b>Flannel in kubernetes
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/coredns/" title="CoreDNS" class="dd-item ">
+        <a href="/kfs/v1.14.1/coredns/">
+        <b>9. </b>CoreDNS
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/dashboard/" title="Kubernetes Dashboard" class="dd-item ">
+        <a href="/kfs/v1.14.1/dashboard/">
+        <b>10. </b>Kubernetes Dashboard
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/faq/" title="FAQ" class="dd-item ">
+        <a href="/kfs/v1.14.1/faq/">
+        FAQ
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/kfs/v1.14.1/smoke_test/" title="Smoke Test" class="dd-item active">
+        <a href="/kfs/v1.14.1/smoke_test/">
+        Smoke Test
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/kubectl/" title="kubectl" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/kubectl/">
+          kubectl
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/istio/" title="Istio" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/istio/">
+          Istio
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/helm/" title="Helm" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/helm/">
+          Helm
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/note/" title="文章" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/note/">
+          文章
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/vagrant-vbguest/" title="安装 vagrant-vbguest 插件" class="dd-item ">
+        <a href="/note/vagrant-vbguest/">
+        安装 vagrant-vbguest 插件
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/kubeconfig/" title="kubeconfig" class="dd-item ">
+        <a href="/note/kubeconfig/">
+        kubeconfig
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/crictl/" title="crictl" class="dd-item ">
+        <a href="/note/crictl/">
+        crictl
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/cni/" title="cni" class="dd-item ">
+        <a href="/note/cni/">
+        cni
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/cfssl/" title="cfssl" class="dd-item ">
+        <a href="/note/cfssl/">
+        cfssl
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/note/docker-image-gfw/" title="Docker image 在Qiang外怎么办？" class="dd-item ">
+        <a href="/note/docker-image-gfw/">
+        Docker image 在Qiang外怎么办？
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/about/" title="关于" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/about/">
+          关于
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/prometheus/" title="Prometheus" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/prometheus/">
+          Prometheus
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/prometheus/prometheus-operator/" title="Prometheus Operator" class="dd-item ">
+        <a href="/prometheus/prometheus-operator/">
+        Prometheus Operator
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'></a> > <a href='/kfs/'>KFS</a> > <a href='/kfs/v1.14.1/'>v1.14.1</a> > Smoke Test
+          
+         
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#data-encryption">Data Encryption</a></li>
+<li><a href="#deployments">Deployments</a>
+<ul>
+<li><a href="#端口转发">端口转发</a></li>
+<li><a href="#logs">Logs</a></li>
+<li><a href="#exec">Exec</a></li>
+</ul></li>
+<li><a href="#services">Services</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+<div class="tags">
+
+  <a class="tag-link" href="/tags/v1.14.1">v1.14.1</a>
+
+  <a class="tag-link" href="/tags/kubernetes">Kubernetes</a>
+
+  <a class="tag-link" href="/tags/testing">Testing</a>
+
+</div>
+
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Smoke Test
+            </h1>
+          
+
+        
+
+
+
+
+
+<h2 id="data-encryption">Data Encryption</h2>
+
+<p>创建一个加密数据：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">kubectl create secret generic kubernetes-the-hard-way \
+  --from-literal=&#34;mykey=mydata&#34;</pre></div>
+<p>查看 etcd 中的加密数据</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">ETCDCTL_API=3 etcdctl get \
+  --endpoints=https://192.168.50.10:2379 \
+  --cacert=/etc/etcd/ca.pem \
+  --cert=/etc/etcd/kubernetes.pem \
+  --key=/etc/etcd/kubernetes-key.pem\
+  /registry/secrets/default/kubernetes-the-hard-way | hexdump -C</pre></div>
+<p>结果如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">00000000  2f 72 65 67 69 73 74 72  79 2f 73 65 63 72 65 74  |/registry/secret|
+00000010  73 2f 64 65 66 61 75 6c  74 2f 6b 75 62 65 72 6e  |s/default/kubern|
+00000020  65 74 65 73 2d 74 68 65  2d 68 61 72 64 2d 77 61  |etes-the-hard-wa|
+00000030  79 0a 6b 38 73 3a 65 6e  63 3a 61 65 73 63 62 63  |y.k8s:enc:aescbc|
+00000040  3a 76 31 3a 6b 65 79 31  3a 22 bb e9 96 78 5b d5  |:v1:key1:&#34;...x[.|
+00000050  81 47 04 2b 94 de 09 dc  de 05 11 b7 fe 36 09 22  |.G.+.........6.&#34;|
+00000060  66 80 d1 c1 04 6c 81 e3  bc 3a 23 2c 05 db c8 92  |f....l...:#,....|
+00000070  6e ff 93 79 2b 10 0e fa  f8 54 58 52 f2 2a 7d d8  |n..y+....TXR.*}.|
+00000080  c2 33 44 d3 9a 09 8b 07  d9 bc 2b 9e 95 a7 98 23  |.3D.......+....#|
+00000090  0f db 96 f6 31 e9 c1 6c  b2 13 00 b0 1d 5b 31 93  |....1..l.....[1.|
+000000a0  df 9c b7 eb 57 92 a0 25  74 45 c1 26 6f 20 43 12  |....W..%tE.&amp;o C.|
+000000b0  9a 3e 7e 8d bd 53 de 15  15 97 04 59 16 90 f7 48  |.&gt;~..S.....Y...H|
+000000c0  ec 2c 52 75 91 20 9b 13  b0 99 c2 ac fd 0a 29 78  |.,Ru. ........)x|
+000000d0  17 88 76 9c ae 23 8c 7b  fe 75 14 7c cd cb de 7e  |..v..#.{.u.|...~|
+000000e0  e5 f0 e6 02 23 29 10 81  e0 0a                    |....#)....|
+000000ea</pre></div>
+<h2 id="deployments">Deployments</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#75715e"># 创建 nginx</span>
+kubectl run nginx --image<span style="color:#f92672">=</span>nginx --generator<span style="color:#f92672">=</span>run-pod/v1
+<span style="color:#75715e"># 查看 pod</span>
+kubectl get pods -l run<span style="color:#f92672">=</span>nginx
+<span style="color:#75715e"># 或者</span>
+kubectl get pods -l run<span style="color:#f92672">=</span>nginx -o wide
+<span style="color:#75715e"># 或者</span>
+kubectl get pod/nginx
+<span style="color:#75715e"># 或者</span>
+kubectl get pod/nginx -o wide
+<span style="color:#75715e"># 查看 pod 详情</span>
+kubectl describe pod/nginx</code></pre></div>
+<h3 id="端口转发">端口转发</h3>
+
+<p>在 k8s 集群中任一节点（部署了 flanneld , 有 kubectl , 且 kubectl 可以访问集群），
+测试 nginx 可访问性：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"># kubectl get pod/nginx -o wide
+NAME    READY   STATUS    RESTARTS   AGE     IP            NODE     NOMINATED NODE   READINESS GATES
+nginx   1/1     Running   0          4m45s   172.16.92.6   node-1   &lt;none&gt;           &lt;none&gt;
+# curl http://172.16.92.6</pre></div>
+<p>在远程节点（有 kubectl 和 admin.kubeconfig 配置）执行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"># POD_NAME=$(kubectl get pods -l run=nginx -o jsonpath=&#34;{.items[0].metadata.name}&#34;)
+# kubectl port-forward $POD_NAME 8080:80
+Forwarding from 127.0.0.1:8080 -&gt; 80
+Forwarding from [::1]:8080 -&gt; 80</pre></div>
+<p>在远程节点另外一个终端执行：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"># curl --head http://127.0.0.1:8080
+HTTP/1.1 200 OK
+Server: nginx/1.15.12
+Date: Thu, 02 May 2019 08:24:59 GMT
+Content-Type: text/html
+Content-Length: 612
+Last-Modified: Tue, 16 Apr 2019 13:08:19 GMT
+Connection: keep-alive
+ETag: &#34;5cb5d3c3-264&#34;
+Accept-Ranges: bytes</pre></div>
+<p><strong>注意</strong>
+1. pod 所在的节点必须安装有 <code>socat</code> 程序</p>
+
+<h3 id="logs">Logs</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">kubectl logs $POD_NAME</pre></div>
+<h3 id="exec">Exec</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">kubectl exec -ti $POD_NAME -- nginx -v</pre></div>
+<h2 id="services">Services</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">kubectl expose pod nginx --port 80 --type NodePort</pre></div>
+<p>获取端口:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">NODE_PORT=$(kubectl get svc nginx \
+  --output=jsonpath=&#39;{range .spec.ports[0]}{.nodePort}&#39;)</pre></div>
+<p>使用任意节点的外部 IP 测试皆可访问：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">curl -I http://192.168.50.11:${NODE_PORT}
+curl -I http://192.168.50.12:${NODE_PORT}</pre></div>
+<p>查看日志也可以发现：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">kubectl logs $POD_NAME --tail=2
+172.16.92.2 - - [02/May/2019:08:32:57 +0000] &#34;HEAD / HTTP/1.1&#34; 200 0 &#34;-&#34; &#34;curl/7.54.0&#34; &#34;-&#34;
+172.16.32.0 - - [02/May/2019:08:33:02 +0000] &#34;HEAD / HTTP/1.1&#34; 200 0 &#34;-&#34; &#34;curl/7.54.0&#34; &#34;-&#34;</pre></div>
+
+<footer class=" footline" >
+	
+</footer>
+
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/kfs/v1.14.1/faq/" title="FAQ"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/kubectl/" title="kubectl" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1557497350"></script>
+    <script src="/js/perfect-scrollbar.min.js?1557497350"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1557497350"></script>
+    <script src="/js/jquery.sticky.js?1557497350"></script>
+    <script src="/js/featherlight.min.js?1557497350"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1557497350"></script>
+    <script src="/js/highlight.pack.js?1557497350"></script>
+    <script>
+      
+      
+      $(document).ready(function() {
+         $('pre code').each(function(i, e) {hljs.highlightBlock(e)});
+      });
+    </script>
+    <script src="/js/modernizr.custom-3.6.0.js?1557497350"></script>
+    <script src="/js/learn.js?1557497350"></script>
+    <script src="/js/hugo-learn.js?1557497350"></script>
+
+    <link href="/mermaid/mermaid.css?1557497350" type="text/css" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1557497350"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
+

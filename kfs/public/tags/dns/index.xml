@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dns on Kubernetes From Scratch</title>
+    <link>http://example.org/tags/dns/</link>
+    <description>Recent content in dns on Kubernetes From Scratch</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Supported by OOCLAB</copyright>
+    <lastBuildDate>Sun, 28 Apr 2019 12:40:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/dns/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>CoreDNS</title>
+      <link>http://example.org/kfs/v1.14.1/coredns/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/coredns/</guid>
+      <description>CoreDNS 可以提供基于域名的服务访问。从 Kubernetes 1.13 开始，CoreDNS 作为默认的 DNS（之前是 kube-dns ）。
+ https://github.com/coredns/coredns  提示 ：在 mbp 执行操作
+部署 CoreDNS 进入 kubernetes/cluster/addons/dns/coredns 目录：
+cd $KFS_HOME/v1.14.1/kubernetes/cluster/addons/dns/coredns 创建 coredns.yaml
+export DNS_SERVER_IP=&amp;#34;10.32.0.10&amp;#34; export DNS_DOMAIN=&amp;#34;cluster.local&amp;#34; sed \  -e &amp;#39;s/__PILLAR__DNS__SERVER__/&amp;#39;$DNS_SERVER_IP&amp;#39;/g&amp;#39; \  -e &amp;#39;s/__PILLAR__DNS__DOMAIN__/&amp;#39;$DNS_DOMAIN&amp;#39;/g&amp;#39; \  -e &amp;#39;s/k8s.gcr.io/coredns/g&amp;#39; \  coredns.yaml.base &amp;gt; coredns.yaml 应用 coredns.yaml :
+kubectl apply -f coredns.yaml 查看 kubernetes 信息：
+$ kubectl get all --all-namespaces -o wide NAMESPACE NAME READY STATUS RESTARTS AGE IP NODE NOMINATED NODE READINESS GATES kube-system pod/coredns-8854569d4-csrzr 1/1 Running 0 33s 172.</description>
+    </item>
+    
+  </channel>
+</rss>

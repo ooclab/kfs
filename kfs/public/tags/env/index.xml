@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>env on Kubernetes From Scratch</title>
+    <link>http://example.org/tags/env/</link>
+    <description>Recent content in env on Kubernetes From Scratch</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Supported by OOCLAB</copyright>
+    <lastBuildDate>Sat, 04 May 2019 12:40:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/env/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>设置环境变量</title>
+      <link>http://example.org/kfs/v1.14.1/env/</link>
+      <pubDate>Sat, 04 May 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/env/</guid>
+      <description>在 mbp 创建实验工作目录：
+export KFS_HOME=~/kfslab mkdir -pv $KFS_HOME cd $KFS_HOME 实验过程中，为了保持环境设置一致，我们创建一个 setting 文件，存放用到的环境变量，每次离开后再次返回，需要重新使 setting 中的环境变量生效。
+创建 setting 文件：
+cd $KFS_HOME cat &amp;gt; setting &amp;lt;&amp;lt;EOF export KFS_K8S_VERSION=v1.14.1 export KFS_HOME=~/kfslab export KFS_K8S_PKG_DIR=&amp;#34;\${KFS_HOME}/\${KFS_K8S_VERSION}&amp;#34; export KFS_VOS=&amp;#34;\${KFS_HOME}/vos&amp;#34; export KFS_CONFIG=&amp;#34;\${KFS_HOME}/config&amp;#34; export KFS_INSTALL=&amp;#34;\${KFS_HOME}/install&amp;#34; export KUBERNETES_PUBLIC_ADDRESS=&amp;#34;192.168.100.11&amp;#34; EOF source setting 每次中断实验后，再次返回，先使得 setting 文件中的环境变量生效：
+cd $KFS_HOME source setting 说明
+ 默认我们使用 ~/kfslab 作为 KFS 实验的主目录，后面的实验步骤中我们会使用 $KFS_HOME 环境变量代替该值。 创建一个文件，可以使用任何喜欢的编辑器，注意文件所在的目录即可。示例，创建名为 setting 的文件，可以在终端当前目录执行 vim setting ，编辑该文件内容，保存退出即可。  </description>
+    </item>
+    
+  </channel>
+</rss>

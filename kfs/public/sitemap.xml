@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>http://example.org/kubernetes/</loc>
+    <lastmod>2019-05-04T09:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kubernetes/components/</loc>
+    <lastmod>2019-05-04T09:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/</loc>
+    <lastmod>2019-05-03T19:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kubernetes/node/</loc>
+    <lastmod>2019-05-04T09:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kubectl/</loc>
+    <lastmod>2019-04-29T13:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/lab-design/</loc>
+    <lastmod>2019-05-04T12:40:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/env/</loc>
+    <lastmod>2019-05-04T12:40:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/istio/</loc>
+    <lastmod>2019-05-03T19:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/prepare/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/vagrant/</loc>
+    <lastmod>2019-05-04T12:40:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/helm/</loc>
+    <lastmod>2019-05-03T16:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/pki/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/kubeconfig/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/install-master/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/install-node/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/flannel-from-scratch/</loc>
+    <lastmod>2019-04-30T10:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/flannel-in-k8s/</loc>
+    <lastmod>2019-05-03T17:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/coredns/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kubernetes/security/</loc>
+    <lastmod>2019-05-04T09:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/note/</loc>
+    <lastmod>2019-05-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/dashboard/</loc>
+    <lastmod>2019-05-03T10:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/about/</loc>
+    <lastmod>2019-05-03T16:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/faq/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/</loc>
+    <lastmod>2019-05-04T12:40:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/</loc>
+    <lastmod>2019-05-04T12:40:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/design/</loc>
+    <lastmod>2019-05-04T12:40:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/env/</loc>
+    <lastmod>2019-05-04T12:40:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/v1.14.1/</loc>
+    <lastmod>2019-05-04T12:40:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/vagrant/</loc>
+    <lastmod>2019-05-04T12:40:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/vbguest/</loc>
+    <lastmod>2019-05-04T12:40:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/note/vagrant-vbguest/</loc>
+    <lastmod>2019-05-04T12:40:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/components/</loc>
+    <lastmod>2019-05-04T09:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/security/</loc>
+    <lastmod>2019-05-04T09:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/kubernetes/</loc>
+    <lastmod>2019-05-04T09:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/node/</loc>
+    <lastmod>2019-05-04T09:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/istio/</loc>
+    <lastmod>2019-05-03T19:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/flannel/</loc>
+    <lastmod>2019-05-03T17:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/kfs/</loc>
+    <lastmod>2019-05-03T17:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/network/</loc>
+    <lastmod>2019-05-03T17:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/helm/</loc>
+    <lastmod>2019-05-03T16:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/prometheus/</loc>
+    <lastmod>2019-05-03T13:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/prometheus/prometheus-operator/</loc>
+    <lastmod>2019-05-03T13:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/addons/</loc>
+    <lastmod>2019-05-03T13:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/prometheus/</loc>
+    <lastmod>2019-05-03T13:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/note/kubeconfig/</loc>
+    <lastmod>2019-05-02T17:30:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/note/crictl/</loc>
+    <lastmod>2019-05-02T13:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/kfs/v1.14.1/smoke_test/</loc>
+    <lastmod>2019-05-02T08:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/testing/</loc>
+    <lastmod>2019-05-02T08:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/note/cni/</loc>
+    <lastmod>2019-05-01T20:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/note/cfssl/</loc>
+    <lastmod>2019-04-30T23:30:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/note/docker-image-gfw/</loc>
+    <lastmod>2019-04-29T21:50:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/kubectl/</loc>
+    <lastmod>2019-04-29T13:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/faq/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/coredns/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/dns/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/kubeconfig/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/prepare/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/%E6%8B%93%E6%89%91%E5%9B%BE/</loc>
+    <lastmod>2019-04-28T12:40:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

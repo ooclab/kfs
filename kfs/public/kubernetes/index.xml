@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kubernetes on Kubernetes From Scratch</title>
+    <link>http://example.org/kubernetes/</link>
+    <description>Recent content in Kubernetes on Kubernetes From Scratch</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Supported by OOCLAB</copyright>
+    <lastBuildDate>Sat, 04 May 2019 09:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>组件</title>
+      <link>http://example.org/kubernetes/components/</link>
+      <pubDate>Sat, 04 May 2019 09:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kubernetes/components/</guid>
+      <description>参考  Kubernetes Components A Complete Introduction to Kubernetes — an Orchestration Tool for Containers  Components Kubernetes Master (控制节点) Master 包含一组应用程序（组件），通常部署在一台服务器上，也可以分别部署在多台服务器。
+etcd Kubernetes 集群数据全部存储在 etcd （通常是集群）中。
+kube-apiserver Kubernetes 集群对外 API 接口服务。
+kube-scheduler 依据调度策略，为 Pod 分配可用的 Node 节点。
+kube-controller-manager 运行一系列的 controllers 。
+cloud-controller-manager 运行在一些云平台中，与之集成。
+进阶 如何创建高可用的 Kubernetes 集群？
+ Creating Highly Available Clusters with kubeadm  Kubernetes Node (工作节点) Kubernetes Node 通常运行以下组件。
+kubelet 集群中每一个 Node 都需要运行 kubelet 。kubelet 运行并管理有 Kubernetes 创建的 Pod 。</description>
+    </item>
+    
+    <item>
+      <title>节点</title>
+      <link>http://example.org/kubernetes/node/</link>
+      <pubDate>Sat, 04 May 2019 09:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kubernetes/node/</guid>
+      <description>参考 Nodes
+Kubernetes 中的节点 （ node ） 即工作节点 ( worker machine ）</description>
+    </item>
+    
+  </channel>
+</rss>

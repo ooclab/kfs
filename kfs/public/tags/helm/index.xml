@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>helm on Kubernetes From Scratch</title>
+    <link>http://example.org/tags/helm/</link>
+    <description>Recent content in helm on Kubernetes From Scratch</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Supported by OOCLAB</copyright>
+    <lastBuildDate>Fri, 03 May 2019 16:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/helm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Helm</title>
+      <link>http://example.org/helm/</link>
+      <pubDate>Fri, 03 May 2019 16:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/helm/</guid>
+      <description> The package manager for Kubernetes
+ https://helm.sh/  安装 brew install kubernetes-helm 初始化 初始化并部署 Tiller
+helm init --service-account tiller --history-max 200 --tiller-image=omio/gcr.io.kubernetes-helm.tiller:v2.13.1 注意
+ Role-based Access Control  </description>
+    </item>
+    
+    <item>
+      <title>关于</title>
+      <link>http://example.org/about/</link>
+      <pubDate>Fri, 03 May 2019 16:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/about/</guid>
+      <description>KFS 是 Kubernetes From Scratch 的缩写，项目命名学习 LFS (Linux From Sscrath)，同时在实践风格方面也学习 LFS。</description>
+    </item>
+    
+  </channel>
+</rss>

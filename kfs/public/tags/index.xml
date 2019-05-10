@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Kubernetes From Scratch</title>
+    <link>http://example.org/tags/</link>
+    <description>Recent content in Tags on Kubernetes From Scratch</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Supported by OOCLAB</copyright>
+    <lastBuildDate>Sat, 04 May 2019 12:40:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>design</title>
+      <link>http://example.org/tags/design/</link>
+      <pubDate>Sat, 04 May 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/design/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>env</title>
+      <link>http://example.org/tags/env/</link>
+      <pubDate>Sat, 04 May 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/env/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>v1.14.1</title>
+      <link>http://example.org/tags/v1.14.1/</link>
+      <pubDate>Sat, 04 May 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/v1.14.1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vagrant</title>
+      <link>http://example.org/tags/vagrant/</link>
+      <pubDate>Sat, 04 May 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/vagrant/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vbguest</title>
+      <link>http://example.org/tags/vbguest/</link>
+      <pubDate>Sat, 04 May 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/vbguest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Components</title>
+      <link>http://example.org/tags/components/</link>
+      <pubDate>Sat, 04 May 2019 09:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/components/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>http://example.org/tags/security/</link>
+      <pubDate>Sat, 04 May 2019 09:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubernetes</title>
+      <link>http://example.org/tags/kubernetes/</link>
+      <pubDate>Sat, 04 May 2019 09:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>node</title>
+      <link>http://example.org/tags/node/</link>
+      <pubDate>Sat, 04 May 2019 09:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/node/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>istio</title>
+      <link>http://example.org/tags/istio/</link>
+      <pubDate>Fri, 03 May 2019 19:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/istio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>flannel</title>
+      <link>http://example.org/tags/flannel/</link>
+      <pubDate>Fri, 03 May 2019 17:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/flannel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kfs</title>
+      <link>http://example.org/tags/kfs/</link>
+      <pubDate>Fri, 03 May 2019 17:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/kfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>network</title>
+      <link>http://example.org/tags/network/</link>
+      <pubDate>Fri, 03 May 2019 17:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/network/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>helm</title>
+      <link>http://example.org/tags/helm/</link>
+      <pubDate>Fri, 03 May 2019 16:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/helm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>addons</title>
+      <link>http://example.org/tags/addons/</link>
+      <pubDate>Fri, 03 May 2019 13:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/addons/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>prometheus</title>
+      <link>http://example.org/tags/prometheus/</link>
+      <pubDate>Fri, 03 May 2019 13:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/prometheus/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Testing</title>
+      <link>http://example.org/tags/testing/</link>
+      <pubDate>Thu, 02 May 2019 08:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/testing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubectl</title>
+      <link>http://example.org/tags/kubectl/</link>
+      <pubDate>Mon, 29 Apr 2019 13:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/kubectl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>FAQ</title>
+      <link>http://example.org/tags/faq/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/faq/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>coredns</title>
+      <link>http://example.org/tags/coredns/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/coredns/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>dns</title>
+      <link>http://example.org/tags/dns/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/dns/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kubeconfig</title>
+      <link>http://example.org/tags/kubeconfig/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/kubeconfig/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>prepare</title>
+      <link>http://example.org/tags/prepare/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/prepare/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>拓扑图</title>
+      <link>http://example.org/tags/%E6%8B%93%E6%89%91%E5%9B%BE/</link>
+      <pubDate>Sun, 28 Apr 2019 12:40:00 +0800</pubDate>
+      
+      <guid>http://example.org/tags/%E6%8B%93%E6%89%91%E5%9B%BE/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

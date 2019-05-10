@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Testing on Kubernetes From Scratch</title>
+    <link>http://example.org/tags/testing/</link>
+    <description>Recent content in Testing on Kubernetes From Scratch</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Supported by OOCLAB</copyright>
+    <lastBuildDate>Thu, 02 May 2019 08:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/testing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Smoke Test</title>
+      <link>http://example.org/kfs/v1.14.1/smoke_test/</link>
+      <pubDate>Thu, 02 May 2019 08:00:00 +0800</pubDate>
+      
+      <guid>http://example.org/kfs/v1.14.1/smoke_test/</guid>
+      <description>Data Encryption 创建一个加密数据：
+kubectl create secret generic kubernetes-the-hard-way \ --from-literal=&amp;#34;mykey=mydata&amp;#34; 查看 etcd 中的加密数据
+ETCDCTL_API=3 etcdctl get \ --endpoints=https://192.168.50.10:2379 \ --cacert=/etc/etcd/ca.pem \ --cert=/etc/etcd/kubernetes.pem \ --key=/etc/etcd/kubernetes-key.pem\ /registry/secrets/default/kubernetes-the-hard-way | hexdump -C 结果如下：
+00000000 2f 72 65 67 69 73 74 72 79 2f 73 65 63 72 65 74 |/registry/secret| 00000010 73 2f 64 65 66 61 75 6c 74 2f 6b 75 62 65 72 6e |s/default/kubern| 00000020 65 74 65 73 2d 74 68 65 2d 68 61 72 64 2d 77 61 |etes-the-hard-wa| 00000030 79 0a 6b 38 73 3a 65 6e 63 3a 61 65 73 63 62 63 |y.</description>
+    </item>
+    
+  </channel>
+</rss>
