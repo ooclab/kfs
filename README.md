@@ -4,10 +4,14 @@ KFS 是 **K**ubernetes **F**rom **S**cratch 的缩写，项目命名学习 LFS (
 
 ## Kubernetes
 
-![](kfs/content/kubernetes/static/components.png)
+<p align="center">
+  <img height="100%" src="kfs/content/kubernetes/static/components.png">
+</p>
 
 ## KFS 手册
 
 最新文档地址 [https://kfs.ooclab.com/kfs/v1.14.1/](https://kfs.ooclab.com/kfs/v1.14.1/)
 
-![](static/kfs-v1.14.1-content.png)
+<p align="center">
+  <img height="100%" src="static/kfs-v1.14.1-content.png">
+</p>
