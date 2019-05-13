@@ -185,6 +185,32 @@ cat /run/flannel/subnet.env
 2. 到另外一个节点 ping 该 ip ： `ping 172.16.55.0`
 3. 如果能 ping 通，说明 flanneld 服务配置正确
 
+
+## Flannel 管理
+
+**注意** 本实验部署的 etcd 服务器访问需要配置权限
+
+```
+etcdctl --endpoints=https://192.168.100.11:2379 \
+  --ca-file /etc/flanneld/ca.pem \
+  --cert-file /etc/flanneld/flanneld.pem \
+  --key-file /etc/flanneld/flanneld-key.pem \
+  get /coreos.com/network/config
+```
+
+下面示例省略 etcdctl 的一些配置选项。
+
+```
+# 查看 flanneld 网络配置
+etcdctl get /coreos.com/network/config
+# 查看子网设置
+etcdctl ls /coreos.com/network/subnets
+# 查看其中之一的子网
+etcdctl get /coreos.com/network/subnets/172.16.2.0-24
+# 获取更多信息
+etcdctl -o extended get /coreos.com/network/subnets/172.16.2.0-24
+```
+
 ## FAQ
 
 ### 为何手动部署 flannel ?
@@ -197,6 +223,39 @@ cat /run/flannel/subnet.env
 超过一定时间，重启服务，子网可能会发生变化。参考 [Leases and Reservations](https://github.com/coreos/flannel/blob/master/Documentation/reservations.md)
 
 生产环境建议在 kubernetes 部署 flanneld。
+
+示例：查看实验环境的某个 flanneld 获取的子网信息
+
+```sh
+etcdctl ls /coreos.com/network/subnets
+etcdctl -o extended get /coreos.com/network/subnets/172.16.2.0-24
+```
+
+子网信息如下：
+
+```
+Key: /coreos.com/network/subnets/172.16.2.0-24
+Created-Index: 13
+Modified-Index: 13
+TTL: 49468
+Index: 18
+
+{"PublicIP":"192.168.100.31","BackendType":"vxlan","BackendData":{"VtepMAC":"d6:a2:7e:e0:9c:6e"}}
+```
+
+**说明**
+
+1. `TTL` 是租期（秒数），到期前 flanneld 会续租
+2. `PublicIP` 是 flanneld 的公网 IP，如果变化，则子网会重新分配
+3. 如果 flanneld 续租失败，会尝试通过 `/var/run/flannel/subnet.env` 文件中的信息，续租。再次失败，则重新申请子网。
+
+#### 如何保留子网租期
+
+设置 TTL 为 0 即可：
+
+```
+etcdctl set -ttl 0 /coreos.com/network/subnets/172.16.2.0-24 $(etcdctl get /coreos.com/network/subnets/172.16.2.0-24)
+```
 
 ## 参考
 
