@@ -19,6 +19,35 @@ brew install kubernetes-helm
 
 ## 初始化
 
+配置 `tiller-rbac-config.yaml` ：
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tiller
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: tiller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: tiller
+    namespace: kube-system
+```
+
+应用：
+
+```sh
+kubectl apply -f tiller-rbac-config.yaml
+```
+
 初始化并部署 Tiller
 
 ```sh
@@ -26,6 +55,21 @@ helm init --service-account tiller \
   --history-max 200 --tiller-image=omio/gcr.io.kubernetes-helm.tiller:v2.13.1 \
   --stable-repo-url=http://mirror.azure.cn/kubernetes/charts/
 ```
+
+等待片刻，检查 tiller 是否部署完成：
+
+```
+$ helm version
+Client: &version.Version{SemVer:"v2.13.1", GitCommit:"618447cbf203d147601b4b9bd7f8c37a5d39fbb4", GitTreeState:"clean"}
+Server: &version.Version{SemVer:"v2.13.1", GitCommit:"618447cbf203d147601b4b9bd7f8c37a5d39fbb4", GitTreeState:"clean"}
+```
+
+
+## FAQ
+
+### could not find tiller
+
+如果出现该错误，可能是初始化出错。
 
 ## 资源
 
