@@ -2,6 +2,7 @@
 LFS (**L**inux **F**rom **S**scrath)，同时在实践风格方面也学习 LFS。
 
 - KFS
+  - [v1.15](/kfs/v1.15/)
   - [v1.14.1](/kfs/v1.14.1/)
 - [kubectl](/kubectl/)
 - [Helm](/helm/)
