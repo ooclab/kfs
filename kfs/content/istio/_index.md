@@ -14,17 +14,18 @@ tags: ["kubernetes", "istio"]
 
 参考 [Customizable Install with Helm](https://istio.io/docs/setup/kubernetes/install/helm
 
-```
+```sh
 curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.4 sh -
 ```
 
-```
+```sh
 cd istio-1.1.4
 cp bin/istioctl /usr/local/bin
 ```
 
 已经初始化并按照 tiller 的步骤：
-```
+
+```sh
 kubectl apply -f install/kubernetes/helm/helm-service-account.yaml
 helm install install/kubernetes/helm/istio-init --name istio-init --namespace istio-system
 # 检查 crds 是否为 53

@@ -13,7 +13,7 @@ The package manager for Kubernetes
 
 ## 安装
 
-```
+```sh
 brew install kubernetes-helm
 ```
 
@@ -21,9 +21,20 @@ brew install kubernetes-helm
 
 初始化并部署 Tiller
 
+```sh
+helm init --service-account tiller \
+  --history-max 200 --tiller-image=omio/gcr.io.kubernetes-helm.tiller:v2.13.1 \
+  --stable-repo-url=http://mirror.azure.cn/kubernetes/charts/
 ```
-helm init --service-account tiller --history-max 200 --tiller-image=omio/gcr.io.kubernetes-helm.tiller:v2.13.1
-```
+
+## 资源
+
+### Mirror
+
+微软提供了helm 仓库的镜像，国内请使用这个：
+
+- stable: http://mirror.azure.cn/kubernetes/charts/
+- incubator:	http://mirror.azure.cn/kubernetes/charts-incubator/
 
 **注意**
 

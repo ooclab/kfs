@@ -26,3 +26,22 @@ kubectl version
 export KUBECONFIG="/path/to/my.kubeconfig"
 kubectl get all --all-namespaces
 ```
+
+### taint
+
+```
+# 设置 taint
+kubectl taint nodes node1 key1=value1:NoSchedule
+
+# 去除 taint
+kubectl taint nodes node1 key1:NoSchedule-
+```
+
+如 master 不可调度的特性管理：
+
+```
+# 设置
+kubectl taint nodes 节点名 node-role.kubernetes.io/master=:NoSchedule
+# 移除
+kubectl taint nodes 节点名 node-role.kubernetes.io/master:NoSchedule-
+```
