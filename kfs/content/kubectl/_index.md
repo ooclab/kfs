@@ -45,3 +45,9 @@ kubectl taint nodes 节点名 node-role.kubernetes.io/master=:NoSchedule
 # 移除
 kubectl taint nodes 节点名 node-role.kubernetes.io/master:NoSchedule-
 ```
+
+### 重新 deploy
+
+```
+kubectl patch deployment DEPLOY名称 -p "{\"spec\": {\"template\": {\"metadata\": { \"labels\": {  \"redeploy\": \"$(date +%s)\"}}}}}"
+```
