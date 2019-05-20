@@ -33,3 +33,13 @@ kubectl get crds | grep 'istio.io\|certmanager.k8s.io' | wc -l
 # 部署默认配置
 helm install install/kubernetes/helm/istio --name istio --namespace istio-system
 ```
+
+## 检查
+
+```sh
+kubectl get svc -n istio-system
+```
+
+```sh
+kubectl get pods -n istio-system
+```
