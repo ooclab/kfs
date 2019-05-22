@@ -260,6 +260,10 @@ WantedBy=multi-user.target
 EOF
 ```
 
+**说明** :
+
+1. 可以使用 `--register-with-taints` 定义 taints (comma separated <key>=<value>:<effect>)
+
 ### kube-proxy
 
 ```sh
