@@ -78,7 +78,7 @@ EOF
 
 初始化所有 Master 节点：
 
-```
+```sh
 ansible-playbook -i hosts master-playbook.yml
 ```
 
@@ -131,7 +131,7 @@ EOF
 
 初始化所有 Node 节点：
 
-```
+```sh
 ansible-playbook -i hosts node-playbook.yml
 ```
 

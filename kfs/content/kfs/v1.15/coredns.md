@@ -18,7 +18,7 @@ tags: ["v1.15", "kfs", "dns", "coredns", "addons"]
 进入 `kubernetes/cluster/addons/dns/coredns` 目录：
 
 ```sh
-cd $KFS_HOME/v1.15.0-alpha.3/kubernetes/cluster/addons/dns/coredns
+cd $KFS_HOME/$KFS_K8S_VERSION/kubernetes/cluster/addons/dns/coredns
 ```
 
 
@@ -30,6 +30,7 @@ export DNS_DOMAIN="cluster.local"
 sed \
   -e 's/__PILLAR__DNS__SERVER__/'$DNS_SERVER_IP'/g' \
   -e 's/__PILLAR__DNS__DOMAIN__/'$DNS_DOMAIN'/g' \
+  -e 's/__PILLAR__DNS__MEMORY__LIMIT__/70Mi/g' \
   -e 's/k8s.gcr.io/coredns/g' \
   coredns.yaml.base > coredns.yaml
 ```

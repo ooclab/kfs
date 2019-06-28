@@ -25,14 +25,14 @@ ssh hk-1
 登录 **hk-1** 服务器，下载 Kuberentes：
 
 1. 从 [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases) 选择一个合适的版本
-2. 下载指定的版本，本次实验使用 `v1.15.0-alpha.3`（$KFS_K8S_VERSION）
+2. 下载指定的版本，本次实验使用 `v1.15.0-beta.2`（$KFS_K8S_VERSION）
 
 ```sh
 # 创建一个和版本名称一样的子目录
-mkdir -pv ~/k8s/v1.15.0-alpha.3
-cd ~/k8s/v1.15.0-alpha.3/
+mkdir -pv ~/k8s/v1.15.0-beta.2
+cd ~/k8s/v1.15.0-beta.2/
 # 下载
-wget https://github.com/kubernetes/kubernetes/releases/download/v1.15.0-alpha.3/kubernetes.tar.gz
+wget https://github.com/kubernetes/kubernetes/releases/download/v1.15.0-beta.2/kubernetes.tar.gz
 # 解压
 tar xf kubernetes.tar.gz
 # 下载 Kubernetes 二进制文件
@@ -41,7 +41,7 @@ cd kubernetes/cluster/
 # 上面命令提示下载位置，输入 y 以示确认
 ```
 
-下载完成后，拷贝 **hk-1** 服务器上的 **v1.15.0-alpha.3** 目录到 **ooclab** 的 **$KFS_HOME** ，在 **ooclab** 执行：
+下载完成后，拷贝 **hk-1** 服务器上的 **v1.15.0-beta.2** 目录到 **ooclab** 的 **$KFS_HOME** ，在 **ooclab** 执行：
 
 ```bash
 # hk-1 是我在香港的服务器
@@ -72,8 +72,7 @@ cp kubectl /usr/local/bin/
 从 [https://github.com/etcd-io/etcd/releases](https://github.com/etcd-io/etcd/releases) 下载合适的版本，以 `v3.3.12` 为例：
 
 ```sh
-mkdir -pv ${KFS_INSTALL}/master/bin
-ETCD_VER=v3.3.12
+ETCD_VER=v3.3.13
 
 # choose either URL
 GOOGLE_URL=https://storage.googleapis.com/etcd
@@ -101,15 +100,21 @@ cp /tmp/etcd-download-test/etcd* ${KFS_INSTALL}/master/bin/
 - [containerd](https://github.com/containerd/containerd/releases)
 
 ```sh
+mkdir -p $KFS_INSTALL/node/bin
 cd $KFS_INSTALL/node
 wget -q --show-progress --https-only --timestamping \
     https://github.com/opencontainers/runc/releases/download/v1.0.0-rc8/runc.amd64 \
-    https://github.com/containernetworking/plugins/releases/download/v0.7.5/cni-plugins-amd64-v0.7.5.tgz \
+    https://github.com/containernetworking/plugins/releases/download/v0.8.1/cni-plugins-linux-amd64-v0.8.1.tgz \
     https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.14.0/crictl-v1.14.0-linux-amd64.tar.gz \
     https://github.com/containerd/containerd/releases/download/v1.2.6/containerd-1.2.6.linux-amd64.tar.gz
 chmod a+x runc.amd64
 mv runc.amd64 bin/runc
 ```
+
+说明：
+
+1. `--show-progress --https-only` 选项在 wget `1.20` 及以上版本测试可以，如果环境中的 wget 版本不支持，可以去掉。
+2. 下载的 image 很可能应为网络问题，出现中断。可以做下一致性校验。比如： [cni-plugins-linux-amd64-v0.8.1.tgz.sha1](https://github.com/containernetworking/plugins/releases/download/v0.8.1/cni-plugins-linux-amd64-v0.8.1.tgz.sha1)
 
 ### golang
 
@@ -144,12 +149,12 @@ go version
 在 ooclab 执行：
 
 ```sh
-go get -u github.com/cloudflare/cfssl/cmd/...
+go get -v -u github.com/cloudflare/cfssl/cmd/...
 ```
 
 如果未设置 $GOPATH , 且 $GOPATH/bin 不在 $PATH 中，可以这样设置：
 
-```
+```sh
 echo "export PATH=$PATH:~/go/bin" >> ~/.bashrc
 source ~/.bashrc
 ```
@@ -160,7 +165,7 @@ source ~/.bashrc
 
 在 ooclab 执行：
 
-```
+```sh
 dnf install ansible
 ansible-galaxy install geerlingguy.repo-epel
 ```
