@@ -90,9 +90,9 @@ cp runc kube-proxy kubelet /usr/local/bin/
 cd $KFS_INSTALL/node
 tar -xvf crictl-v1.14.0-linux-amd64.tar.gz -C /usr/local/bin/
 tar -xvf cni-plugins-linux-amd64-v0.8.1.tgz -C /opt/cni/bin/
-mkdir -pv /tmp/containerd-1.2.6.linux-amd64
-tar -xvf containerd-1.2.6.linux-amd64.tar.gz -C /tmp/containerd-1.2.6.linux-amd64
-cp /tmp/containerd-1.2.6.linux-amd64/bin/* /usr/local/bin/
+mkdir -pv /tmp/containerd-1.2.7.linux-amd64
+tar -xvf containerd-1.2.7.linux-amd64.tar.gz -C /tmp/containerd-1.2.7.linux-amd64
+cp /tmp/containerd-1.2.7.linux-amd64/bin/* /usr/local/bin/
 ```
 
 ### containerd

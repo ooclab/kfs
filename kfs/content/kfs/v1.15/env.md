@@ -23,7 +23,7 @@ cd $KFS_HOME
 cd $KFS_HOME
 
 cat > setting <<EOF
-export KFS_K8S_VERSION=v1.15.0-beta.2
+export KFS_K8S_VERSION=v1.15.0
 export KFS_HOME=~/kfslab
 export KFS_K8S_PKG_DIR="\${KFS_HOME}/\${KFS_K8S_VERSION}"
 export KFS_CONFIG="\${KFS_HOME}/config"
