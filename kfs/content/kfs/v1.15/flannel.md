@@ -19,6 +19,51 @@ wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-
 kubectl apply -f kube-flannel.yml
 ```
 
+**重要！！！**
+请修改 kube-flannel.yml 里的 Network 配置为 POD_CIDR 的值。如果这里配置错误，pod 里无法 ping 通公网，即便 pod 的 IP 在本地网络都是可以相互 ping 通。原因是 kubernetes 会在 iptables 里为 flannel 添加该网段规则。
+
+```text
+# iptables-save | grep 172.16.0.0
+-A FORWARD -s 172.16.0.0/16 -j ACCEPT
+-A FORWARD -d 172.16.0.0/16 -j ACCEPT
+-A POSTROUTING -s 172.16.0.0/16 -d 172.16.0.0/16 -j RETURN
+-A POSTROUTING -s 172.16.0.0/16 ! -d 224.0.0.0/4 -j MASQUERADE
+-A POSTROUTING ! -s 172.16.0.0/16 -d 172.16.1.0/24 -j RETURN
+-A POSTROUTING ! -s 172.16.0.0/16 -d 172.16.0.0/16 -j MASQUERADE
+```
+
+`kube-flannel.yml` 配置部分如下：
+
+```yaml
+data:
+  cni-conf.json: |
+    {
+      "name": "cbr0",
+      "plugins": [
+        {
+          "type": "flannel",
+          "delegate": {
+            "hairpinMode": true,
+            "isDefaultGateway": true
+          }
+        },
+        {
+          "type": "portmap",
+          "capabilities": {
+            "portMappings": true
+          }
+        }
+      ]
+    }
+  net-conf.json: |
+    {
+      "Network": "172.16.0.0/16",
+      "Backend": {
+        "Type": "vxlan"
+      }
+    }
+```
+
 查看部署结果：
 
 ```
