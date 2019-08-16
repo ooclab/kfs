@@ -88,7 +88,7 @@ mkdir -p \
 cd $KFS_INSTALL/node/bin
 cp runc kube-proxy kubelet /usr/local/bin/
 cd $KFS_INSTALL/node
-tar -xvf crictl-v1.14.0-linux-amd64.tar.gz -C /usr/local/bin/
+tar -xvf crictl-v1.15.0-linux-amd64.tar.gz -C /usr/local/bin/
 tar -xvf cni-plugins-linux-amd64-v0.8.1.tgz -C /opt/cni/bin/
 mkdir -pv /tmp/containerd-1.2.7.linux-amd64
 tar -xvf containerd-1.2.7.linux-amd64.tar.gz -C /tmp/containerd-1.2.7.linux-amd64
@@ -144,6 +144,15 @@ oom_score = -999
 [plugins.cri]
   # sandbox_image is the image used by sandbox container.
   sandbox_image = "ibmcom/pause:3.1"
+
+[plugins.cri.registry.mirrors]
+  [plugins.cri.registry.mirrors."docker.io"]
+    endpoint = ["https://registry.docker-cn.com", "https://dockerhub.azk8s.cn"]
+  [plugins.cri.registry.mirrors."quay.io"]
+    endpoint = ["https://quay.azk8s.cn"]
+  [plugins.cri.registry.mirrors."gcr.io"]
+    endpoint = ["http://gcr.azk8s.cn/google_containers/"]
+
 EOF
 ```
 
@@ -153,6 +162,7 @@ EOF
 2. 默认的 `k8s.gcr.io/pause:3.1` 资源在国内无法访问。国内网络需要配置 `sandbox_image` 为一个可以访问的路径；必须在这里配置，在 `kubelet` 使用 `--pod-infra-container-image` 配置无效。
 3. 可以使用 `containerd config default` 查看默认的配置（可以基于此修改）
 4. 暂时没有使用 `/usr/local/bin/runsc` 运行安全容器，可以先配置。
+5. 国内增加 3 个默认的镜像配置
 
 创建 `containerd.service` :
 ```sh
