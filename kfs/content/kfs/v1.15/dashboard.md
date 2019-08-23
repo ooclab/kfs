@@ -37,6 +37,10 @@ kubectl proxy
 
 等待 dashboard 部署完成，访问 [http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy)
 
+最新的 Dashboard 默认部署到 `kubernetes-dashboard` namespace , 访问地址变为：
+
+[http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/)
+
 ## admin user token
 
 参考 [Creating sample user](https://github.com/kubernetes/dashboard/wiki/Creating-sample-user)

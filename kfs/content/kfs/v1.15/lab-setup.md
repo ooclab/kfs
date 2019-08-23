@@ -73,6 +73,7 @@ cat > master-playbook.yml <<EOF
       - tmux
       - rsync
       - ntp
+      - bind-utils
 EOF
 ```
 

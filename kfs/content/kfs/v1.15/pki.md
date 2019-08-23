@@ -270,6 +270,8 @@ cfssl gencert \
 ```
 # echo $KFS_K8S_PUBLIC_ADDRESS
 192.168.1.61
+# echo $KFS_K8S_EXTERNAL_PUBLIC_ADDRESS
+k8s-1.example.com
 ```
 
 创建 `kubernetes-csr.json` :
@@ -300,7 +302,7 @@ cfssl gencert \
   -ca=ca.pem \
   -ca-key=ca-key.pem \
   -config=ca-config.json \
-  -hostname=10.32.0.1,${KFS_K8S_PUBLIC_ADDRESS},127.0.0.1,kubernetes.default \
+  -hostname=10.32.0.1,${KFS_K8S_PUBLIC_ADDRESS},${KFS_K8S_EXTERNAL_PUBLIC_ADDRESS},127.0.0.1,kubernetes.default \
   -profile=kubernetes \
   kubernetes-csr.json | cfssljson -bare kubernetes
 ```

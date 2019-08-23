@@ -17,7 +17,6 @@ tags: ["v1.15", "kfs", "addons"]
 请创建 `addons` 目录，默认我们将一些资源放在这里：
 
 ```sh
-export KFS_HOME=~/kfslab
 mkdir -pv ${KFS_HOME}/addons
 cd ${KFS_HOME}/addons
 ```

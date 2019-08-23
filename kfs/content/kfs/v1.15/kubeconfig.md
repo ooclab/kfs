@@ -161,7 +161,7 @@ kubectl config use-context default --kubeconfig=admin.kubeconfig
 kubectl config set-cluster kfs \
     --certificate-authority=ca.pem \
     --embed-certs=true \
-    --server=https://${KFS_K8S_PUBLIC_ADDRESS}:6443 \
+    --server=https://${KFS_K8S_EXTERNAL_PUBLIC_ADDRESS}:6443 \
     --kubeconfig=admin-public.kubeconfig
 
 kubectl config set-credentials admin \

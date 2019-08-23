@@ -62,7 +62,7 @@ cd $KFS_K8S_PKG_DIR/kubernetes/server/kubernetes/server/bin/
 # 拷贝 master 需要的二进制程序
 cp kubectl kube-apiserver kube-scheduler kube-controller-manager ${KFS_INSTALL}/master/bin/
 # 拷贝 node 需要的二进制程序
-cp kubectl kubelet kube-proxy ${KFS_INSTALL}/node/bin
+cp kubelet kube-proxy ${KFS_INSTALL}/node/bin
 # 拷贝 ooclab 需要的 kubectl
 cp kubectl /usr/local/bin/
 ```

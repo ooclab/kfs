@@ -29,6 +29,7 @@ export KFS_K8S_PKG_DIR="\${KFS_HOME}/\${KFS_K8S_VERSION}"
 export KFS_CONFIG="\${KFS_HOME}/config"
 export KFS_INSTALL="\${KFS_HOME}/install"
 export KFS_K8S_PUBLIC_ADDRESS="192.168.1.61"
+export KFS_K8S_EXTERNAL_PUBLIC_ADDRESS="k8s-1.example.com"
 EOF
 
 source setting
