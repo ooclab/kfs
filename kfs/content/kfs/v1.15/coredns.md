@@ -55,6 +55,8 @@ kube-system   kube-flannel-ds-amd64-rbch6   1/1     Running   0          78s   1
 
 ## 测试 DNS 服务是否 OK
 
+### 方法一
+
 ```sh
 # 运行一个 busybox
 kubectl run busybox --image=busybox:1.28 --command -- sleep 3600
@@ -76,6 +78,32 @@ Name:      kubernetes
 Address 1: 10.32.0.1 kubernetes.default.svc.cluster.local
 ```
 
+### 方法二
+
+在 master-1 节点的 `/etc/resolv.conf` 文件最前面加入如下行：
+
+```
+nameserver 10.32.0.10
+search default.svc.cluster.local svc.cluster.local cluster.local
+```
+
+安装 bind-utils 软件
+
+```
+yum install bind-utils
+```
+
+使用 nslookup 查询域名：
+
+```
+# nslookup kubernetes
+Server:         10.32.0.10
+Address:        10.32.0.10#53
+
+Non-authoritative answer:
+Name:   kubernetes.default.svc.cluster.local
+Address: 10.32.0.1
+```
 
 ## FAQ
 

@@ -55,6 +55,7 @@ KFS_HOME=/kfslab
 KFS_CONFIG="\${KFS_HOME}/config"
 KFS_INSTALL="\${KFS_HOME}/install"
 K8S_NODE_ROOT="/root/lab"
+POD_CIDR="172.16.0.0/16"
 EOF
 
 source node-setting
@@ -165,6 +166,7 @@ EOF
 5. 国内增加 3 个默认的镜像配置
 
 创建 `containerd.service` :
+
 ```sh
 cat <<EOF | sudo tee /etc/systemd/system/containerd.service
 [Unit]
@@ -208,8 +210,10 @@ cp ca.pem /etc/kubernetes/
 ```
 
 创建 `kubelet-config.yaml`:
+
 ```sh
-POD_CIDR="172.16.0.0/16"
+# 查看 POD_CIDR
+echo $POD_CIDR
 
 cat <<EOF | sudo tee /etc/kubelet/kubelet-config.yaml
 kind: KubeletConfiguration
@@ -243,7 +247,8 @@ EOF
 kubectl patch node 节点名 -p '{"spec":{"taints":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/master"}]}}'
 ```
 
-创建 `kubelet.service` ：
+如果后端是 containerd , 创建 `kubelet.service` 配置如下：
+
 ```sh
 cat <<EOF | sudo tee /etc/systemd/system/kubelet.service
 [Unit]
@@ -257,6 +262,33 @@ ExecStart=/usr/local/bin/kubelet \\
   --config=/etc/kubelet/kubelet-config.yaml \\
   --container-runtime=remote \\
   --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock \\
+  --image-pull-progress-deadline=2m \\
+  --kubeconfig=/etc/kubelet/kubeconfig \\
+  --network-plugin=cni \\
+  --register-node=true \\
+  --v=2
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+
+如果后端是 docker , 创建 `kubelet.service` 配置如下：
+
+```sh
+cat <<EOF | sudo tee /etc/systemd/system/kubelet.service
+[Unit]
+Description=Kubernetes Kubelet
+Documentation=https://github.com/kubernetes/kubernetes
+After=containerd.service
+Requires=containerd.service
+
+[Service]
+ExecStart=/usr/local/bin/kubelet \\
+  --config=/etc/kubelet/kubelet-config.yaml \\
+  --pod-infra-container-image=ibmcom/pause:3.1 \\
   --image-pull-progress-deadline=2m \\
   --kubeconfig=/etc/kubelet/kubeconfig \\
   --network-plugin=cni \\

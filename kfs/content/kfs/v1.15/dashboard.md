@@ -21,7 +21,7 @@ wget https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/r
 
 修改 `kubernetes-dashboard.yaml` ：
 
-- `k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1` 修改为 `omio/k8s.gcr.io.kubernetes-dashboard-amd64:v1.10.1`
+- `k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1` 修改为 `omio/k8s.gcr.io.kubernetes-dashboard-amd64:v1.10.1` 。或者使用 gcr.azk8s.cn mirror 的地址 `gcr.azk8s.cn/google_containers/kubernetes-dashboard-amd64:v1.10.1`
 
 部署：
 

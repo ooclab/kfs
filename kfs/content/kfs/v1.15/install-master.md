@@ -48,6 +48,8 @@ KFS_HOME=/kfslab
 KFS_CONFIG="\${KFS_HOME}/config"
 KFS_INSTALL="\${KFS_HOME}/install"
 K8S_MASTER_ROOT="/root/lab"
+POD_CIDR="172.16.0.0/16"
+INTERNAL_IP="192.168.1.61"
 EOF
 
 source master-setting
@@ -80,7 +82,8 @@ cp etcd etcdctl /usr/local/bin/
 ```
 
 ```sh
-INTERNAL_IP="192.168.1.61"
+# 查看 INTERNAL_IP
+echo $INTERNAL_IP
 ETCD_NAME=$(hostname -s)
 
 cat <<EOF | sudo tee /etc/systemd/system/etcd.service
@@ -155,8 +158,9 @@ cp kube-scheduler.kubeconfig /etc/kubernetes/
 创建 `/etc/systemd/system/kube-apiserver.service` :
 
 ```sh
-INTERNAL_IP="192.168.1.61"
-ETCD_SERVERS="https://192.168.1.61:2379"
+# 查看 INTERNAL_IP
+echo $INTERNAL_IP
+ETCD_SERVERS="https://${INTERNAL_IP}:2379"
 
 cat <<EOF | sudo tee /etc/systemd/system/kube-apiserver.service
 [Unit]
@@ -207,7 +211,8 @@ EOF
 创建 `/etc/systemd/system/kube-controller-manager.service` :
 
 ```sh
-POD_CIDR="172.16.0.0/16"
+# 查看 POD_CIDR
+echo $POD_CIDR
 
 cat <<EOF | sudo tee /etc/systemd/system/kube-controller-manager.service
 [Unit]

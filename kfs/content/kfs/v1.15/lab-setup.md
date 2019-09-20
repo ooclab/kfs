@@ -54,6 +54,18 @@ cat > master-playbook.yml <<EOF
     selinux:
       state: disabled
 
+  - name: 禁用 aliyun service
+    service:
+      name: aliyun
+      enabled: no
+      state: stopped
+
+  - name: 禁用 aegis
+    service:
+      name: aegis
+      enabled: no
+      state: stopped
+
   - name: update centos
     yum:
       name: '*'
@@ -104,6 +116,18 @@ cat > node-playbook.yml <<EOF
   - name: 禁用 selinux
     selinux:
       state: disabled
+
+  - name: 禁用 aliyun service
+    service:
+      name: aliyun
+      enabled: no
+      state: stopped
+
+  - name: 禁用 aegis
+    service:
+      name: aegis
+      enabled: no
+      state: stopped
 
   - name: update centos
     yum:
