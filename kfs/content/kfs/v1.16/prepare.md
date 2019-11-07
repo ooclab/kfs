@@ -70,7 +70,7 @@ cp kubelet kube-proxy ${KFS_INSTALL}/node/bin
 从 [https://github.com/etcd-io/etcd/releases](https://github.com/etcd-io/etcd/releases) 下载合适的版本，以 `v3.4.1` 为例：
 
 ```sh
-ETCD_VER=v3.4.1
+ETCD_VER=v3.4.3
 
 # choose either URL
 GOOGLE_URL=https://storage.googleapis.com/etcd

@@ -13,7 +13,7 @@ tags: ["v1.15", "Kubernetes", "拓扑图"]
 同步 **ooclab** 的 `$KFS_HOME` 目录到 k8s-node-1 , k8s-node-2 节点的 `/kfslab` 目录：
 
 ```sh
-rsync -avz --progress --delete --filter='- v1.15*' $KFS_HOME/ node-1:/kfslab/
+rsync -avz --progress --delete --filter='- v1.*' $KFS_HOME/ node-1:/kfslab/
 ```
 
 以后只要 **mbp** 的 `$KFS_HOME` 目录有更新，就执行同步操作。
