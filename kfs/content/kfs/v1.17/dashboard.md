@@ -11,22 +11,14 @@ tags: ["v1.15", "Kubernetes", "addons", "dashborad"]
 
 **说明** 在 **mbp** 执行操作
 
-在 [https://github.com/kubernetes/dashboard/releases](https://github.com/kubernetes/dashboard/releases) 下载 `v1.10.1` 配置文件：
+- [https://github.com/kubernetes/dashboard/releases](https://github.com/kubernetes/dashboard/releases)
 
 ```sh
 mkdir -p $KFS_HOME/addons/dashboard
 cd $KFS_HOME/addons/dashboard
-wget https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
-```
-
-修改 `kubernetes-dashboard.yaml` ：
-
-- `k8s.gcr.io/kubernetes-dashboard-amd64:v1.10.1` 修改为 `omio/k8s.gcr.io.kubernetes-dashboard-amd64:v1.10.1` 。或者使用 gcr.azk8s.cn mirror 的地址 `gcr.azk8s.cn/google_containers/kubernetes-dashboard-amd64:v1.10.1`
-
-部署：
-
-```sh
-kubectl apply -f kubernetes-dashboard.yaml
+wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta6/aio/deploy/recommended.yaml
+# 提示：如果 image 下载失败，请替换为国内镜像
+kubectl apply -f recommended.yaml
 ```
 
 启动 `kubectl proxy`：
@@ -35,9 +27,7 @@ kubectl apply -f kubernetes-dashboard.yaml
 kubectl proxy
 ```
 
-等待 dashboard 部署完成，访问 [http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy](http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy)
-
-最新的 Dashboard 默认部署到 `kubernetes-dashboard` namespace , 访问地址变为：
+等待 dashboard 部署完成。最新的 Dashboard 默认部署到 `kubernetes-dashboard` namespace , 访问地址变为：
 
 [http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/](http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/)
 
