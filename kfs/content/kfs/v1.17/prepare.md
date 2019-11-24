@@ -29,10 +29,10 @@ ssh hk-1
 
 ```sh
 # 创建一个和版本名称一样的子目录
-mkdir -pv ~/k8s/v1.16.1
-cd ~/k8s/v1.16.1/
+mkdir -pv ~/k8s/v1.17.0-rc.1
+cd ~/k8s/v1.17.0-rc.1/
 # 下载
-wget https://github.com/kubernetes/kubernetes/releases/download/v1.16.1/kubernetes.tar.gz
+wget https://github.com/kubernetes/kubernetes/releases/download/v1.17.0-rc.1/kubernetes.tar.gz
 # 解压
 tar xf kubernetes.tar.gz
 # 下载 Kubernetes 二进制文件
@@ -41,7 +41,7 @@ cd kubernetes/cluster/
 # 上面命令提示下载位置，输入 y 以示确认
 ```
 
-下载完成后，拷贝 **hk-1** 服务器上的 **v1.16.1** 目录到 **mbp** 的 **$KFS_HOME** ，在 **mbp** 执行：
+下载完成后，拷贝 **hk-1** 服务器上的 **v1.17.0-rc.1** 目录到 **mbp** 的 **$KFS_HOME** ，在 **mbp** 执行：
 
 ```bash
 # hk-1 是我在香港的服务器
@@ -86,12 +86,14 @@ cp /tmp/etcd-download-test/etcd* ${KFS_INSTALL}/master/bin/
 ```sh
 mkdir -p $KFS_INSTALL/node/bin
 cd $KFS_INSTALL/node
-wget https://github.com/containernetworking/plugins/releases/download/v0.8.2/cni-plugins-linux-amd64-v0.8.2.tgz
+wget https://github.com/containernetworking/plugins/releases/download/v0.8.3/cni-plugins-linux-amd64-v0.8.3.tgz
+wget https://github.com/opencontainers/runc/releases/download/v1.0.0-rc9/runc.amd64
+wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.16.1/crictl-v1.16.1-linux-amd64.tar.gz
+wget https://github.com/containerd/containerd/releases/download/v1.3.1/containerd-1.3.1.linux-amd64.tar.gz
+# 修改 runc 名称
+chmod a+x runc.amd64
+mv runc.amd64 bin/runc
 ```
-
-说明：
-
-1. 下载很可能应为网络问题，出现中断。可以做下一致性校验。比如： [cni-plugins-linux-amd64-v0.8.1.tgz.sha1](https://github.com/containernetworking/plugins/releases/download/v0.8.1/cni-plugins-linux-amd64-v0.8.1.tgz.sha1)
 
 ### golang
 
@@ -102,15 +104,15 @@ wget https://github.com/containernetworking/plugins/releases/download/v0.8.2/cni
 
 ```sh
 cd /tmp/
-wget https://dl.google.com/go/go1.12.5.linux-amd64.tar.gz
+wget https://dl.google.com/go/go1.13.4.linux-amd64.tar.gz
 ```
 
 从 hk-1 拷贝到 ooclab, 在 ooclab 执行：
 
 ```sh
 cd $KFS_INSTALL
-rsync -avz --progress hk-1:/tmp/go1.12.5.linux-amd64.tar.gz .
-tar -C /usr/local -xzf go1.12.5.linux-amd64.tar.gz
+rsync -avz --progress hk-1:/tmp/go1.13.4.linux-amd64.tar.gz .
+tar -C /usr/local -xzf go1.13.4.linux-amd64.tar.gz
 ```
 
 设置 PATH ：
