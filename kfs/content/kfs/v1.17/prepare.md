@@ -72,8 +72,8 @@ cp kubelet kube-proxy ${KFS_INSTALL}/node/bin
 ```sh
 ETCD_VER=v3.4.3
 cd $KFS_INSTALL/master
-wget https://github.com/etcd-io/etcd/releases/download/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz
-tar xzvf etcd-${ETCD_VER}-linux-amd64.tar.gz -C /tmp/etcd-download-test --strip-components=1
+wget https://github.com/etcd-io/etcd/releases/download/$ETCD_VER/etcd-$ETCD_VER-linux-amd64.tar.gz
+tar xzvf etcd-$ETCD_VER-linux-amd64.tar.gz -C /tmp/etcd-download-test --strip-components=1
 cp /tmp/etcd-download-test/etcd* ${KFS_INSTALL}/master/bin/
 ```
 
