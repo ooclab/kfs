@@ -64,6 +64,7 @@ cat > node-playbook.yml <<EOF
       name: "{{ packages }}"
     vars:
       packages:
+      - NetworkManager
       - wget
       - vim
       - htop
