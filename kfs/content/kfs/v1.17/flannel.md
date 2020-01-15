@@ -92,3 +92,22 @@ kube-system   daemonset.apps/kube-flannel-ds-s390x     0         0         0    
 **说明**
 
 1. 如果使用 `vagrant` 实验环境，需要在 `flanneld` 启动时使用 `--iface=eth1` 指定端口。编辑 `kube-flannel.yml` 配置文件。
+
+## FAQ
+
+### 在 Pod 里不能 ping 通外部 IP
+
+如果各个地方看起来都正常，比如 pod 的 ip 在各个节点都能 ping 通。但是 Pod 里，不能 ping 外面 ip 。**请检查 flannel 的网络配置** ，比如是否和 `POD_CIDR` 一致 。
+
+```json
+{
+  "Network": "172.16.0.0/16",
+  "Backend": {
+    "Type": "vxlan"
+  }
+}
+```
+
+参考
+
+- [Kubernetes pod can't reach external ip address](https://stackoverflow.com/questions/55877256/kubernetes-pod-cant-reach-external-ip-address/56014342#56014342)
