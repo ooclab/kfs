@@ -1,0 +1,22 @@
+---
+- name: install basic packages
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - NetworkManager
+    - wget
+    - vim
+    - htop
+    - dstat
+    - lsof
+    - tree
+    - tmux
+    - rsync
+    - ntp
+    - socat
+    - conntrack
+    - ipset
+    - chrony
+    - net-tools
+    - nfs-utils
