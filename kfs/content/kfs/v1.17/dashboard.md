@@ -16,7 +16,7 @@ tags: ["v1.15", "Kubernetes", "addons", "dashborad"]
 ```sh
 mkdir -p $KFS_HOME/addons/dashboard
 cd $KFS_HOME/addons/dashboard
-wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta6/aio/deploy/recommended.yaml
+wget https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-rc1/aio/deploy/recommended.yaml
 # 提示：如果 image 下载失败，请替换为国内镜像
 kubectl apply -f recommended.yaml
 ```
