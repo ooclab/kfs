@@ -36,6 +36,16 @@ kubectl apply -f kube-flannel.yml
 
 - 方案一：在各个节点执行 `iptables -P FORWARD ACCEPT` 
 - 方案二：禁止 firewalld , 使用 ipvs 作为 kube-proxy mode
+- 方案三：将 iptables 里的 INPUT 和 FORWARD 最后的 reject 删除，示例如下：
+
+```
+# iptables-save | grep -i reject
+-A INPUT -j REJECT --reject-with icmp-host-prohibited
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited
+# iptables-save > t
+# vi t # 删除两条 --reject-with icmp-host-prohibited 行
+# iptables-restore < t
+```
 
 `kube-flannel.yml` 配置部分如下：
 

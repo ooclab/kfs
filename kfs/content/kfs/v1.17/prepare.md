@@ -2,9 +2,9 @@
 title: "准备工作"
 weight: 11
 pre: "<b>3. </b>"
-date: 2019-04-28T12:40:00+08:00
+date: 2020-03-24T17:12:00+08:00
 draft: false
-tags: ["v1.15", "Kubernetes", "prepare"]
+tags: ["v1.17", "Kubernetes", "prepare"]
 ---
 
 
@@ -25,14 +25,14 @@ ssh hk-1
 登录 **hk-1** 服务器，下载 Kuberentes：
 
 1. 从 [https://github.com/kubernetes/kubernetes/releases](https://github.com/kubernetes/kubernetes/releases) 选择一个合适的版本
-2. 下载指定的版本，本次实验使用 `v1.15.0-beta.2`（$KFS_K8S_VERSION）
+2. 下载指定的版本，本次实验使用 `v1.17.4`（$KFS_K8S_VERSION）
 
 ```sh
 # 创建一个和版本名称一样的子目录
-mkdir -pv ~/k8s/v1.17.0-rc.1
-cd ~/k8s/v1.17.0-rc.1/
+mkdir -pv ~/k8s/v1.17.4
+cd ~/k8s/v1.17.4/
 # 下载
-wget https://github.com/kubernetes/kubernetes/releases/download/v1.17.0-rc.1/kubernetes.tar.gz
+wget https://github.com/kubernetes/kubernetes/releases/download/v1.17.4/kubernetes.tar.gz
 # 解压
 tar xf kubernetes.tar.gz
 # 下载 Kubernetes 二进制文件
@@ -41,7 +41,7 @@ cd kubernetes/cluster/
 # 上面命令提示下载位置，输入 y 以示确认
 ```
 
-下载完成后，拷贝 **hk-1** 服务器上的 **v1.17.0-rc.1** 目录到 **mbp** 的 **$KFS_HOME** ，在 **mbp** 执行：
+下载完成后，拷贝 **hk-1** 服务器上的 **v1.17.4** 目录到 **mbp** 的 **$KFS_HOME** ，在 **mbp** 执行：
 
 ```bash
 # hk-1 是我在香港的服务器
@@ -70,11 +70,12 @@ cp kubelet kube-proxy ${KFS_INSTALL}/node/bin
 从 [https://github.com/etcd-io/etcd/releases](https://github.com/etcd-io/etcd/releases) 下载合适的版本，以 `v3.4.3` 为例：
 
 ```sh
-ETCD_VER=v3.4.3
+ETCD_VER=v3.4.5
 cd $KFS_INSTALL/master
 wget https://github.com/etcd-io/etcd/releases/download/$ETCD_VER/etcd-$ETCD_VER-linux-amd64.tar.gz
-tar xzvf etcd-$ETCD_VER-linux-amd64.tar.gz -C /tmp/etcd-download-test --strip-components=1
-cp /tmp/etcd-download-test/etcd* ${KFS_INSTALL}/master/bin/
+tar xzvf etcd-$ETCD_VER-linux-amd64.tar.gz
+cp etcd-$ETCD_VER-linux-amd64/etcd* ${KFS_INSTALL}/master/bin/
+rm -rf etcd-$ETCD_VER-linux-amd64
 ```
 
 ### Node 组件
@@ -86,10 +87,10 @@ cp /tmp/etcd-download-test/etcd* ${KFS_INSTALL}/master/bin/
 ```sh
 mkdir -p $KFS_INSTALL/node/bin
 cd $KFS_INSTALL/node
-wget https://github.com/containernetworking/plugins/releases/download/v0.8.3/cni-plugins-linux-amd64-v0.8.3.tgz
-wget https://github.com/opencontainers/runc/releases/download/v1.0.0-rc9/runc.amd64
-wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.16.1/crictl-v1.16.1-linux-amd64.tar.gz
-wget https://github.com/containerd/containerd/releases/download/v1.3.1/containerd-1.3.1.linux-amd64.tar.gz
+wget https://github.com/containernetworking/plugins/releases/download/v0.8.5/cni-plugins-linux-amd64-v0.8.5.tgz
+wget https://github.com/opencontainers/runc/releases/download/v1.0.0-rc10/runc.amd64
+wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.17.0/crictl-v1.17.0-linux-amd64.tar.gz
+wget https://github.com/containerd/containerd/releases/download/v1.3.3/containerd-1.3.3.linux-amd64.tar.gz
 # 修改 runc 名称
 chmod a+x runc.amd64
 mv runc.amd64 bin/runc
