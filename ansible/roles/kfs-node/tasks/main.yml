@@ -2,7 +2,8 @@
 - name: 安装程序
   copy: src={{ item.src }} dest={{ item.dest }} mode={{ item.mode }}
   with_items:
-    - { src: '{{ kfslab_node_dir }}/bin/', dest: '/usr/local/bin/', mode: "0755" }
+    - { src: '{{ kfslab_node_dir }}/bin/kubelet', dest: '/usr/local/bin/kubelet', mode: "0755" }
+    - { src: '{{ kfslab_node_dir }}/bin/kube-proxy', dest: '/usr/local/bin/kube-proxy', mode: "0755" }
 
 - name: 创建目录
   file:
@@ -12,11 +13,9 @@
   loop:
     - /etc/cni/net.d
     - /opt/cni/bin
-    - /etc/containerd
     - /etc/kubelet
     - /etc/kubernetes
     - /etc/kube-proxy
-    - /tmp/containerd-1.3.1.linux-amd64
 
 - name: 检查 cni-plugins 是否已经部署
   find:
@@ -25,67 +24,14 @@
 
 - name: 安装 cni-plugins
   unarchive:
-    src: '{{ kfslab_node_dir }}/cni-plugins-linux-amd64-v0.8.3.tgz'
+    src: '{{ kfslab_node_dir }}/cni-plugins-linux-amd64-{{ cni_plugins_version }}.tgz'
     dest: /opt/cni/bin/
   when: cniFilesFound.matched <= 0
-
-- name: 检查 crictl
-  stat: 
-    path: /usr/local/bin/crictl
-  register: crictl_check
-
-- name: 安装 crictl
-  unarchive:
-    src: '{{ kfslab_node_dir }}/crictl-v1.16.1-linux-amd64.tar.gz'
-    dest: /usr/local/bin/
-  when: crictl_check.stat.exists == False
-
-- name: 检查 containerd
-  stat: 
-    path: /usr/local/bin/containerd
-  register: containerd_check
-
-- name: 解压 containerd
-  unarchive:
-    src: '{{ kfslab_node_dir }}/containerd-1.3.1.linux-amd64.tar.gz'
-    dest: /tmp/containerd-1.3.1.linux-amd64
-  when: containerd_check.stat.exists == False
-
-- name: 安装 containerd
-  synchronize:
-    src: /tmp/containerd-1.3.1.linux-amd64/bin/
-    dest: /usr/local/bin/
-  delegate_to: "{{ inventory_hostname }}"
-  when: containerd_check.stat.exists == False
 
 - name: 生成 /etc/cni/net.d/99-loopback.conf
   template:
     src: 99-loopback.conf.j2
     dest: /etc/cni/net.d/99-loopback.conf
-    owner: root
-    group: root
-    mode: '0644'
-
-- name: 生成 /etc/containerd/config.toml
-  template:
-    src: containerd-config.toml.j2
-    dest: /etc/containerd/config.toml
-    owner: root
-    group: root
-    mode: '0644'
-
-- name: 生成 /etc/systemd/system/containerd.service
-  template:
-    src: containerd.service.j2
-    dest: /etc/systemd/system/containerd.service
-    owner: root
-    group: root
-    mode: '0644'
-
-- name: 生成 /etc/crictl.yaml
-  template:
-    src: crictl.yaml.j2
-    dest: /etc/crictl.yaml
     owner: root
     group: root
     mode: '0644'
@@ -102,14 +48,6 @@
   template:
     src: kubelet-config.yaml.j2
     dest: /etc/kubelet/kubelet-config.yaml
-    owner: root
-    group: root
-    mode: '0644'
-
-- name: 生成 /etc/systemd/system/kubelet.service
-  template:
-    src: kubelet.service.j2
-    dest: /etc/systemd/system/kubelet.service
     owner: root
     group: root
     mode: '0644'
@@ -138,12 +76,6 @@
 - name: systemctl daemon-reload
   systemd:
     daemon_reload: yes
-
-- name: 启动 containerd
-  systemd:
-    name: containerd
-    state: started
-    enabled: yes
 
 - name: 启动 kubelet
   systemd:
