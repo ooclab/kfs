@@ -1,0 +1,16 @@
+---
+k8s_version: "v1.17.4"
+lab_dir: "/ooclab"
+master_pkg_dir: "{{ lab_dir }}/k8s/bin"
+config_dir: "{{ lab_dir }}/config"
+pkgs_dir: "{{ lab_dir }}/pkgs"
+
+etcd_version: "v3.4.5"
+etcd_internal_ip: ""
+etcd_servers: "https://{{ etcd_internal_ip }}:2379"
+
+kube_apiserver_ip: ""
+
+node_port_range: "30000-32767"
+cluster_ip_range: "10.32.0.0/24"
+pod_cidr: "172.16.0.0/16"

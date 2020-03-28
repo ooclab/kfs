@@ -1,0 +1,24 @@
+[Unit]
+Description=Kubernetes Controller Manager
+Documentation=https://github.com/kubernetes/kubernetes
+
+[Service]
+ExecStart=/usr/local/bin/kube-controller-manager \
+  --address=0.0.0.0 \
+  --cluster-cidr={{ pod_cidr }} \
+  --allocate-node-cidrs \
+  --cluster-name=kubernetes \
+  --cluster-signing-cert-file=/etc/kubernetes/ca.pem \
+  --cluster-signing-key-file=/etc/kubernetes/ca-key.pem \
+  --kubeconfig=/etc/kubernetes/kube-controller-manager.kubeconfig \
+  --leader-elect=true \
+  --root-ca-file=/etc/kubernetes/ca.pem \
+  --service-account-private-key-file=/etc/kubernetes/service-account-key.pem \
+  --service-cluster-ip-range={{ cluster_ip_range }} \
+  --use-service-account-credentials=true \
+  --v=2
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

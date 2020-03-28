@@ -1,0 +1,30 @@
+---
+- name: 创建 nodes 目录
+  file:
+    path: "{{ cluster_dir }}/{{ item.name }}"
+    state: directory
+    mode: "0755"
+  with_items: "{{ nodes }}"
+
+- name: 生成 domain.xml
+  template:
+    src: domain.xml.j2
+    dest: "{{ cluster_dir }}/{{ item.name }}/domain.xml"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items: "{{ nodes }}"
+  vars:
+    vos: "{{ item }}"
+
+- name: 创建 os.img
+  shell: |
+    test -f "{{ cluster_dir }}/{{ item.name }}/os.img" && exit 0
+    qemu-img create -b {{ os_template_path }} -f qcow2 {{ cluster_dir }}/{{ item.name }}/os.img {{ item.os_disk_size }}
+  with_items: "{{ nodes }}"
+
+# - name: 启动 kubelet
+#   systemd:
+#     name: kubelet
+#     state: started
+#     enabled: yes

@@ -1,0 +1,40 @@
+subreaper = true
+oom_score = -999
+
+[debug]
+        level = "debug"
+
+[metrics]
+        address = "127.0.0.1:1338"
+
+[plugins.linux]
+        runtime = "runc"
+        shim_debug = true
+
+[plugins]
+  [plugins.cri.containerd]
+    snapshotter = "overlayfs"
+    [plugins.cri.containerd.default_runtime]
+      runtime_type = "io.containerd.runtime.v1.linux"
+      runtime_engine = "/usr/local/bin/runc"
+      runtime_root = ""
+    [plugins.cri.containerd.untrusted_workload_runtime]
+      runtime_type = "io.containerd.runtime.v1.linux"
+      runtime_engine = "/usr/local/bin/runsc"
+      runtime_root = "/run/containerd/runsc"
+    [plugins.cri.containerd.gvisor]
+      runtime_type = "io.containerd.runtime.v1.linux"
+      runtime_engine = "/usr/local/bin/runsc"
+      runtime_root = "/run/containerd/runsc"
+
+[plugins.cri]
+  # sandbox_image is the image used by sandbox container.
+  sandbox_image = "ibmcom/pause:3.1"
+
+[plugins.cri.registry.mirrors]
+  [plugins.cri.registry.mirrors."docker.io"]
+    endpoint = ["https://dockerhub.azk8s.cn"]
+  [plugins.cri.registry.mirrors."quay.io"]
+    endpoint = ["https://quay.azk8s.cn"]
+  [plugins.cri.registry.mirrors."gcr.io"]
+    endpoint = ["http://gcr.azk8s.cn/google_containers/"]

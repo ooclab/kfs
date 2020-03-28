@@ -1,0 +1,98 @@
+---
+- name: 安装程序
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items:
+    - { src: '{{ kfslab_node_dir }}/bin/kubelet', dest: '/usr/local/bin/kubelet', mode: "0755" }
+    - { src: '{{ kfslab_node_dir }}/bin/kube-proxy', dest: '/usr/local/bin/kube-proxy', mode: "0755" }
+
+- name: 创建目录
+  file:
+    path: '{{ item }}'
+    state: directory
+    mode: '0755'
+  loop:
+    - /etc/cni/net.d
+    - /opt/cni/bin
+    - /etc/kubelet
+    - /etc/kubernetes
+    - /etc/kube-proxy
+
+- name: 检查 cni-plugins 是否已经部署
+  find:
+    paths:
+      - /opt/cni/bin/
+  register: cniFilesFound
+
+- name: 安装 cni-plugins
+  unarchive:
+    src: '{{ kfslab_node_dir }}/cni-plugins-linux-amd64-{{ cni_plugins_version }}.tgz'
+    dest: /opt/cni/bin/
+  when: cniFilesFound.matched <= 0
+
+- name: 生成 /etc/cni/net.d/99-loopback.conf
+  template:
+    src: 99-loopback.conf.j2
+    dest: /etc/cni/net.d/99-loopback.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 复制 kubelet 配置
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: '{{ kfslab_config_dir }}/ca.pem', dest: '/etc/kubernetes/' }
+    - { src: '{{ kfslab_config_dir }}/{{ inventory_hostname }}-key.pem', dest: '/etc/kubelet/' }
+    - { src: '{{ kfslab_config_dir }}/{{ inventory_hostname }}.pem', dest: '/etc/kubelet/' }
+    - { src: '{{ kfslab_config_dir }}/kubelet-{{ inventory_hostname }}.kubeconfig', dest: '/etc/kubelet/kubeconfig' }
+
+- name: 生成 /etc/kubelet/kubelet-config.yaml
+  template:
+    src: kubelet-config.yaml.j2
+    dest: /etc/kubelet/kubelet-config.yaml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 复制 kube-proxy 配置
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: '{{ kfslab_config_dir }}/kube-proxy.kubeconfig', dest: '/etc/kube-proxy/kubeconfig' }
+
+- name: 生成 /etc/kube-proxy/kube-proxy-config.yaml
+  template:
+    src: kube-proxy-config.yaml.j2
+    dest: /etc/kube-proxy/kube-proxy-config.yaml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 生成 /etc/systemd/system/kube-proxy.service
+  template:
+    src: kube-proxy.service.j2
+    dest: /etc/systemd/system/kube-proxy.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
+
+- name: 启动 kubelet
+  systemd:
+    name: kubelet
+    state: started
+    enabled: yes
+
+- name: 启动 kube-proxy
+  systemd:
+    name: kube-proxy
+    state: started
+    enabled: yes

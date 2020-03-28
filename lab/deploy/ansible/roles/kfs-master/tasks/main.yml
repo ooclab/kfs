@@ -1,0 +1,109 @@
+---
+- name: 创建目录
+  file:
+    path: '{{ item }}'
+    state: directory
+    mode: '0755'
+  loop:
+    - /etc/etcd
+    - /etc/kubernetes
+    - /etc/kubernetes/config/
+    - /root/.kube
+
+- name: 安装 k8s master
+  copy:
+    src: "{{ master_pkg_dir }}/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: "0755"
+  with_items: "{{ master_bins }}"
+
+# TODO: 解压是否可以一次完成？
+- name: 解压 etcd
+  unarchive:
+    # remote_src: yes
+    src: "{{ pkgs_dir }}/etcd-{{ etcd_version }}-linux-amd64.tar.gz"
+    dest: "/tmp/"
+    list_files: "yes"
+    # extra_opts:
+    # - -xvf
+    # - "--strip-components=1"
+    # - "etcd-{{ etcd_version }}-linux-amd64/etcd*"
+
+- name: 安装 etcd
+  copy:
+    remote_src: yes
+    src: "/tmp/etcd-{{ etcd_version }}-linux-amd64/{{ item }}"
+    dest: /usr/local/bin/
+    owner: root
+    group: root
+    mode: "0755"
+  with_items: ["etcd", "etcdctl"]
+
+- name: 复制 etcd 证书
+  copy:
+    src: "{{ config_dir }}/{{ item }}"
+    dest: "/etc/etcd/{{ item }}"
+    mode: "0600"
+  with_items:
+    - ca.pem
+    - kubernetes-key.pem
+    - kubernetes.pem
+
+- name: 复制 master 证书及配置
+  copy:
+    src: "{{ config_dir }}/{{ item }}"
+    dest: "/etc/kubernetes/{{ item }}"
+    mode: "0600"
+  with_items:
+    - ca.pem
+    - ca-key.pem
+    - kubernetes-key.pem
+    - kubernetes.pem
+    - service-account-key.pem
+    - service-account.pem
+    # 配置
+    - encryption-config.yaml
+    - kube-controller-manager.kubeconfig
+    - kube-scheduler.kubeconfig
+
+- name: 生成 /etc/kubernetes/config/kube-scheduler.yaml
+  template:
+    src: kube-scheduler.yaml.j2
+    dest: /etc/kubernetes/config/kube-scheduler.yaml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 生成 systemd service 配置
+  template:
+    src: "{{ item }}.service.j2"
+    dest: "/etc/systemd/system/{{ item }}.service"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - etcd
+    - kube-apiserver
+    - kube-controller-manager
+    - kube-scheduler
+
+- name: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
+
+- name: 启动服务
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  with_items:
+    - etcd
+    - kube-apiserver
+    - kube-controller-manager
+    - kube-scheduler
+
+- name: 复制 kubeconfig
+  copy:
+    src: "{{ config_dir }}/admin.kubeconfig"
+    dest: "/root/.kube/config"
+    mode: "0600"

@@ -1,0 +1,7 @@
+---
+vos_dir: "/data/vos"
+cluster_name: "k8s"
+cluster_dir: "{{ vos_dir }}/{{ cluster_name }}"
+spice_password: "wblmxxx"
+qemu_bin: "/usr/bin/qemu-system-x86_64"
+os_template_path: ""

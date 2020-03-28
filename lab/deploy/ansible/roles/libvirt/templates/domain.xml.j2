@@ -1,0 +1,53 @@
+<domain type="kvm">
+  <name>{{ cluster_name }}-{{ vos.name }}</name>
+  <os>
+    <type arch="x86_64" machine="pc">hvm</type>
+    <boot dev="hd"/>
+  </os>
+  <memory unit="MiB">{{ vos.mem }}</memory>
+  <vcpu>{{ vos.cpu }}</vcpu>
+  <features>
+    <acpi/>
+    <apic/>
+    <pae/>
+  </features>
+  <clock offset="localtime"/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>restart</on_crash>
+  <devices>
+    <emulator>{{ qemu_bin }}</emulator>
+    <disk device="disk" type="file">
+      <target dev="vda" bus="virtio"/>
+      <driver cache="writeback" io="threads" name="qemu" type="qcow2"/>
+      <source file="{{ cluster_dir }}/{{ vos.name }}/os.img"/>
+    </disk>
+    <interface type="network">
+      <source network="public"/>
+      <mac address="{{ vos.mac }}"/>
+      <model type='virtio' />
+    </interface>
+    <serial type="pty">
+      <target port="0"/>
+    </serial>
+    <console type="pty">
+      <target port="0" type="serial"/>
+    </console>
+    <input bus="usb" type="tablet"/>
+    <graphics autoport="yes" keymap="en-us" listen="0.0.0.0" passwd="{{ spice_password }}" port="-1" type="spice"/>
+    <video>
+      <model type="qxl" vram="131072"/>
+    </video>
+    <sound model="ac97"/>
+    <memballon model="virtio">
+      <address bus="0x00" domain="0x0000" function="0x0" slot="0x05" type="pci"/>
+    </memballon>
+    <channel type="spicevmc">
+      <target name="com.redhat.spice.0" type="virtio"/>
+    </channel>
+    <channel type="unix">
+      <source mode="bind"/>
+      <target name="org.qemu.guest_agent.0" type="virtio"/>
+    </channel>
+  </devices>
+</domain>

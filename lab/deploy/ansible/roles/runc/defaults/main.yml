@@ -1,0 +1,7 @@
+---
+kfslab_dir: "/kfslab"
+kfslab_node_dir: "{{ kfslab_dir }}/install/node"
+kfslab_config_dir: "{{ kfslab_dir }}/config"
+pod_cidr: "172.16.0.0/16"
+containerd_version: "1.3.3"
+crictl_version: "v1.16.1"

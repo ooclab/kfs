@@ -1,0 +1,82 @@
+---
+- name: COPY runc
+  copy: src={{ item.src }} dest={{ item.dest }} mode={{ item.mode }}
+  with_items:
+    - { src: '{{ kfslab_node_dir }}/bin/runc', dest: '/usr/local/bin/runc', mode: "0755" }
+
+- name: 创建目录
+  file:
+    path: '{{ item }}'
+    state: directory
+    mode: '0755'
+  loop:
+    - /etc/containerd
+    - /etc/kubernetes
+    - /tmp/containerd-linux-amd64
+
+- name: 检查 crictl
+  stat: 
+    path: /usr/local/bin/crictl
+  register: crictl_check
+
+- name: 安装 crictl
+  unarchive:
+    src: '{{ kfslab_node_dir }}/crictl-{{ crictl_version }}-linux-amd64.tar.gz'
+    dest: /usr/local/bin/
+  when: crictl_check.stat.exists == False
+
+- name: 检查 containerd
+  stat: 
+    path: /usr/local/bin/containerd
+  register: containerd_check
+
+- name: 解压 containerd
+  unarchive:
+    src: '{{ kfslab_node_dir }}/containerd-{{ containerd_version }}.linux-amd64.tar.gz'
+    dest: /tmp/containerd-linux-amd64
+  when: containerd_check.stat.exists == False
+
+- name: 安装 containerd
+  synchronize:
+    src: /tmp/containerd-linux-amd64/bin/
+    dest: /usr/local/bin/
+  delegate_to: "{{ inventory_hostname }}"
+  when: containerd_check.stat.exists == False
+
+- name: 生成 /etc/containerd/config.toml
+  template:
+    src: containerd-config.toml.j2
+    dest: /etc/containerd/config.toml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 生成 /etc/systemd/system/containerd.service
+  template:
+    src: containerd.service.j2
+    dest: /etc/systemd/system/containerd.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 生成 /etc/crictl.yaml
+  template:
+    src: crictl.yaml.j2
+    dest: /etc/crictl.yaml
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 生成 /etc/systemd/system/kubelet.service
+  template:
+    src: kubelet.service.j2
+    dest: /etc/systemd/system/kubelet.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 启动 containerd
+  systemd:
+    name: containerd
+    state: started
+    enabled: yes
