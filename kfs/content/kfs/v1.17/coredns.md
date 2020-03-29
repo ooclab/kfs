@@ -55,6 +55,8 @@ kube-system   kube-flannel-ds-amd64-k46zf   1/1     Running   0          2m31s  
 
 ## 测试 DNS 服务是否 OK
 
+**重要** 请务必完成下面测试，确认 DNS 服务已经OK。否则 K8S 集群基本不可用！！
+
 ### 方法一
 
 ```sh
@@ -212,3 +214,16 @@ data:
 - [i/o timeout when set upstream](https://github.com/coredns/coredns/issues/2287)
 - [Known issues](https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/#known-issues)
 - [Dns server is null in some pods.](https://github.com/kubernetes/kubernetes/issues/30215)
+
+## CentOS 8 (iptables > 1.8) 环境 kube-proxy 的服务配置规则无效
+
+```
+$ kubectl exec -it busybox-sleep -- nslookup kubernetes
+;; connection timed out; no servers could be reached
+
+command terminated with exit code 1
+```
+
+使用 CentOS 8 系统部署 k8s node ，发现集群服务地址无效。
+
+- [kube-proxy currently incompatible with `iptables >= 1.8`](https://github.com/kubernetes/kubernetes/issues/71305)
