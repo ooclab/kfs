@@ -1,6 +1,0 @@
----
-kfslab_dir: "/kfslab"
-kfslab_node_dir: "{{ kfslab_dir }}/install/node"
-kfslab_config_dir: "{{ kfslab_dir }}/config"
-pod_cidr: "172.16.0.0/16"
-cni_plugins_version: "v0.8.5"
