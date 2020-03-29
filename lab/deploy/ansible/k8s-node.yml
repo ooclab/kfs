@@ -19,6 +19,4 @@
   roles:
   - epel-repository
   - basic
-  # - runc # or
-  - docker
   - kfs-node

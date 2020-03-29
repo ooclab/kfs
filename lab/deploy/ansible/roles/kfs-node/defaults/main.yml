@@ -1,6 +1,12 @@
 ---
 kfslab_dir: "/kfslab"
-kfslab_node_dir: "{{ kfslab_dir }}/install/node"
-kfslab_config_dir: "{{ kfslab_dir }}/config"
+node_pkg_dir: "{{ kfslab_dir }}/k8s/bin"
+config_dir: "{{ kfslab_dir }}/config"
+pkgs_dir: "{{ kfslab_dir }}/pkgs"
+
 pod_cidr: "172.16.0.0/16"
+container_runtime: "containerd"
+
 cni_plugins_version: "v0.8.5"
+containerd_version: "1.3.3"
+crictl_version: "v1.17.0"

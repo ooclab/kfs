@@ -2,7 +2,7 @@
   become: true
 
   vars:
-    - k8s_version: "v1.17.4"
+    - k8s_version: "v1.18.0"
     - master_bins:
       - kubectl
       - kube-apiserver

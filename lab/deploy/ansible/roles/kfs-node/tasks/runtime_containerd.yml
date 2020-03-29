@@ -1,9 +1,4 @@
 ---
-- name: COPY runc
-  copy: src={{ item.src }} dest={{ item.dest }} mode={{ item.mode }}
-  with_items:
-    - { src: '{{ kfslab_node_dir }}/bin/runc', dest: '/usr/local/bin/runc', mode: "0755" }
-
 - name: 创建目录
   file:
     path: '{{ item }}'
@@ -14,6 +9,14 @@
     - /etc/kubernetes
     - /tmp/containerd-linux-amd64
 
+- name: 安装 runc
+  copy:
+    src: "{{ pkgs_dir }}/{{ item }}"
+    dest: /usr/local/bin/
+    mode: "0755"
+  with_items:
+    - runc
+
 - name: 检查 crictl
   stat: 
     path: /usr/local/bin/crictl
@@ -21,7 +24,7 @@
 
 - name: 安装 crictl
   unarchive:
-    src: '{{ kfslab_node_dir }}/crictl-{{ crictl_version }}-linux-amd64.tar.gz'
+    src: '{{ pkgs_dir }}/crictl-{{ crictl_version }}-linux-amd64.tar.gz'
     dest: /usr/local/bin/
   when: crictl_check.stat.exists == False
 
@@ -32,7 +35,7 @@
 
 - name: 解压 containerd
   unarchive:
-    src: '{{ kfslab_node_dir }}/containerd-{{ containerd_version }}.linux-amd64.tar.gz'
+    src: '{{ pkgs_dir }}/containerd-{{ containerd_version }}.linux-amd64.tar.gz'
     dest: /tmp/containerd-linux-amd64
   when: containerd_check.stat.exists == False
 
@@ -51,14 +54,6 @@
     group: root
     mode: '0644'
 
-- name: 生成 /etc/systemd/system/containerd.service
-  template:
-    src: containerd.service.j2
-    dest: /etc/systemd/system/containerd.service
-    owner: root
-    group: root
-    mode: '0644'
-
 - name: 生成 /etc/crictl.yaml
   template:
     src: crictl.yaml.j2
@@ -67,9 +62,17 @@
     group: root
     mode: '0644'
 
+- name: 生成 /etc/systemd/system/containerd.service
+  template:
+    src: containerd.service.j2
+    dest: /etc/systemd/system/containerd.service
+    owner: root
+    group: root
+    mode: '0644'
+
 - name: 生成 /etc/systemd/system/kubelet.service
   template:
-    src: kubelet.service.j2
+    src: kubelet-with-containerd.service.j2
     dest: /etc/systemd/system/kubelet.service
     owner: root
     group: root

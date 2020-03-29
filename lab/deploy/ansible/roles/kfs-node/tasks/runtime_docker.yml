@@ -1,7 +1,9 @@
 ---
+# TODO: 安装 docker ?
+
 - name: 生成 /etc/systemd/system/kubelet.service
   template:
-    src: kubelet.service.j2
+    src: kubelet-with-docker.service.j2
     dest: /etc/systemd/system/kubelet.service
     owner: root
     group: root

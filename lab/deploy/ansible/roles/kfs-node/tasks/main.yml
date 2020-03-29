@@ -1,13 +1,4 @@
 ---
-- name: 安装程序
-  copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    mode: "{{ item.mode }}"
-  with_items:
-    - { src: '{{ kfslab_node_dir }}/bin/kubelet', dest: '/usr/local/bin/kubelet', mode: "0755" }
-    - { src: '{{ kfslab_node_dir }}/bin/kube-proxy', dest: '/usr/local/bin/kube-proxy', mode: "0755" }
-
 - name: 创建目录
   file:
     path: '{{ item }}'
@@ -20,6 +11,15 @@
     - /etc/kubernetes
     - /etc/kube-proxy
 
+- name: 安装程序
+  copy:
+    src: "{{ node_pkg_dir }}/{{ item }}"
+    dest: /usr/local/bin/
+    mode: "0755"
+  with_items:
+    - kubelet
+    - kube-proxy
+
 - name: 检查 cni-plugins 是否已经部署
   find:
     paths:
@@ -28,7 +28,7 @@
 
 - name: 安装 cni-plugins
   unarchive:
-    src: '{{ kfslab_node_dir }}/cni-plugins-linux-amd64-{{ cni_plugins_version }}.tgz'
+    src: '{{ pkgs_dir }}/cni-plugins-linux-amd64-{{ cni_plugins_version }}.tgz'
     dest: /opt/cni/bin/
   when: cniFilesFound.matched <= 0
 
@@ -40,15 +40,16 @@
     group: root
     mode: '0644'
 
-- name: 复制 kubelet 配置
+- name: 复制配置文件
   copy:
-    src: "{{ item.src }}"
+    src: "{{ config_dir }}/{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: '{{ kfslab_config_dir }}/ca.pem', dest: '/etc/kubernetes/' }
-    - { src: '{{ kfslab_config_dir }}/{{ inventory_hostname }}-key.pem', dest: '/etc/kubelet/' }
-    - { src: '{{ kfslab_config_dir }}/{{ inventory_hostname }}.pem', dest: '/etc/kubelet/' }
-    - { src: '{{ kfslab_config_dir }}/kubelet-{{ inventory_hostname }}.kubeconfig', dest: '/etc/kubelet/kubeconfig' }
+    - { src: ca.pem, dest: /etc/kubernetes/ }
+    - { src: "{{ inventory_hostname }}-key.pem", dest: /etc/kubelet/ }
+    - { src: "{{ inventory_hostname }}.pem", dest: /etc/kubelet/ }
+    - { src: "kubelet-{{ inventory_hostname }}.kubeconfig", dest: /etc/kubelet/kubeconfig }
+    - { src: kube-proxy.kubeconfig, dest: /etc/kube-proxy/kubeconfig }
 
 - name: 生成 /etc/kubelet/kubelet-config.yaml
   template:
@@ -56,14 +57,7 @@
     dest: /etc/kubelet/kubelet-config.yaml
     owner: root
     group: root
-    mode: '0644'
-
-- name: 复制 kube-proxy 配置
-  copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  with_items:
-    - { src: '{{ kfslab_config_dir }}/kube-proxy.kubeconfig', dest: '/etc/kube-proxy/kubeconfig' }
+    mode: "0644"
 
 - name: 生成 /etc/kube-proxy/kube-proxy-config.yaml
   template:
@@ -80,6 +74,12 @@
     owner: root
     group: root
     mode: '0644'
+
+- import_tasks: runtime_containerd.yml
+  when: container_runtime == "containerd"
+
+- import_tasks: runtime_docker.yml
+  when: container_runtime == "docker"
 
 - name: systemctl daemon-reload
   systemd:
