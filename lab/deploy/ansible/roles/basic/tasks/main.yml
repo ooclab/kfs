@@ -21,3 +21,4 @@
     - chrony
     - net-tools
     - nfs-utils
+    - ipvsadm

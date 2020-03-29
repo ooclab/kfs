@@ -12,5 +12,5 @@ etcd_servers: "https://{{ etcd_internal_ip }}:2379"
 kube_apiserver_ip: ""
 
 node_port_range: "30000-32767"
-cluster_ip_range: "10.32.0.0/24"
+cluster_ip_range: "10.32.0.0/16"
 pod_cidr: "172.16.0.0/16"
