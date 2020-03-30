@@ -250,7 +250,7 @@ apiVersion: kubeproxy.config.k8s.io/v1alpha1
 clientConnection:
   kubeconfig: "/etc/kube-proxy/kubeconfig"
 mode: "ipvs"
-clusterCIDR: "172.16.0.0/16"
+clusterCIDR: "10.32.0.0/16"
 ```
 
 ```
@@ -263,6 +263,10 @@ The CIDR range of pods in the cluster. When configured, traffic sent to a Servic
 ```
 -A KUBE-SERVICES ! -s 10.32.0.0/16 -m comment --comment "Kubernetes service cluster ip + port for masquerade purpose" -m set --match-set KUBE-CLUSTER-IP dst,dst -j KUBE-MARK-MASQ
 ```
+
+**说明** `clusterCIDR` 的值应该与进群中 Pod 的 CIDR 相同，上面设置为 `10.32.0.0/16` 与集群的 Cluster Service CIDR 相同是错误的。我们的配置中，正确的设置应该是 `172.16.0.0/16`
+
+### 继续测试
 
 目前（环境为 CentOS 8 x86_64 + K8S 1.18.0 + Flannel）测试结果，无论 `clusterCIDR` 配置与否，值如何选择。无法做到在所有节点(host)和Pod里同时访问 10.32.0.1 和 10.32.0.10 服务。即下面访问之一会失败：
 
@@ -277,7 +281,6 @@ nslookup kubernetes.default.svc.cluster.local 10.32.0.10
 ```
 kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
 ```
-
 
 ## IPVS
 
