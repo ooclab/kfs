@@ -22,3 +22,5 @@
     - net-tools
     - nfs-utils
     - ipvsadm
+    - tcpdump
+    - bind-utils

@@ -217,6 +217,9 @@ data:
 
 ## CentOS 8 (iptables > 1.8) 环境 kube-proxy 的服务配置规则无效
 
+- 官方文档 [kube-proxy](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/)
+- [kube-proxy currently incompatible with `iptables >= 1.8`](https://github.com/kubernetes/kubernetes/issues/71305)
+
 ```
 $ kubectl exec -it busybox-sleep -- nslookup kubernetes
 ;; connection timed out; no servers could be reached
@@ -226,4 +229,60 @@ command terminated with exit code 1
 
 使用 CentOS 8 系统部署 k8s node ，发现集群服务地址无效。
 
-- [kube-proxy currently incompatible with `iptables >= 1.8`](https://github.com/kubernetes/kubernetes/issues/71305)
+当前测试的解决方案：
+
+1. 切换 ipvs 作为 kube-proxy 后端
+2. 在各节点执行 `iptables -F -t nat`
+
+**注意** ：我的测试中，手动删除 `iptables -t nat -D KUBE-SERVICES 1` 这些规则即可，对比发现，仅下面一条规则：
+
+```
+-A KUBE-SERVICES -m comment --comment "Kubernetes service cluster ip + port for masquerade purpose" -m set --match-set KUBE-CLUSTER-IP src,dst -j KUBE-MARK-MASQ
+```
+
+不过很快 kube-proxy 进程会自动补全该规则。
+
+最后，在 kube-proxy 配置 `/etc/kube-proxy/kube-proxy-config.yaml` 添加 `clusterCIDR` 。
+
+```yaml
+kind: KubeProxyConfiguration
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+clientConnection:
+  kubeconfig: "/etc/kube-proxy/kubeconfig"
+mode: "ipvs"
+clusterCIDR: "172.16.0.0/16"
+```
+
+```
+--cluster-cidr string
+The CIDR range of pods in the cluster. When configured, traffic sent to a Service cluster IP from outside this range will be masqueraded and traffic sent from pods to an external LoadBalancer IP will be directed to the respective cluster IP instead
+```
+
+查看 iptables ，发现上面的规则排除了 `10.32.0.0/16` 。已经可以成功执行 `nslookup kubernetes.default.svc.cluster.local 10.32.0.10` 。
+
+```
+-A KUBE-SERVICES ! -s 10.32.0.0/16 -m comment --comment "Kubernetes service cluster ip + port for masquerade purpose" -m set --match-set KUBE-CLUSTER-IP dst,dst -j KUBE-MARK-MASQ
+```
+
+目前（环境为 CentOS 8 x86_64 + K8S 1.18.0 + Flannel）测试结果，无论 `clusterCIDR` 配置与否，值如何选择。无法做到在所有节点(host)和Pod里同时访问 10.32.0.1 和 10.32.0.10 服务。即下面访问之一会失败：
+
+```
+curl -k https://10.32.0.1
+# 和
+nslookup kubernetes.default.svc.cluster.local 10.32.0.10
+```
+
+将 flannel 换成 calico (https://docs.projectcalico.org/getting-started/kubernetes/quickstart) ，该问题解决。
+
+```
+kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+```
+
+
+## IPVS
+
+切换 ipvs 的一个方便的地方是，在各个节点都可以 ping 通 Service 的 IP 。如：
+
+```
+ping 10.32.0.10
+```

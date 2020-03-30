@@ -5,6 +5,8 @@ config_dir: "{{ kfslab_dir }}/config"
 pkgs_dir: "{{ kfslab_dir }}/pkgs"
 
 cluster_ip_range: "10.32.0.0/16"
+# https://github.com/kubernetes/kubernetes/blob/master/pkg/proxy/apis/config/types.go#L129
+cluster_cidr: "172.16.0.0/16"
 pod_cidr: "172.16.0.0/16"
 container_runtime: "containerd"
 
