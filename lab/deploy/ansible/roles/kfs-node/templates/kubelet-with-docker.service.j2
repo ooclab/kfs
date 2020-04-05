@@ -12,6 +12,7 @@ ExecStart=/usr/local/bin/kubelet \
   --kubeconfig=/etc/kubelet/kubeconfig \
   --network-plugin=cni \
   --register-node=true \
+  --hostname-override={{ inventory_hostname }} \
   --v=2
 Restart=on-failure
 RestartSec=5
