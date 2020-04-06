@@ -1,7 +1,7 @@
 baseURL = "http://example.org/"
 languageCode = "en-us"
 title = "Kubernetes From Scratch"
-theme = "hugo-theme-learn"
+theme = "hugo-theme-learn_custom"
 copyright = "Supported by OOCLAB"
 
 # [params]

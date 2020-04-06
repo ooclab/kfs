@@ -1,0 +1,16 @@
+{{ partial "header.html" . }}
+
+{{ .Content }}
+
+<p class="btn"><a href="https://github.com/ooclab/kfs/edit/master/kfs/content/{{ .File.Path }}"><i class='fas fa-edit'></i> 编辑此文</a> 感谢任何分享和帮助！</p>
+
+
+<footer class=" footline" >
+	{{with .Params.LastModifierDisplayName}}
+	    <i class='fas fa-user'></i> <a href="mailto:{{ $.Params.LastModifierEmail }}">{{ . }}</a> {{with $.Date}} <i class='fas fa-calendar'></i> {{ .Format "02/01/2006" }}{{end}}
+	    </div>
+	{{end}}
+</footer>
+
+
+{{ partial "footer.html" . }}
