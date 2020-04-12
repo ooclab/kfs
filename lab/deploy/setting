@@ -9,9 +9,9 @@ export K8S_PKG_DIR="${HOME}/data/pkgs/k8s/v1.18.0/kubernetes"
 # KFS 安装配置准备目录
 export KFS_HOME="/Users/gwind/work/ooclab/deploy/k8s-6"
 # 存放 KFS 的 PKI 及需要的配置
-export KFS_CONFIG="${KFS_HOME}/ooclab/config"
+export KFS_CONFIG="${KFS_HOME}/kfslab/config"
 # 存放其他软件包
-export KFS_PKGS="${KFS_HOME}/ooclab/pkgs"
+export KFS_PKGS="${KFS_HOME}/kfslab/pkgs"
 
 # 内网地址
 export KFS_K8S_PUBLIC_ADDRESS="192.168.31.10"

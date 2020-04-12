@@ -9,8 +9,8 @@ if [ -z "${K8S_PKG_DIR}" ]; then
 fi
 
 pushd $KFS_HOME
-mkdir -pv ooclab/k8s/bin
+mkdir -pv kfslab/k8s/bin
 for name in kubectl kube-apiserver kube-scheduler kube-controller-manager kubelet kube-proxy; do
-    cp -v ${K8S_PKG_DIR}/server/kubernetes/server/bin/${name} ooclab/k8s/bin/
+    cp -v ${K8S_PKG_DIR}/server/kubernetes/server/bin/${name} kfslab/k8s/bin/
 done
 popd
