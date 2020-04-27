@@ -1,24 +1,28 @@
 # 部署 K8S
 
 ```bash
-cd scripts
 # 修改配置
 vi setting
-# 执行各个脚本
+# 初始化安装目录
+./scripts/init_k8s_deploy.sh <集群名称>
+# 初始化 PKI
+./scripts/init_pki.sh
+# 创建 config
+./scripts/init_config.sh
 ```
 
 创建各个 node 证书示例：
 
 ```
-NODE_NAME=master-1 NODE_IP=192.168.31.10 ./create-node-certs.sh
-NODE_NAME=node-1 NODE_IP=192.168.31.11 ./create-node-certs.sh
-NODE_NAME=node-2 NODE_IP=192.168.31.12 ./create-node-certs.sh
+NODE_NAME=master-1 NODE_IP=192.168.31.10 ./scripts/create_node_certs.sh
+NODE_NAME=node-1 NODE_IP=192.168.31.11 ./scripts/create_node_certs.sh
+NODE_NAME=node-2 NODE_IP=192.168.31.12 ./scripts/create_node_certs.sh
 ```
 
 下载依赖的软件包
 
 ```
-./get_pkgs.sh
+./scripts/get_pkgs.sh
 ```
 
 ## 测试
