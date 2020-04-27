@@ -8,6 +8,18 @@ tags: ["v1.15", "Kubernetes", "FAQ"]
 
 ## 常见问题
 
+### kubectl
+
+#### `Unable to connect to the server: Forbidden`
+
+```
+$ kubectl get nodes -o wide
+Unable to connect to the server: Forbidden
+```
+
+请检查是否使用代理服务！
+
+
 ### 防火墙
 
 1. kube-apiserver 的端口 6443 , kubelet 的 nodeport 端口范围需要在防火墙打开才可以被外界访问
