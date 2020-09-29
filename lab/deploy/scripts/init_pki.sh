@@ -15,7 +15,7 @@ cfssl gencert \
   -ca=ca.pem \
   -ca-key=ca-key.pem \
   -config=ca-config.json \
-  -hostname=10.32.0.1,${KFS_K8S_PUBLIC_ADDRESS},${KFS_K8S_EXTERNAL_PUBLIC_ADDRESS},127.0.0.1,kubernetes.default \
+  -hostname=10.32.0.1,${KFS_K8S_PUBLIC_ADDRESS},${KFS_K8S_EXTERNAL_PUBLIC_ADDRESS},127.0.0.1,kubernetes.default,kubernetes.default.svc \
   -profile=kubernetes \
   kubernetes-csr.json | cfssljson -bare kubernetes
 

@@ -1,4 +1,5 @@
-apiVersion: kubescheduler.config.k8s.io/v1alpha1
+# v1.19.2 开始 kubescheduler.config.k8s.io 切换为 v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta1
 kind: KubeSchedulerConfiguration
 clientConnection:
   kubeconfig: "/etc/kubernetes/kube-scheduler.kubeconfig"

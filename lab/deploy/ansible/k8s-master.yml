@@ -27,7 +27,38 @@
       name: '*'
       state: latest
 
+  - name: install basic repos
+    yum:
+      name: "{{ packages }}"
+    vars:
+      packages:
+      - epel-release
+
+  - name: install basic packages
+    yum:
+      name: "{{ packages }}"
+    vars:
+      packages:
+      - NetworkManager
+      - wget
+      - vim
+      - htop
+      - dstat
+      - lsof
+      - tree
+      - tmux
+      - rsync
+      # - ntp
+      - chrony
+      - socat
+      - conntrack
+      - ipset
+      - chrony
+      - net-tools
+      - nfs-utils
+      - ipvsadm
+      - tcpdump
+      - bind-utils
+
   roles:
-  - epel-repository
-  - basic
   - kfs-master

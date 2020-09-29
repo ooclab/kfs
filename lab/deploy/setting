@@ -2,18 +2,18 @@
 
 export ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-export K8S_VERSION="v1.18.0"
+export K8S_VERSION="v1.18.3"
 # k8s 二进制包解压后的目录，请解压其中的 server/kubernetes-server-linux-amd64.tar.gz
-export K8S_PKG_DIR="${HOME}/data/pkgs/k8s/v1.18.0/kubernetes"
+export K8S_PKG_DIR="${HOME}/data/pkgs/k8s/v1.18.3/kubernetes"
 
 # KFS 安装配置准备目录
-export KFS_HOME="/Users/gwind/data/pc/lab/devops/deploy/envs/k8s-2"
+export KFS_HOME="${HOME}/coding/C74/devops/basic/testing/k8s-3"
 # 存放 KFS 的 PKI 及需要的配置
 export KFS_CONFIG="${KFS_HOME}/kfslab/config"
 # 存放其他软件包
 export KFS_PKGS="${KFS_HOME}/kfslab/pkgs"
 
 # 内网地址
-export KFS_K8S_PUBLIC_ADDRESS="192.168.0.2"
+export KFS_K8S_PUBLIC_ADDRESS="10.10.15.201"
 # 外网地址
-export KFS_K8S_EXTERNAL_PUBLIC_ADDRESS="c2.k8s.poeticloud.com"
+export KFS_K8S_EXTERNAL_PUBLIC_ADDRESS="c3.k8s.dap.cnegroup.com"

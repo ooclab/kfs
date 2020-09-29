@@ -52,3 +52,11 @@ journalctl -u kube-scheduler -f
 kubectl get componentstatuses
 kubectl get all --all-namespaces
 ```
+
+## FAQ
+
+### 如果使用 docker 作为容器运行时后端
+
+```
+iptables -P FORWARD ACCEPT
+```

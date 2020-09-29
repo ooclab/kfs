@@ -2,23 +2,18 @@
   become: true
   vars:
     vos_dir: "/data/vos"
-    cluster_name: "k8s-5"
-    os_template_path: "/data/vos/centos/centos.img"
+    cluster_name: "k8s-develop"
+    os_template_path: "/data/vos/centos/CentOS-8-GenericCloud-8.1.1911-20200113.3.x86_64.qcow2"
     nodes:
       - name: master-1
-        cpu: 1
-        mem: 2048
-        mac: AC:DE:A5:00:00:01
+        cpu: 4
+        mem: 4096
+        mac: AC:DE:A5:10:00:01
         os_disk_size: 40G
       - name: node-1
-        cpu: 2
-        mem: 4096
-        mac: AC:DE:A5:01:00:01
-        os_disk_size: 40G
-      - name: node-2
-        cpu: 2
-        mem: 4096
-        mac: AC:DE:A5:01:00:02
+        cpu: 8
+        mem: 8192
+        mac: AC:DE:A5:10:00:01
         os_disk_size: 40G
 
   roles:
