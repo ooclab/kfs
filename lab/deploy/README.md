@@ -3,6 +3,7 @@
 ```bash
 # 修改配置
 vi setting
+source setting
 # 初始化安装目录
 ./scripts/init_k8s_deploy.sh <集群名称>
 # 初始化 PKI

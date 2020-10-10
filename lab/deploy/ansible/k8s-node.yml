@@ -1,6 +1,10 @@
 - hosts: nodes
   become: true
 
+  vars:
+    - container_runtime: "docker"
+    - cni_plugins_version: "v0.8.7"
+
   pre_tasks:
 
   - name: set hostname to {{inventory_hostname}}
