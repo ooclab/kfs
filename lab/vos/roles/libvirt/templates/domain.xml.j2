@@ -22,8 +22,17 @@
       <driver cache="writeback" io="threads" name="qemu" type="qcow2"/>
       <source file="{{ cluster_dir }}/{{ vos.name }}/os.img"/>
     </disk>
+    <disk device="disk" type="file">
+      <target dev="vdb" bus="virtio"/>
+      <driver cache="writeback" io="threads" name="qemu" type="qcow2"/>
+      <source file="{{ cluster_dir }}/{{ vos.name }}/data.img"/>
+    </disk>
+    <disk device='disk' type='file'>
+      <source file='{{ cluster_dir }}/{{ vos.name }}/cloud-init.iso'/>
+      <target dev='sda' bus='ide'/>
+    </disk>
     <interface type="network">
-      <source network="public"/>
+      <source network="{{ cluster_network }}"/>
       <mac address="{{ vos.mac }}"/>
       <model type='virtio' />
     </interface>

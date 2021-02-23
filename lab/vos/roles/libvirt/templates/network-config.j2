@@ -1,0 +1,11 @@
+version: 1
+config:
+- type: nameserver
+  address: {{ network.nameserver }}
+- type: physical
+  name: {{ vos.network.name }}
+  subnets:
+  - control: auto
+    type: static
+    address: {{ vos.network.address }}
+    gateway: {{ network.gateway }}

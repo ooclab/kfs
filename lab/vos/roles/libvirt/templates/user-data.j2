@@ -1,0 +1,12 @@
+#cloud-config
+timezone: Asia/Shanghai
+locale: en_US.UTF-8
+
+chpasswd:
+  list: |
+    root:{{ root_password }}
+  expire: False
+
+users:
+  - name: root
+    ssh_authorized_keys: {{ ssh_authorized_keys }}

@@ -2,6 +2,15 @@
 vos_dir: "/data/vos"
 cluster_name: "k8s"
 cluster_dir: "{{ vos_dir }}/{{ cluster_name }}"
+cluster_network: "default"
 spice_password: "wblmxxx"
-qemu_bin: "/usr/bin/qemu-system-x86_64"
+qemu_bin: "/usr/libexec/qemu-kvm"
 os_template_path: ""
+root_password: centos
+network:
+  nameserver:
+    - 192.168.122.1
+    - 223.5.5.5
+    - 8.8.8.8
+  gateway: 192.168.122.1
+  netmask: 255.255.255.0

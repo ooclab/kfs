@@ -23,8 +23,54 @@
     qemu-img create -b {{ os_template_path }} -f qcow2 {{ cluster_dir }}/{{ item.name }}/os.img {{ item.os_disk_size }}
   with_items: "{{ nodes }}"
 
-# - name: 启动 kubelet
-#   systemd:
-#     name: kubelet
-#     state: started
-#     enabled: yes
+- name: 创建 data.img
+  shell: |
+    test -f "{{ cluster_dir }}/{{ item.name }}/data.img" && exit 0
+    qemu-img create -f qcow2 {{ cluster_dir }}/{{ item.name }}/data.img {{ item.data_disk_size }}
+  with_items: "{{ nodes }}"
+
+- name: 创建 cloud-init 配置目录
+  file:
+    path: "{{ cluster_dir }}/{{ item.name }}/config"
+    state: directory
+    mode: "0755"
+  with_items: "{{ nodes }}"
+
+- name: 生成 cloud-init 配置 -> meta-data
+  template:
+    src: meta-data.j2
+    dest: "{{ cluster_dir }}/{{ item.name }}/config/meta-data"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items: "{{ nodes }}"
+  vars:
+    vos: "{{ item }}"
+
+- name: 生成 cloud-init 配置 -> user-data
+  template:
+    src: user-data.j2
+    dest: "{{ cluster_dir }}/{{ item.name }}/config/user-data"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items: "{{ nodes }}"
+  vars:
+    vos: "{{ item }}"
+
+- name: 生成 cloud-init 配置 -> network-config
+  template:
+    src: network-config.j2
+    dest: "{{ cluster_dir }}/{{ item.name }}/config/network-config"
+    owner: root
+    group: root
+    mode: '0644'
+  with_items: "{{ nodes }}"
+  vars:
+    vos: "{{ item }}"
+
+- name: 创建 cloud-init-config.img
+  shell: |
+    cd {{ cluster_dir }}/{{ item.name }}/config/
+    genisoimage  -output ../cloud-init.iso -volid cidata -joliet -rock user-data meta-data network-config
+  with_items: "{{ nodes }}"

@@ -2,19 +2,39 @@
   become: true
   vars:
     vos_dir: "/data/vos"
-    cluster_name: "k8s-develop"
-    os_template_path: "/data/vos/centos/CentOS-8-GenericCloud-8.1.1911-20200113.3.x86_64.qcow2"
+    cluster_name: "k8s-develop-2"
+    os_template_path: "/data/vos/centos/CentOS-8-GenericCloud-8.3.2011-20201204.2.x86_64.qcow2"
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDHmqzIgUbxO0w2b52flU2q2o2ejhYemqkkuykSdsLx19WTmC0+Yn0HCE6f6qMHAcPND37x+VP9CgYQeCIraUx/SPEehocH924IupxHm072GApPcyT8ZaOi6VDSz2loy4zcK6qS2I3NMqmIwMg5iNbxv0L+SMWYjkV9E020WSWDQsWPbS/FmY4I8YiEFsOo4AYPkDG2rMXEArASDvc+UU/CwTHL0SvYNUPv/TGq02XcGnNZIGvbNT5oH+KQnCZv/pkv3NGdukoiDs+KvKhj/2IVEyDhvIzf778sdD6djTaAxzym105wNJKVxWlg+0zEKb2Pz4ORw1appGaJDYrzgeWyYjQ4UDgBSP/a9M++HP6U4dV4J0owzvSzZ/eN4U9XdiE6MFA+guhPt9wBQnGAaA+JJUk5JO6r2i8KN07oOlfct14PcikT/MWlMY09q5XzrdANoaAXawbODuGOmfLeE3L5cQJd5eyrmwf9tmnnl5Z/yWwY/79WuporyFoGEXO5ddlmIoMpNA2B9nUr8Fm4Ck8FCGwpQNKkr2J62We6eIyBFBfntW8043grxdSAysemsNLy4MCJGj4jgbv09bZioHVI5qrJq3tN6n9HOUcbKiftpzjIbkk5XEHS+zIWYv+UkQ2MzHHMQCURwC6Net0IU5KpsFRc1b5S0nEQgji9kbUDDw== gwind@pc
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC7QfVavBXDXxmhQdHvoz13wWtOBm+YHKcF8lyv3CYIRgXG0G2vFyffmw9y3sFz/tuuK7MrW6G2p0RfBlmctajCegJGGa+Y+w36L2eGJcoBpxGyl+C5d8eWFcvrpKNtmJMsAh7nyWnTOrrTNeaxekWt/6Gri3fxhT3mosDRzQ6lC1ASiuEnEDPVgnRATnzxqsx36xnNIDl/5wjPR/cBdEwLBPiNtwXJms87NwFc4rfoEOM4p3keyUuHk2Wv/hhaFWXWHE4E+gUpITN+IyCONn79u82n8l+54zvAOVSpLC2ImV2A2SUfrQonfSMp2HsiPYTYcnS5tp8lqZf/rRtTwpQbEHPGNAS+AhyiufkIOTde8WVPa090bcfPhETywPONxkvt0B5H8QYQck+iH/hen8Vj/zjjXz6NKXq2zKg8BRTymay7FvjdUq9/jtn4r9wPOdwQK+fnjH6pbAWtyttPz3gLzyITdIQhQbOrs0jEnxJ2Bcd0dYnk1jgFV7CjXY3DJ3ZAcQHY3MzGfu5pkNnOaaoBZK/IRB7OTBks5O9HsFvCzvJJU+fL2kKiK3tGHp5g5+DtF6iTdEY3LiZ8zucsQ+1wyGkgjnB9x1yEHiauCTTBtleqRMwA2TCouIPbn4evUgN2woHIMn4TVPT/Qo199vxhjYoQ6g7UEpgPpwHBJF6IZQ== gwind@mbp
     nodes:
-      - name: master-1
-        cpu: 4
-        mem: 4096
-        mac: AC:DE:A5:10:00:01
-        os_disk_size: 40G
       - name: node-1
-        cpu: 8
-        mem: 8192
-        mac: AC:DE:A5:10:00:01
+        cpu: 2
+        mem: 4096
+        mac: AC:DE:A5:10:01:01
+        network:
+          name: eth0
+          address: 192.168.122.21/24
         os_disk_size: 40G
+        data_disk_size: 120G
+      - name: node-2
+        cpu: 4
+        mem: 8192
+        mac: AC:DE:A5:10:01:02
+        network:
+          name: eth0
+          address: 192.168.122.22/24
+        os_disk_size: 40G
+        data_disk_size: 120G
+      - name: node-3
+        cpu: 4
+        mem: 8192
+        mac: AC:DE:A5:10:01:03
+        network:
+          name: eth0
+          address: 192.168.122.23/24
+        os_disk_size: 40G
+        data_disk_size: 120G
 
   roles:
   - libvirt
