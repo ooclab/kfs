@@ -19,7 +19,7 @@ ExecStart=/usr/local/bin/etcd \
   --listen-client-urls https://{{ etcd_internal_ip }}:2379,https://127.0.0.1:2379 \
   --advertise-client-urls https://{{ etcd_internal_ip }}:2379 \
   --initial-cluster-token etcd-cluster-0 \
-  --initial-cluster master-1=https://{{ etcd_internal_ip }}:2380 \
+  --initial-cluster {{ inventory_hostname}}=https://{{ etcd_internal_ip }}:2380 \
   --initial-cluster-state new \
   --data-dir=/var/lib/etcd
 Restart=on-failure
