@@ -35,7 +35,7 @@
 
 - name: 解压 containerd
   unarchive:
-    src: '{{ pkgs_dir }}/containerd-{{ containerd_version }}.linux-amd64.tar.gz'
+    src: '{{ pkgs_dir }}/containerd-{{ containerd_version }}-linux-amd64.tar.gz'
     dest: /tmp/containerd-linux-amd64
   when: containerd_check.stat.exists == False
 
