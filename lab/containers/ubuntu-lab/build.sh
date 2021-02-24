@@ -1,4 +1,4 @@
 NAME=ooclab/ubuntu-lab
-TAG=v1.0.0
-docker build -t $NAME:$TAG
+TAG=v1.0.2
+docker build -t $NAME:$TAG .
 docker push $NAME:$TAG
