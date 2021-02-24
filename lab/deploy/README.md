@@ -1,9 +1,10 @@
 # 部署 K8S
 
 ```bash
-# 修改配置
+# 复制 setting 文件到自己的目录，并修改配置
 vi setting
 source setting
+# 回到本目录(kfs/lab/deploy)
 # 初始化安装目录
 ./scripts/init_k8s_deploy.sh <集群名称>
 # 初始化 PKI
@@ -15,9 +16,9 @@ source setting
 创建各个 node 证书示例：
 
 ```
-NODE_NAME=master-1 NODE_IP=192.168.31.10 ./scripts/create_node_certs.sh
-NODE_NAME=node-1 NODE_IP=192.168.31.11 ./scripts/create_node_certs.sh
-NODE_NAME=node-2 NODE_IP=192.168.31.12 ./scripts/create_node_certs.sh
+NODE_NAME=node-1 NODE_IP=192.168.122.21 ./scripts/create_node_certs.sh
+NODE_NAME=node-2 NODE_IP=192.168.122.22 ./scripts/create_node_certs.sh
+NODE_NAME=node-3 NODE_IP=192.168.122.23 ./scripts/create_node_certs.sh
 ```
 
 下载依赖的软件包
@@ -25,6 +26,18 @@ NODE_NAME=node-2 NODE_IP=192.168.31.12 ./scripts/create_node_certs.sh
 ```
 ./scripts/get_pkgs.sh
 ```
+
+## 部署 K8S
+
+进入 ansible 目录
+
+```
+cd $KFS_HOME/kfslab/ansible
+```
+
+修改相关配置。
+
+可以把 `$KFS_HOME/kfslab` 同步到 node-1 (k8s master 角色)服务器，再执行 `ansible-playbook`
 
 ## 测试
 
@@ -58,6 +71,8 @@ kubectl get all --all-namespaces
 
 ### 如果使用 docker 作为容器运行时后端
 
-```
+```shell
 iptables -P FORWARD ACCEPT
 ```
+
+Kubernetes v1.20 开始移除 docker 作为容器运行时后端，建议使用 containerd 。
