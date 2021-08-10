@@ -146,12 +146,12 @@ oom_score = -999
   sandbox_image = "ibmcom/pause:3.1"
 
 [plugins.cri.registry.mirrors]
-  [plugins.cri.registry.mirrors."docker.io"]
-    endpoint = ["https://dockerhub.azk8s.cn"]
+  # [plugins.cri.registry.mirrors."docker.io"]
+  #   endpoint = ["https://dockerhub.azk8s.cn"]
   [plugins.cri.registry.mirrors."quay.io"]
-    endpoint = ["https://quay.azk8s.cn"]
+    endpoint = ["https://quay.mirrors.ustc.edu.cn"]
   [plugins.cri.registry.mirrors."gcr.io"]
-    endpoint = ["http://gcr.azk8s.cn/google_containers/"]
+    endpoint = ["https://registry.aliyuncs.com/google_containers/"]
 
 EOF
 ```
