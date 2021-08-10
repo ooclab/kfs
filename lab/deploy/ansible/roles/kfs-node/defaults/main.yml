@@ -11,5 +11,5 @@ pod_cidr: "172.16.0.0/16"
 container_runtime: "containerd"
 
 cni_plugins_version: "v0.9.1"
-containerd_version: "1.4.3"
-crictl_version: "v1.20.0"
+containerd_version: "1.5.5"
+crictl_version: "v1.22.0"

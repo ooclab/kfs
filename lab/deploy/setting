@@ -2,9 +2,9 @@
 
 export ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-export K8S_VERSION="v1.20.4"
+export K8S_VERSION="v1.22.0"
 # k8s 二进制包解压后的目录，请解压其中的 server/kubernetes-server-linux-amd64.tar.gz
-export K8S_PKG_DIR="${HOME}/data/pkgs/k8s/v1.20.4/kubernetes"
+export K8S_PKG_DIR="${HOME}/data/pkgs/k8s/v1.22.0/kubernetes"
 
 # KFS 安装配置准备目录
 export KFS_HOME="${HOME}/data/pc/deploy/envs/k8s-develop-2"

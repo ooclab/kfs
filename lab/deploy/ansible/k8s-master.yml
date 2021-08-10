@@ -2,13 +2,13 @@
   become: true
 
   vars:
-    - k8s_version: "v1.20.4"
+    - k8s_version: "v1.22.0"
     - master_bins:
       - kubectl
       - kube-apiserver
       - kube-scheduler
       - kube-controller-manager
-    - etcd_version: "v3.4.14"
+    - etcd_version: "v3.5.0"
     - etcd_internal_ip: "192.168.122.21"
     - kube_apiserver_ip: "192.168.122.21"
 

@@ -2,8 +2,7 @@
   become: true
 
   vars:
-    - container_runtime: "docker"
-    - cni_plugins_version: "v0.8.7"
+    - cni_plugins_version: "v0.9.1"
 
   pre_tasks:
 
@@ -54,7 +53,7 @@
       - bind-utils
       - iptables
       # rook ceph 依赖此工具
-      - lvm2
+      # - lvm2
       - jq
       - netcat
 

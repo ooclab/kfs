@@ -1,11 +1,11 @@
 ---
-k8s_version: "v1.18.0"
+k8s_version: "v1.22.0"
 kfslab_dir: "/kfslab"
 master_pkg_dir: "{{ kfslab_dir }}/k8s/bin"
 config_dir: "{{ kfslab_dir }}/config"
 pkgs_dir: "{{ kfslab_dir }}/pkgs"
 
-etcd_version: "v3.4.5"
+etcd_version: "v3.5.0"
 etcd_internal_ip: ""
 etcd_servers: "https://{{ etcd_internal_ip }}:2379"
 

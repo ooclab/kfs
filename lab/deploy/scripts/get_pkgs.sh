@@ -8,15 +8,15 @@ fi
 mkdir -pv ${KFS_PKGS}
 
 # https://github.com/etcd-io/etcd/releases
-ETCD_VER=v3.4.16
+ETCD_VER=v3.5.0
 # https://github.com/opencontainers/runc/releases
-RUNC_VER=v1.0.0-rc94
+RUNC_VER=v1.0.1
 # https://github.com/containernetworking/plugins/releases
 CNI_PLUGINS_VER=v0.9.1
 # https://github.com/kubernetes-sigs/cri-tools/releases
-CRICTL_VER=v1.21.0
+CRICTL_VER=v1.22.0
 # https://github.com/containerd/containerd/releases
-CONTAINERD_VER=1.5.1
+CONTAINERD_VER=1.5.5
 
 pushd ${KFS_PKGS}
 
