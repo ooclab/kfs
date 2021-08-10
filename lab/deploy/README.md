@@ -1,5 +1,30 @@
 # 部署 K8S
 
+如果需要修改证书有效期，修改 `scripts/pki_templates/ca-config.json` 如下 ：
+
+```json
+{
+  "signing": {
+    "default": {
+      "expiry": "87600h"
+    },
+    "profiles": {
+      "kubernetes": {
+        "usages": [
+          "signing",
+          "key encipherment",
+          "server auth",
+          "client auth"
+        ],
+        "expiry": "87600h"
+      }
+    }
+  }
+}
+```
+
+初始化：
+
 ```bash
 # 复制 setting 文件到自己的目录，并修改配置
 vi setting

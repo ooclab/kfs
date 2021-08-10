@@ -55,6 +55,8 @@
       - iptables
       # rook ceph 依赖此工具
       - lvm2
+      - jq
+      - netcat
 
   roles:
   - kfs-node

@@ -59,6 +59,7 @@
       - ipvsadm
       - tcpdump
       - bind-utils
+      - jq
 
   roles:
   - kfs-master
